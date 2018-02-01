@@ -54,10 +54,13 @@ public class TaskEditorActivity extends AppCompatActivity
         String[] labels = getResources().getStringArray(R.array.priority_label_array);
         int[] values = getResources().getIntArray(R.array.priority_value_array);
         int defaultValue = getResources().getInteger(R.integer.priority_value_default);
+        int[] colors = getResources().getIntArray(R.array.priority_color_array);
         for(int i=0; i< labels.length; ++i) {
             RadioButton button = new RadioButton(context);
             button.setText(labels[i]);
             button.setId(values[i]);
+            button.setBackgroundColor(colors[i]);
+
 
             if(defaultValue == values[i])
                 button.setChecked(true);
