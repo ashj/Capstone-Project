@@ -6,8 +6,7 @@
     <dimen name="expanded_bar_horizontal_margin">8dp</dimen>
     <dimen name="expanded_bar_height">100dp</dimen>
 
-    <dimen name="fab_horizontal_margin">4dp</dimen>
-    <dimen name="fab_vertical_margin">4dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 
     <dimen name="progressbar_size">64dp</dimen>
 
