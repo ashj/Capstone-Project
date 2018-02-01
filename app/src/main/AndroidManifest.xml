@@ -20,6 +20,10 @@
 
         <activity android:name=".ui.TaskEditorActivity"></activity>
 
+        <provider
+            android:name=".provider.generated.TaskProvider"
+            android:authorities="com.example.shoji.dailytask.provider.tasks"
+            android:exported="true" />
     </application>
 
 </manifest>
