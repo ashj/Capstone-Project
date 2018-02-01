@@ -7,7 +7,10 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.example.shoji.dailytask.BuildConfig;
 import com.example.shoji.dailytask.R;
+
+import timber.log.Timber;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -15,6 +18,12 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if(savedInstanceState == null) {
+            if(BuildConfig.DEBUG)
+                Timber.plant(new Timber.DebugTree());
+            Timber.d("Logging With Timber");
+        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
