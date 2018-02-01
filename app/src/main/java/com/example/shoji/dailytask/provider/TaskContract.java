@@ -31,5 +31,10 @@ public class TaskContract {
 
     @DataType(DataType.Type.INTEGER)
     @NotNull
-    public static final String COLUMN_CONCLUDED_DATA = "concluded_date";
+    public static final String COLUMN_CONCLUDED_DATE = "concluded_date";
+
+
+
+
+    public static int NOT_CONCLUDED = 0;
 }
