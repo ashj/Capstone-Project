@@ -1,11 +1,11 @@
 package com.example.shoji.dailytask.ui;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 import com.example.shoji.dailytask.R;
 
@@ -24,7 +24,8 @@ public class MainActivity extends AppCompatActivity {
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "FAB", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(context, TaskEditorActivity.class);
+                startActivity(intent);
             }
         });
     }
