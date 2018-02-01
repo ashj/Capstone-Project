@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">Daily Ten-Minutes Tasks</string>
+
+    <string name="new_task_hint_title">Task title</string>
+    <string name="new_task_descr_title">Task description</string>
+
+    <string name="priority_label">Priority</string>
+    <string name="priority_label_low">low</string>
+    <string name="priority_label_normal">normal</string>
+    <string name="priority_label_high">high</string>
+
+    <string name="button_task_new">Add task</string>
+    <string name="button_task_edit">Update task</string>
 </resources>

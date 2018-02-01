@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="priority_label_array">
+        <item>@string/priority_label_low</item>
+        <item>@string/priority_label_normal</item>
+        <item>@string/priority_label_high</item>
+    </string-array>
+
+    <integer-array name="priority_value_array">
+        <item>@integer/priority_value_low</item>
+        <item>@integer/priority_value_normal</item>
+        <item>@integer/priority_value_high</item>
+    </integer-array>
+</resources>

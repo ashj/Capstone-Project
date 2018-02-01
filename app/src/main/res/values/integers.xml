@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="priority_value_high">3</integer>
+    <integer name="priority_value_normal">2</integer>
+    <integer name="priority_value_low">1</integer>
+
+    <integer name="priority_value_default">@integer/priority_value_normal</integer>
+</resources>
