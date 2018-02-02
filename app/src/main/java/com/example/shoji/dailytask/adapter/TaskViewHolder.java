@@ -1,6 +1,7 @@
 package com.example.shoji.dailytask.adapter;
 
 
+import android.app.LoaderManager;
 import android.content.Context;
 import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
@@ -9,6 +10,8 @@ import android.widget.TextView;
 
 import com.example.shoji.dailytask.R;
 import com.example.shoji.dailytask.provider.TaskContract;
+
+import timber.log.Timber;
 
 public class TaskViewHolder extends RecyclerView.ViewHolder
                  implements View.OnClickListener {
@@ -24,6 +27,9 @@ public class TaskViewHolder extends RecyclerView.ViewHolder
 
     public TaskViewHolder(View itemView) {
         super(itemView);
+
+        View.OnClickListener onClickListener = this;
+        itemView.setOnClickListener(onClickListener);
 
         mTitleTextView = itemView.findViewById(R.id.title_text_view);
     }
@@ -43,6 +49,7 @@ public class TaskViewHolder extends RecyclerView.ViewHolder
     @Override
     public void onClick(View view) {
         int adapterPosition = getAdapterPosition();
+        Timber.d("Clicked at position: %d", adapterPosition);
         mOnClickListener.onClick(adapterPosition);
     }
 }

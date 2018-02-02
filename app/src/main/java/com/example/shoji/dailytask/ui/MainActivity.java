@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.shoji.dailytask.BuildConfig;
 import com.example.shoji.dailytask.R;
@@ -21,7 +22,8 @@ import com.example.shoji.dailytask.provider.TaskProvider;
 import timber.log.Timber;
 
 public class MainActivity extends AppCompatActivity
-                          implements LoaderCallBacksListenersInterface<Cursor> {
+                          implements LoaderCallBacksListenersInterface<Cursor>,
+                                     TaskAdapter.OnClickListener {
 
     private TaskAdapter mTaskAdapter;
     private RecyclerView mRecyclerView;
@@ -56,18 +58,18 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        mTaskAdapter = new TaskAdapter(context);
+        // [START] Adapter initialization
+        TaskAdapter.OnClickListener onClickListener = this;
+        mTaskAdapter = new TaskAdapter(context, onClickListener);
         mTaskAdapter.setHasStableIds(true);
         mRecyclerView.setAdapter(mTaskAdapter);
+        // [END] Adapter initialization
 
-
-        //TODO [query in background]
+        // [START] implements LoaderCallBacksListenersInterface<Cursor>
         LoaderManager loaderManager = getSupportLoaderManager();
         LoaderCallBacksListenersInterface<Cursor> loaderCallBacksListenersInterface = this;
         Utils.queryTasks(context, loaderManager, loaderCallBacksListenersInterface);
-
-
-
+        // [END] implements LoaderCallBacksListenersInterface<Cursor>
     }
 
     // [START] implements LoaderCallBacksListenersInterface<Cursor>
@@ -93,4 +95,11 @@ public class MainActivity extends AppCompatActivity
         mTaskAdapter.swapCursor(mCursor);
     }
     // [END] implements LoaderCallBacksListenersInterface<Cursor>
+
+    @Override
+    public void onClick(long id) {
+        Toast.makeText(this, "Tapped at "+id, Toast.LENGTH_SHORT).show();
+
+    }
+
 }

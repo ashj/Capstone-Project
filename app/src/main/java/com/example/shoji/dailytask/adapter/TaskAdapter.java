@@ -18,9 +18,15 @@ public class TaskAdapter
 
     private Context mContext;
     private Cursor mCursor;
+    private OnClickListener mOnClickListener;
 
-    public TaskAdapter(Context context) {
+    public interface OnClickListener {
+        public void onClick(long id);
+    }
+
+    public TaskAdapter(Context context, OnClickListener onClickListener) {
         mContext = context;
+        mOnClickListener = onClickListener;
     }
 
     // [START] Override Adapter methods
@@ -65,11 +71,11 @@ public class TaskAdapter
         return mCursor.getCount();
     }
 
-    /*@Override
+    @Override
     public long getItemId(int position) {
         mCursor.moveToPosition(position);
         return mCursor.getLong(mCursor.getColumnIndex(TaskContract._ID));
-    }*/
+    }
 
     // [END] Override Adapter methods
 
@@ -92,5 +98,8 @@ public class TaskAdapter
     @Override
     public void onClick(int position) {
         mCursor.moveToPosition(position);
+        long itemId = getItemId(position);
+        Timber.d("Clicked on pos=%3d, ID=%3d", position, itemId);
+        mOnClickListener.onClick(itemId);
     }
 }
