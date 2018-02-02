@@ -26,7 +26,7 @@ public class TaskFirstViewHolder extends RecyclerView.ViewHolder
 
     public interface OnClickListener {
         void onClickView(int position);
-        void onClickButton();
+        void onClickButton(int position);
     }
 
     public TaskFirstViewHolder(View itemView) {
@@ -72,7 +72,7 @@ public class TaskFirstViewHolder extends RecyclerView.ViewHolder
             mOnClickListener.onClickView(adapterPosition);
         }
         else if (viewId == mButton.getId()) {
-            mOnClickListener.onClickButton();
+            mOnClickListener.onClickButton(adapterPosition);
         }
     }
 }

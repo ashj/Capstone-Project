@@ -23,7 +23,7 @@ public class Utils {
                     args, callback);
         }
     }
-    synchronized public static void initLoader(Context context,
+    public static void initLoader(Context context,
                                                int loaderId,
                                                Bundle args,
                                                LoaderManager loaderManager,
@@ -38,7 +38,7 @@ public class Utils {
                 loaderCallBacks);
     }
 
-    synchronized public static void queryTasks(Context context,
+    public static void queryTasks(Context context,
                                                LoaderManager loaderManager,
                                                LoaderCallBacksListenersInterface<Cursor> loaderCallBacksListener) {
         int loaderId = LoaderID.LOADER_ID_QUERY_TASKS;

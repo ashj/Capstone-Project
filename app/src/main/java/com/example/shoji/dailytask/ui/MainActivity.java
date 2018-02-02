@@ -117,11 +117,23 @@ public class MainActivity extends AppCompatActivity
     }
     // [END] implements LoaderCallBacksListenersInterface<Cursor>
 
+
+
+
+    // [START] OnClickListener
     @Override
-    public void onClick(long id) {
+    public void onClickTask(long id) {
         Toast.makeText(this, "Tapped at "+id, Toast.LENGTH_SHORT).show();
 
     }
+
+    @Override
+    public void onClickDoneTask(long id) {
+        Toast.makeText(this, "Tapped to mark as done "+id, Toast.LENGTH_SHORT).show();
+    }
+    // [END] OnClickListener
+
+
 
     // [START] ContentObserver
     @Override

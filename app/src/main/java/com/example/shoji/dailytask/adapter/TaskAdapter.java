@@ -23,7 +23,8 @@ public class TaskAdapter
     private static final int ITEM_VIEW_TYPE_QUEUED_TASK = 1;
 
     public interface OnClickListener {
-        void onClick(long id);
+        void onClickTask(long id);
+        void onClickDoneTask(long id);
     }
 
     public TaskAdapter(Context context, OnClickListener onClickListener) {
@@ -113,14 +114,26 @@ public class TaskAdapter
         return old;
     }
 
+    // [START] OnClickListener
     public void onClickedView(int position) {
         mCursor.moveToPosition(position);
         long itemId = getItemId(position);
         Timber.d("Clicked on pos=%3d, ID=%3d", position, itemId);
-        mOnClickListener.onClick(itemId);
+
+        mOnClickListener.onClickTask(itemId);
     }
 
-    // [START] Implement each view holder listener
+    public void onClickedDoneTask(int position) {
+        mCursor.moveToPosition(position);
+        long itemId = getItemId(position);
+        Timber.d("Clicked on button of ID=%3d", itemId);
+        mOnClickListener.onClickDoneTask(itemId);
+    }
+    // [END] OnClickListener
+
+
+
+    // [START] Implement each view holder OnClickListener
     private class TaskViewHolderImpl
             implements TaskViewHolder.OnClickListener {
         @Override
@@ -138,9 +151,9 @@ public class TaskAdapter
         }
 
         @Override
-        public void onClickButton() {
-            Timber.d("MARKED AS FAV.");
+        public void onClickButton(int position) {
+            onClickedDoneTask(position);
         }
     }
-    // [END] Implement each view holder listener
+    // [END] Implement each view holder OnClickListener
 }
