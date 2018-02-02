@@ -16,4 +16,7 @@
     <string name="insert_task_success">Added new task!</string>
     <string name="validate_task_error_title">Write something to do</string>
     <string name="validate_task_error_description">Something is wrong with this description.</string>
+
+    <string name="menu_history_label">History</string>
+    <string name="menu_settings_label">Settings</string>
 </resources>

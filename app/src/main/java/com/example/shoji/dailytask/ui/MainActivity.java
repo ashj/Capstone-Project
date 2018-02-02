@@ -9,6 +9,9 @@ import android.support.v4.app.LoaderManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -28,6 +31,7 @@ public class MainActivity extends AppCompatActivity
                                      TaskAdapter.OnClickListener,
                                      TaskContentObserver.OnChangeListener {
 
+    private Toolbar mToolbar;
     private TaskAdapter mTaskAdapter;
     private RecyclerView mRecyclerView;
     private FloatingActionButton mFab;
@@ -48,6 +52,9 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         final Context context = this;
+
+        mToolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
 
         mRecyclerView = findViewById(R.id.recycler_view);
         LinearLayoutManager lym =
@@ -81,6 +88,32 @@ public class MainActivity extends AppCompatActivity
         sTaskContentObserver = new TaskContentObserver(getContentResolver(), onChangeListener);
         // [END] ContentObserver
     }
+
+    // [START] Toolbar - inflate and item selected
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if(id == R.id.action_history) {
+            Toast.makeText(this, "Must open history screen", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        else if(id == R.id.action_settings) {
+            Toast.makeText(this, "Must open settings screen", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+    // [END] Toolbar - inflate and item selected
+
+
+
 
     // [START] implements LoaderCallBacksListenersInterface<Cursor>
     private void doQueryTasks() {
