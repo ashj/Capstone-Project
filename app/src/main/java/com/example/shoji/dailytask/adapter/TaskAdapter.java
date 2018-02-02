@@ -36,7 +36,7 @@ public class TaskAdapter
 
         boolean attachToRoot = false;
         View view = LayoutInflater.from(mContext)
-                .inflate(R.layout.view_holder_task_main_list,
+                .inflate(TaskViewHolder.RES_LAYOUT_ID,
                         parent,
                         attachToRoot);
 

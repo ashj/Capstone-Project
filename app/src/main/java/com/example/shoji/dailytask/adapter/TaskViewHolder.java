@@ -15,7 +15,7 @@ import timber.log.Timber;
 
 public class TaskViewHolder extends RecyclerView.ViewHolder
                  implements View.OnClickListener {
-
+    public static final int RES_LAYOUT_ID = R.layout.view_holder_task_main_list;
     private Context mContext;
     private TextView mTitleTextView;
 
