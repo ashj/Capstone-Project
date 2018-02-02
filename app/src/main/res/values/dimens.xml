@@ -12,4 +12,6 @@
 
     <dimen name="view_horizontal_margin">6dp</dimen>
     <dimen name="view_vertical_margin">6dp</dimen>
+
+    <dimen name="text_size_task_list">64sp</dimen>
 </resources>

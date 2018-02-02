@@ -1,24 +1,42 @@
 package com.example.shoji.dailytask.ui;
 
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.text.Html;
+import android.text.format.DateUtils;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.shoji.dailytask.BuildConfig;
 import com.example.shoji.dailytask.R;
+import com.example.shoji.dailytask.adapter.TaskAdapter;
 import com.example.shoji.dailytask.provider.TaskContract;
 import com.example.shoji.dailytask.provider.TaskProvider;
+
+import java.text.ParseException;
+import java.util.Date;
 
 import timber.log.Timber;
 
 public class MainActivity extends AppCompatActivity {
 
+    private TaskAdapter mTaskAdapter;
+    private RecyclerView mRecyclerView;
     private FloatingActionButton mFab;
 
+
+    private Cursor mCursor;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         if(savedInstanceState == null) {
@@ -29,6 +47,11 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mRecyclerView = findViewById(R.id.recycler_view);
+        LinearLayoutManager lym =
+                new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(lym);
 
         mFab = findViewById(R.id.fab);
 
@@ -41,22 +64,25 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        mTaskAdapter = new TaskAdapter(context);
+        mTaskAdapter.setHasStableIds(true);
+        mRecyclerView.setAdapter(mTaskAdapter);
+
+
+        //TODO [query in background]
         String[] projection = null;
         String selection = null;
         String[] selectionArgs = null;
         String sortOrder = null;
-        Cursor cursor = getContentResolver().query(TaskProvider.Tasks.CONTENT_URI,
+        mCursor = getContentResolver().query(TaskProvider.Tasks.CONTENT_URI,
                 projection,
                 selection,
                 selectionArgs,
                 sortOrder);
-        while (cursor.moveToNext()) {
-            int idx = cursor.getColumnIndex(TaskContract.COLUMN_TITLE);
-            String value = cursor.getString(idx);
-            Timber.d(">>>>>>>>>>>>>>>>>>>> %s", value);
-            idx = cursor.getColumnIndex(TaskContract.COLUMN_PRIORITY);
-            int priority = cursor.getInt(idx);
-            Timber.d(">>>>>>>>>>>>>>>>>>>> %d", priority);
-        }
+
+        mCursor.moveToPosition(0);
+        mTaskAdapter.swapCursor(mCursor);
+
+
     }
 }
