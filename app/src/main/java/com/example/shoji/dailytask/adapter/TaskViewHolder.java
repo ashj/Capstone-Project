@@ -43,7 +43,15 @@ public class TaskViewHolder extends RecyclerView.ViewHolder
 
         int columnIndex = cursor.getColumnIndex(TaskContract.COLUMN_TITLE);
         String title = cursor.getString(columnIndex);
-        mTitleTextView.setText(title);
+
+        columnIndex = cursor.getColumnIndex(TaskContract._ID);
+        String id = cursor.getString(columnIndex);
+
+        columnIndex = cursor.getColumnIndex(TaskContract.COLUMN_PRIORITY);
+        String priority = cursor.getString(columnIndex);
+
+        String text = title + " (id:"+id+"//P"+priority+")";
+        mTitleTextView.setText(text);
     }
 
     @Override

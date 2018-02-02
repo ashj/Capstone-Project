@@ -18,6 +18,7 @@ import com.example.shoji.dailytask.adapter.TaskAdapter;
 import com.example.shoji.dailytask.background.LoaderCallBacksListenersInterface;
 import com.example.shoji.dailytask.background.Utils;
 import com.example.shoji.dailytask.provider.TaskContentObserver;
+import com.example.shoji.dailytask.provider.TaskContract;
 import com.example.shoji.dailytask.provider.TaskProvider;
 
 import timber.log.Timber;
@@ -93,10 +94,12 @@ public class MainActivity extends AppCompatActivity
     public void onStartLoading(Context context) { }
 
     @Override
-    public Cursor onLoadInBackground(Context context, Bundle args) {        String[] projection = null;
+    public Cursor onLoadInBackground(Context context, Bundle args) {
+        String[] projection = null;
         String selection = null;
         String[] selectionArgs = null;
-        String sortOrder = null;
+        String sortOrder = TaskContract.COLUMN_PRIORITY + " DESC";
+
         Cursor cursor = getContentResolver().query(TaskProvider.Tasks.CONTENT_URI,
                 projection,
                 selection,
