@@ -17,17 +17,21 @@ import com.example.shoji.dailytask.R;
 import com.example.shoji.dailytask.adapter.TaskAdapter;
 import com.example.shoji.dailytask.background.LoaderCallBacksListenersInterface;
 import com.example.shoji.dailytask.background.Utils;
+import com.example.shoji.dailytask.provider.TaskContentObserver;
 import com.example.shoji.dailytask.provider.TaskProvider;
 
 import timber.log.Timber;
 
 public class MainActivity extends AppCompatActivity
                           implements LoaderCallBacksListenersInterface<Cursor>,
-                                     TaskAdapter.OnClickListener {
+                                     TaskAdapter.OnClickListener,
+                                     TaskContentObserver.OnChangeListener {
 
     private TaskAdapter mTaskAdapter;
     private RecyclerView mRecyclerView;
     private FloatingActionButton mFab;
+
+    private static TaskContentObserver sTaskContentObserver;
 
 
     private Cursor mCursor;
@@ -42,14 +46,16 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        final Context context = this;
+
         mRecyclerView = findViewById(R.id.recycler_view);
         LinearLayoutManager lym =
-                new LinearLayoutManager(this);
+                new LinearLayoutManager(context);
         mRecyclerView.setLayoutManager(lym);
 
         mFab = findViewById(R.id.fab);
 
-        final Context context = this;
+
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,13 +72,23 @@ public class MainActivity extends AppCompatActivity
         // [END] Adapter initialization
 
         // [START] implements LoaderCallBacksListenersInterface<Cursor>
-        LoaderManager loaderManager = getSupportLoaderManager();
-        LoaderCallBacksListenersInterface<Cursor> loaderCallBacksListenersInterface = this;
-        Utils.queryTasks(context, loaderManager, loaderCallBacksListenersInterface);
+        doQueryTasks();
         // [END] implements LoaderCallBacksListenersInterface<Cursor>
+
+        // [START] ContentObserver
+        TaskContentObserver.OnChangeListener onChangeListener = this;
+        sTaskContentObserver = new TaskContentObserver(getContentResolver(), onChangeListener);
+        // [END] ContentObserver
     }
 
     // [START] implements LoaderCallBacksListenersInterface<Cursor>
+    private void doQueryTasks() {
+        Context context = this;
+        LoaderManager loaderManager = getSupportLoaderManager();
+        LoaderCallBacksListenersInterface<Cursor> loaderCallBacksListenersInterface = this;
+        Utils.queryTasks(context, loaderManager, loaderCallBacksListenersInterface);
+    }
+
     @Override
     public void onStartLoading(Context context) { }
 
@@ -101,5 +117,32 @@ public class MainActivity extends AppCompatActivity
         Toast.makeText(this, "Tapped at "+id, Toast.LENGTH_SHORT).show();
 
     }
+
+    // [START] ContentObserver
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        if(sTaskContentObserver != null) {
+            sTaskContentObserver.register();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        if(sTaskContentObserver != null) {
+            sTaskContentObserver.unregister();
+        }
+    }
+
+    @Override
+    public void onChange() {
+        doQueryTasks();
+    }
+    // [END] ContentObserver
+
+
 
 }
