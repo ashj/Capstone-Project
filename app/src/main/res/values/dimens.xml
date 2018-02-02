@@ -14,4 +14,6 @@
     <dimen name="view_vertical_margin">6dp</dimen>
 
     <dimen name="text_size_task_list">64sp</dimen>
+
+    <dimen name="activity_main__padding_bottom">48dp</dimen>
 </resources>
