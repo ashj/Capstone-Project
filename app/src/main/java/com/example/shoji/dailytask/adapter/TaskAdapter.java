@@ -21,7 +21,7 @@ public class TaskAdapter
     private OnClickListener mOnClickListener;
 
     public interface OnClickListener {
-        public void onClick(long id);
+        void onClick(long id);
     }
 
     public TaskAdapter(Context context, OnClickListener onClickListener) {
@@ -45,29 +45,18 @@ public class TaskAdapter
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        Timber.d("onBindViewHolder: %s", holder);
-
         mCursor.moveToPosition(position);
-        int idx = mCursor.getColumnIndex(TaskContract.COLUMN_TITLE);
-        String value = mCursor.getString(idx);
-        Timber.d(">>>>>>>>>>>>>>>>>>>> %s", value);
-        idx = mCursor.getColumnIndex(TaskContract.COLUMN_PRIORITY);
-        int priority = mCursor.getInt(idx);
-        Timber.d(">>>>>>>>>>>>>>>>>>>> %d", priority);
 
         TaskViewHolder taskViewHolder = (TaskViewHolder) holder;
 
         taskViewHolder.bindViewHolder(mContext, mCursor, this);
-
     }
 
     @Override
     public int getItemCount() {
         if (mCursor == null) {
-            Timber.d("COUNT IS ZERO");
             return 0;
         }
-        Timber.d("COUNT IS %d", mCursor.getCount());
         return mCursor.getCount();
     }
 
@@ -76,20 +65,16 @@ public class TaskAdapter
         mCursor.moveToPosition(position);
         return mCursor.getLong(mCursor.getColumnIndex(TaskContract._ID));
     }
-
     // [END] Override Adapter methods
 
     public Cursor swapCursor(Cursor cursor) {
-        Timber.d("swapCursor");
         if (mCursor == cursor) {
-            Timber.d("No need to swap.");
             return null;
         }
         Cursor old = mCursor;
         mCursor = cursor;
 
         if (cursor != null) {
-            Timber.d("swapCursor - notifyDataSetChanged");
             this.notifyDataSetChanged();
         }
         return old;
