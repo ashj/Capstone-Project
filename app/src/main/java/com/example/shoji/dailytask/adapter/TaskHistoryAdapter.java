@@ -33,22 +33,21 @@ public class TaskHistoryAdapter
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Timber.d("onCreateViewHolder");
         View view = LayoutInflater.from(mContext)
-                .inflate(TaskViewHolder.RES_LAYOUT_ID,
+                .inflate(TaskHistoryViewHolder.RES_LAYOUT_ID,
                         parent,
                         false);
 
-        return new TaskViewHolder(view);
+        return new TaskHistoryViewHolder(view);
 
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         mCursor.moveToPosition(position);
-        int viewType = getItemViewType(position);
 
-        TaskViewHolder taskViewHolder = (TaskViewHolder) holder;
-        TaskViewHolderImpl listener = new TaskViewHolderImpl();
-        taskViewHolder.bindViewHolder(mContext, mCursor, listener);
+        TaskHistoryViewHolder taskHistoryViewHolder = (TaskHistoryViewHolder) holder;
+        TaskHistoryViewHolderImpl listener = new TaskHistoryViewHolderImpl();
+        taskHistoryViewHolder.bindViewHolder(mContext, mCursor, listener);
 
     }
 
@@ -93,8 +92,8 @@ public class TaskHistoryAdapter
 
 
     // [START] Implement each view holder OnClickListener
-    private class TaskViewHolderImpl
-            implements TaskViewHolder.OnClickListener {
+    private class TaskHistoryViewHolderImpl
+            implements TaskHistoryViewHolder.OnClickListener {
         @Override
         public void onClick(int position) {
             onClickedView(position);
