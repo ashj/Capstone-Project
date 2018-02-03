@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.shoji.dailytask.R;
 import com.example.shoji.dailytask.adapter.TaskAdapter;
+import com.example.shoji.dailytask.adapter.TaskHistoryAdapter;
 import com.example.shoji.dailytask.background.LoaderCallBacksListenersInterface;
 import com.example.shoji.dailytask.background.LoaderIds;
 import com.example.shoji.dailytask.background.LoaderUtils;
@@ -22,11 +23,11 @@ import com.example.shoji.dailytask.provider.TaskProvider;
 
 public class TaskHistoryActivity extends AppCompatActivityEx
                                  implements LoaderCallBacksListenersInterface<Cursor>,
-                                            TaskAdapter.OnClickListener,
+                                            TaskHistoryAdapter.OnClickListener,
                                             TaskContentObserver.OnChangeListener {
 
     private ProgressBar mProgressBar;
-    private TaskAdapter mTaskAdapter;
+    private TaskHistoryAdapter mTaskAdapter;
     private RecyclerView mRecyclerView;
     private static TaskContentObserver sTaskContentObserver;
     private Cursor mCursor;
@@ -49,8 +50,8 @@ public class TaskHistoryActivity extends AppCompatActivityEx
         mRecyclerView.setLayoutManager(lym);
 
         // [START] Adapter initialization
-        TaskAdapter.OnClickListener onClickListener = this;
-        mTaskAdapter = new TaskAdapter(context, onClickListener);
+        TaskHistoryAdapter.OnClickListener onClickListener = this;
+        mTaskAdapter = new TaskHistoryAdapter(context, onClickListener);
         mTaskAdapter.setHasStableIds(true);
         mRecyclerView.setAdapter(mTaskAdapter);
         // [END] Adapter initialization
@@ -105,11 +106,6 @@ public class TaskHistoryActivity extends AppCompatActivityEx
         Intent intent = new Intent(this, TaskDetailActivity.class);
         intent.putExtra(TaskDetailActivity.EXTRA_TASK_ID, id);
         startActivity(intent);
-    }
-
-    @Override
-    public void onClickDoneTask(long id) {
-        Toast.makeText(this, "Tapped to mark as done "+id, Toast.LENGTH_SHORT).show();
     }
     // [END] OnClickListener
 
