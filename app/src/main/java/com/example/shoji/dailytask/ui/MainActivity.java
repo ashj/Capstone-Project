@@ -20,7 +20,7 @@ import com.example.shoji.dailytask.BuildConfig;
 import com.example.shoji.dailytask.R;
 import com.example.shoji.dailytask.adapter.TaskAdapter;
 import com.example.shoji.dailytask.background.LoaderCallBacksListenersInterface;
-import com.example.shoji.dailytask.background.Utils;
+import com.example.shoji.dailytask.background.LoaderUtils;
 import com.example.shoji.dailytask.provider.TaskContentObserver;
 import com.example.shoji.dailytask.provider.TaskContract;
 import com.example.shoji.dailytask.provider.TaskProvider;
@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity
         Context context = this;
         LoaderManager loaderManager = getSupportLoaderManager();
         LoaderCallBacksListenersInterface<Cursor> loaderCallBacksListenersInterface = this;
-        Utils.queryTasks(context, loaderManager, loaderCallBacksListenersInterface);
+        LoaderUtils.queryTasks(context, loaderManager, loaderCallBacksListenersInterface);
     }
 
     @Override

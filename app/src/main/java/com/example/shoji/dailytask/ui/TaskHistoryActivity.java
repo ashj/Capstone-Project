@@ -3,7 +3,6 @@ package com.example.shoji.dailytask.ui;
 import android.content.Context;
 import android.database.Cursor;
 import android.support.v4.app.LoaderManager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,7 +13,7 @@ import android.widget.Toast;
 import com.example.shoji.dailytask.R;
 import com.example.shoji.dailytask.adapter.TaskAdapter;
 import com.example.shoji.dailytask.background.LoaderCallBacksListenersInterface;
-import com.example.shoji.dailytask.background.Utils;
+import com.example.shoji.dailytask.background.LoaderUtils;
 import com.example.shoji.dailytask.provider.TaskContentObserver;
 import com.example.shoji.dailytask.provider.TaskContract;
 import com.example.shoji.dailytask.provider.TaskProvider;
@@ -69,7 +68,7 @@ public class TaskHistoryActivity extends AppCompatActivityEx
         Context context = this;
         LoaderManager loaderManager = getSupportLoaderManager();
         LoaderCallBacksListenersInterface<Cursor> loaderCallBacksListenersInterface = this;
-        Utils.queryTasks(context, loaderManager, loaderCallBacksListenersInterface);
+        LoaderUtils.queryTasks(context, loaderManager, loaderCallBacksListenersInterface);
     }
 
     @Override

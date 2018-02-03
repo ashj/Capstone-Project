@@ -6,9 +6,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 
-import timber.log.Timber;
-
-public class Utils {
+public class LoaderUtils {
     private static void initOrRestartLoader(int loaderId,
                                            Bundle args,
                                            LoaderManager loaderManager,
@@ -41,7 +39,7 @@ public class Utils {
     public static void queryTasks(Context context,
                                                LoaderManager loaderManager,
                                                LoaderCallBacksListenersInterface<Cursor> loaderCallBacksListener) {
-        int loaderId = LoaderID.LOADER_ID_QUERY_TASKS;
+        int loaderId = LoaderIds.LOADER_ID_QUERY_TASKS;
         Bundle args = null;
         initLoader(context, loaderId, args, loaderManager, loaderCallBacksListener);
     }
