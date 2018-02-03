@@ -251,6 +251,12 @@ public class TaskDetailActivity extends AppCompatActivityEx
             mMarkAsDoneButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    // [START] temporary unregister content observer
+                    if(sTaskContentObserver != null) {
+                        sTaskContentObserver.unregister();
+                    }
+                    // [END] temporary unregister content observer
+
                     // [START] mark test as done
                     Bundle args = new Bundle();
                     args.putLong(LoaderTaskSetConcludedById.EXTRA_TASK_ID, mTaskId);
@@ -270,6 +276,11 @@ public class TaskDetailActivity extends AppCompatActivityEx
             mUnmarkAsDoneButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    // [START] temporary unregister content observer
+                    if(sTaskContentObserver != null) {
+                        sTaskContentObserver.unregister();
+                    }
+                    // [END] temporary unregister content observer
                     // [START] unmark test as done
                     Bundle args = new Bundle();
                     args.putLong(LoaderTaskSetConcludedById.EXTRA_TASK_ID, mTaskId);
@@ -303,6 +314,13 @@ public class TaskDetailActivity extends AppCompatActivityEx
             if( res_id != 0) {
                 Toast.makeText(mContext, res_id, Toast.LENGTH_SHORT).show();
                 finish();
+            }
+            else {
+                // [START] temporary unregister content observer - restore
+                if(sTaskContentObserver != null) {
+                    sTaskContentObserver.register();
+                }
+                // [END] temporary unregister content observer - restore
             }
         }
     }
