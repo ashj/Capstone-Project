@@ -9,7 +9,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -17,13 +16,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".ui.TaskEditorActivity"></activity>
+        <activity android:name=".ui.TaskEditorActivity" />
 
         <provider
             android:name=".provider.generated.TaskProvider"
             android:authorities="com.example.shoji.dailytask.provider.tasks"
             android:exported="true" />
+
+        <activity android:name=".ui.SettingsActivity" />
     </application>
 
 </manifest>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Settings -->
+    <bool name="pref_daily_notification_default_value">false</bool>
+    <bool name="pref_location_service_default_value">false</bool>
+</resources>

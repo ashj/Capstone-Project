@@ -105,7 +105,8 @@ public class MainActivity extends AppCompatActivity
             return true;
         }
         else if(id == R.id.action_settings) {
-            Toast.makeText(this, "Must open settings screen", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
             return true;
         }
         return super.onOptionsItemSelected(item);
