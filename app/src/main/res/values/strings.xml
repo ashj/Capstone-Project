@@ -16,6 +16,7 @@
     <string name="button_task_add">Add task</string>
     <string name="button_task_edit">Update task</string>
     <string name="button_task_conclude">Mark as done</string>
+    <string name="button_task_restore">Mark as not done</string>
 
     <string name="insert_task_success">Added new task!</string>
     <string name="validate_task_error_title">Write something to do</string>
@@ -43,7 +44,7 @@
 
     <string name="task_details_delete_task_success">Task deleted</string>
     <string name="task_details_task_marked_as_done">@string/main_activity_task_marked_as_done</string>
-
+    <string name="task_details_task_unmarked_as_done">Moved task to ToDo list</string>
     <!-- History -->
     <string name="history_activity_title">History</string>
 

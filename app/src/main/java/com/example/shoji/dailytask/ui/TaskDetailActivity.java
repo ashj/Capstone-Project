@@ -58,7 +58,7 @@ public class TaskDetailActivity extends AppCompatActivityEx
 
     // [START] Detail screen buttons
     private Button mMarkAsDoneButton;
-
+    private Button mUnmarkAsDoneButton;
     // [END] Detail screen buttons
 
     @Override
@@ -118,7 +118,7 @@ public class TaskDetailActivity extends AppCompatActivityEx
 
         // [START] Detail screen buttons
         mMarkAsDoneButton = findViewById(R.id.mark_as_done_button);
-
+        mUnmarkAsDoneButton = findViewById(R.id.unmark_as_done_button);
         // [END] Detail screen buttons
     }
 
@@ -265,12 +265,43 @@ public class TaskDetailActivity extends AppCompatActivityEx
             });
         }
 
+        else if(mDetailFrom == DETAIL_FROM_HISTORY) {
+            mUnmarkAsDoneButton.setVisibility(View.VISIBLE);
+            mUnmarkAsDoneButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // [START] unmark test as done
+                    Bundle args = new Bundle();
+                    args.putLong(LoaderTaskSetConcludedById.EXTRA_TASK_ID, mTaskId);
+                    args.putLong(LoaderTaskSetConcludedById.EXTRA_TASK_CONCLUDED_STATE, TaskContract.NOT_CONCLUDED);
+
+                    LoaderTaskSetConcludedById.OnTaskSetStateListener listener = new OnTaskSetStateListener();
+                    LoaderTaskSetConcludedById loaderTaskSetConcludedById = new LoaderTaskSetConcludedById(listener);
+
+                    initTaskLoader(LoaderIds.LOADER_ID_GET_TASKS_UPDATE_MAIN, args, loaderTaskSetConcludedById);
+                    // [END] unmark test as done
+                }
+            });
+        }
+
     }
     private class OnTaskSetStateListener implements LoaderTaskSetConcludedById.OnTaskSetStateListener {
         @Override
         public void onTaskSetState(Integer integer) {
-            if(integer != null && integer == 1) {
-                Toast.makeText(mContext, R.string.task_details_task_marked_as_done, Toast.LENGTH_SHORT).show();
+            int res_id = 0;
+            if(mDetailFrom == DETAIL_FROM_MAIN) {
+                if (integer != null && integer == 1) {
+                    res_id = R.string.task_details_task_marked_as_done;
+                }
+            }
+            else if(mDetailFrom == DETAIL_FROM_HISTORY) {
+                if (integer != null && integer == 1) {
+                    res_id = R.string.task_details_task_unmarked_as_done;
+                }
+            }
+
+            if( res_id != 0) {
+                Toast.makeText(mContext, res_id, Toast.LENGTH_SHORT).show();
                 finish();
             }
         }
