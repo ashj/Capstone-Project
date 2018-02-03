@@ -15,6 +15,12 @@
         android:id="@+id/mark_button"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:text="@string/button_task_conclude" />
+        android:text="@string/button_task_conclude"
+        style="@style/ButtonTheme" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
 
 </LinearLayout>

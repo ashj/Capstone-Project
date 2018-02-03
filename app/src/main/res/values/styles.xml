@@ -25,4 +25,11 @@
 
     </style>
 
+    <style name="ButtonTheme" parent="@style/TextAppearance.AppCompat.Large">
+        <item name="android:textColor">@android:color/primary_text_dark</item>
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:paddingStart">@dimen/style_button_padding</item>
+        <item name="android:paddingEnd">@dimen/style_button_padding</item>
+    </style>
+
 </resources>

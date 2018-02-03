@@ -34,7 +34,8 @@
         android:text="@string/button_task_conclude"
         android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/task_title_text_view"/>
+        app:layout_constraintTop_toBottomOf="@id/task_title_text_view"
+        style="@style/ButtonTheme" />
 
     <Button
         android:id="@+id/unmark_as_done_button"
@@ -43,7 +44,8 @@
         android:text="@string/button_task_restore"
         android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/task_title_text_view"/>
+        app:layout_constraintTop_toBottomOf="@id/task_title_text_view"
+        style="@style/ButtonTheme" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_edit"

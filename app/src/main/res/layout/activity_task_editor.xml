@@ -58,7 +58,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/priority_label"/>
+            android:text="@string/priority_label"
+            android:textSize="@dimen/style_text_view_textsize" />
 
         <RadioGroup
             android:id="@+id/radio_group"
@@ -73,11 +74,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            style="@style/TextAppearance.AppCompat.Large"
-            android:textColor="@android:color/primary_text_dark"
-            android:background="@color/colorPrimary"
-            android:paddingStart="@dimen/activity_task_editor_buttonpadding"
-            android:paddingEnd="@dimen/activity_task_editor_buttonpadding"
+            style="@style/ButtonTheme"
             tools:text="@string/button_task_add"/>
 
     </LinearLayout>

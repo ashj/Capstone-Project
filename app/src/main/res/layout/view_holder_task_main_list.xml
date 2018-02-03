@@ -11,4 +11,9 @@
         android:layout_height="wrap_content"
         android:textSize="@dimen/text_size_task_list"/>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
+
 </LinearLayout>
