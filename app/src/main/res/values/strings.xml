@@ -22,6 +22,11 @@
 
     <string name="menu_add_task_label">Add a new task</string>
 
+    <!-- Task details -->
+    <string name="task_details_activity_title">Task details</string>
+    <string name="tools_task_details_title_text">Todo: something</string>
+
+
     <string name="empty_string"></string>
     <!-- Settings -->
     <string name="pref_daily_notification_key">daily-notification</string>

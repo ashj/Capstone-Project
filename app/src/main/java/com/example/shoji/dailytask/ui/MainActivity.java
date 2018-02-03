@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivityEx
         // [END] Adapter initialization
 
         // [START] implements LoaderCallBacksListenersInterface<Cursor>
-        initTaskLoader(LoaderIds.LOADER_ID_GET_TASKS);
+        initTaskLoader(LoaderIds.LOADER_ID_GET_TASKS_MAIN);
         // [END] implements LoaderCallBacksListenersInterface<Cursor>
 
         // [START] ContentObserver
@@ -188,7 +188,7 @@ public class MainActivity extends AppCompatActivityEx
 
     @Override
     public void onChange() {
-        initTaskLoader(LoaderIds.LOADER_ID_GET_TASKS);
+        initTaskLoader(LoaderIds.LOADER_ID_GET_TASKS_MAIN);
     }
     // [END] ContentObserver
 

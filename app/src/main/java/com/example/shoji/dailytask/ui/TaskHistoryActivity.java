@@ -55,7 +55,7 @@ public class TaskHistoryActivity extends AppCompatActivityEx
         // [END] Adapter initialization
 
         // [START] implements LoaderCallBacksListenersInterface<Cursor>
-        initTaskLoader(LoaderIds.LOADER_ID_GET_TASKS);
+        initTaskLoader(LoaderIds.LOADER_ID_GET_TASKS_HISTORY);
         // [END] implements LoaderCallBacksListenersInterface<Cursor>
 
         // [START] ContentObserver
@@ -65,14 +65,6 @@ public class TaskHistoryActivity extends AppCompatActivityEx
     }
 
     // [START] implements LoaderCallBacksListenersInterface<Cursor>
-    private void doQueryTasks() {
-        Context context = this;
-        int loaderId = LoaderIds.LOADER_ID_GET_TASKS;
-        LoaderManager loaderManager = getSupportLoaderManager();
-        LoaderCallBacksListenersInterface<Cursor> loaderCallBacksListenersInterface = this;
-        LoaderUtils.initLoader(context, loaderId, loaderManager, loaderCallBacksListenersInterface);
-    }
-
     @Override
     public void onStartLoading(Context context) {
         mProgressBar.setVisibility(View.VISIBLE);
@@ -143,7 +135,7 @@ public class TaskHistoryActivity extends AppCompatActivityEx
 
     @Override
     public void onChange() {
-        initTaskLoader(LoaderIds.LOADER_ID_GET_TASKS);
+        initTaskLoader(LoaderIds.LOADER_ID_GET_TASKS_HISTORY);
     }
     // [END] ContentObserver
 }
