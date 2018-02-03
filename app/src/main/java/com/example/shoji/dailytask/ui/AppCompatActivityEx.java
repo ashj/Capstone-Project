@@ -38,11 +38,19 @@ public abstract class AppCompatActivityEx extends AppCompatActivity {
     // [END] customize action bar
 
     // [START] implements LoaderCallBacksListenersInterface<Cursor>
-    protected void initTaskLoader(int loaderId, LoaderCallBacksListenersInterface<Cursor> loaderCallBacksListenersInterface) {
+    protected <T> void initTaskLoader(int loaderId,
+                                           LoaderCallBacksListenersInterface<T> loaderCallBacksListenersInterface) {
         Context context = this;
 
         LoaderManager loaderManager = getSupportLoaderManager();
         LoaderUtils.initLoader(context, loaderId, loaderManager, loaderCallBacksListenersInterface);
+    }
+    protected <T> void initTaskLoader(int loaderId, Bundle args,
+                                      LoaderCallBacksListenersInterface<T> loaderCallBacksListenersInterface) {
+        Context context = this;
+
+        LoaderManager loaderManager = getSupportLoaderManager();
+        LoaderUtils.initLoader(context, loaderId, args, loaderManager, loaderCallBacksListenersInterface);
     }
     // [END] implements LoaderCallBacksListenersInterface<Cursor>
 

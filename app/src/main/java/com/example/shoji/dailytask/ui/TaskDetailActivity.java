@@ -34,6 +34,12 @@ public class TaskDetailActivity extends AppCompatActivityEx
     private long mTaskId;
     private Context mContext;
 
+    // [START] get task by id
+    private Bundle mBundle;
+    LoaderTaskGetById.OnTaskGetByIdListener mListener;
+    LoaderTaskGetById mLoaderTaskGetById;
+    // [END] get task by id
+
     private ProgressBar mProgressBar;
     private TextView mTaskTitleTextView;
     private FloatingActionButton mFabEdit;
@@ -84,7 +90,13 @@ public class TaskDetailActivity extends AppCompatActivityEx
         });
         // [END] use FAB to delete the task
 
-        initTaskLoader(LoaderIds.LOADER_ID_GET_TASKS_DETAIL);
+        // [START] get task by id
+        mBundle = new Bundle();
+        mBundle.putLong(LoaderTaskDeleteById.EXTRA_TASK_ID, mTaskId);
+        mListener = this;
+        mLoaderTaskGetById = new LoaderTaskGetById(mListener);
+        initTaskLoader(LoaderIds.LOADER_ID_GET_TASKS_DETAIL, mBundle, mLoaderTaskGetById);
+        // [END] get task by id
 
         // [START] ContentObserver
         TaskContentObserver.OnChangeListener onChangeListener = this;
@@ -146,19 +158,6 @@ public class TaskDetailActivity extends AppCompatActivityEx
     // [END] use FAB to delete the task
 
     // [START] get task by id
-    protected void initTaskLoader(int loaderId) {
-        Context context = this;
-
-        LoaderManager loaderManager = getSupportLoaderManager();
-        LoaderTaskGetById.OnTaskGetByIdListener listener = this;
-
-        Bundle args = new Bundle();
-        args.putLong(LoaderTaskDeleteById.EXTRA_TASK_ID, mTaskId);
-
-        LoaderTaskGetById loaderTaskGetById = new LoaderTaskGetById(listener);
-        LoaderUtils.initLoader(context, loaderId, args, loaderManager, loaderTaskGetById);
-    }
-
     @Override
     public void onStartLoading(Context context) {
         mProgressBar.setVisibility(View.VISIBLE);
@@ -226,7 +225,7 @@ public class TaskDetailActivity extends AppCompatActivityEx
 
     @Override
     public void onChange() {
-        initTaskLoader(LoaderIds.LOADER_ID_GET_TASKS_DETAIL);
+        initTaskLoader(LoaderIds.LOADER_ID_GET_TASKS_DETAIL, mBundle, mLoaderTaskGetById);
     }
     // [END] ContentObserver
 
