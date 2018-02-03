@@ -76,7 +76,7 @@ public class TaskHistoryActivity extends AppCompatActivityEx
         String[] projection = null;
         // Select not concluded tasks
         // TODO update the query
-        String selection = TaskContract.COLUMN_IS_CONCLUDED + " IS " + TaskContract.NOT_CONCLUDED;
+        String selection = TaskContract.COLUMN_IS_CONCLUDED + " IS " + TaskContract.CONCLUDED;
         String[] selectionArgs = null;
         // Sort by priority (first: high, last: low)
         String sortOrder = TaskContract.COLUMN_PRIORITY + " DESC";

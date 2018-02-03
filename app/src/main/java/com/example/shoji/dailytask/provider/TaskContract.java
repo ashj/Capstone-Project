@@ -39,4 +39,5 @@ public class TaskContract {
 
 
     public static int NOT_CONCLUDED = 0;
+    public static int CONCLUDED = 1;
 }

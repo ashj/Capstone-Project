@@ -1,5 +1,6 @@
 package com.example.shoji.dailytask.ui;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -162,6 +163,12 @@ public class MainActivity extends AppCompatActivityEx
     @Override
     public void onClickDoneTask(long id) {
         Toast.makeText(this, "Tapped to mark as done "+id, Toast.LENGTH_SHORT).show();
+
+        // TODO do this in background - update concluded_date
+        ContentValues cv = new ContentValues();
+        String where = TaskContract._ID + " IS " + id;
+        cv.put(TaskContract.COLUMN_IS_CONCLUDED, TaskContract.CONCLUDED);
+        getContentResolver().update(TaskProvider.Tasks.CONTENT_URI, cv, where, null);
     }
     // [END] OnClickListener
 
