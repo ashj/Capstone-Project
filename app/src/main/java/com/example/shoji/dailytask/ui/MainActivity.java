@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.LoaderManager;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -20,14 +18,14 @@ import com.example.shoji.dailytask.BuildConfig;
 import com.example.shoji.dailytask.R;
 import com.example.shoji.dailytask.adapter.TaskAdapter;
 import com.example.shoji.dailytask.background.LoaderCallBacksListenersInterface;
-import com.example.shoji.dailytask.background.LoaderUtils;
+import com.example.shoji.dailytask.background.LoaderIds;
 import com.example.shoji.dailytask.provider.TaskContentObserver;
 import com.example.shoji.dailytask.provider.TaskContract;
 import com.example.shoji.dailytask.provider.TaskProvider;
 
 import timber.log.Timber;
 
-public class MainActivity extends AppCompatActivity
+public class MainActivity extends AppCompatActivityEx
                           implements LoaderCallBacksListenersInterface<Cursor>,
                                      TaskAdapter.OnClickListener,
                                      TaskContentObserver.OnChangeListener {
@@ -82,7 +80,7 @@ public class MainActivity extends AppCompatActivity
         // [END] Adapter initialization
 
         // [START] implements LoaderCallBacksListenersInterface<Cursor>
-        doQueryTasks();
+        initTaskLoader(LoaderIds.LOADER_ID_GET_TASKS);
         // [END] implements LoaderCallBacksListenersInterface<Cursor>
 
         // [START] ContentObserver
@@ -120,13 +118,6 @@ public class MainActivity extends AppCompatActivity
 
 
     // [START] implements LoaderCallBacksListenersInterface<Cursor>
-    private void doQueryTasks() {
-        Context context = this;
-        LoaderManager loaderManager = getSupportLoaderManager();
-        LoaderCallBacksListenersInterface<Cursor> loaderCallBacksListenersInterface = this;
-        LoaderUtils.queryTasks(context, loaderManager, loaderCallBacksListenersInterface);
-    }
-
     @Override
     public void onStartLoading(Context context) {
         mProgressBar.setVisibility(View.VISIBLE);
@@ -196,7 +187,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onChange() {
-        doQueryTasks();
+        initTaskLoader(LoaderIds.LOADER_ID_GET_TASKS);
     }
     // [END] ContentObserver
 

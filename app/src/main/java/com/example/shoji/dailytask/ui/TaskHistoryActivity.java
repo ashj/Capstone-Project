@@ -2,8 +2,8 @@ package com.example.shoji.dailytask.ui;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.support.v4.app.LoaderManager;
 import android.os.Bundle;
+import android.support.v4.app.LoaderManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.example.shoji.dailytask.R;
 import com.example.shoji.dailytask.adapter.TaskAdapter;
 import com.example.shoji.dailytask.background.LoaderCallBacksListenersInterface;
+import com.example.shoji.dailytask.background.LoaderIds;
 import com.example.shoji.dailytask.background.LoaderUtils;
 import com.example.shoji.dailytask.provider.TaskContentObserver;
 import com.example.shoji.dailytask.provider.TaskContract;
@@ -54,7 +55,7 @@ public class TaskHistoryActivity extends AppCompatActivityEx
         // [END] Adapter initialization
 
         // [START] implements LoaderCallBacksListenersInterface<Cursor>
-        doQueryTasks();
+        initTaskLoader(LoaderIds.LOADER_ID_GET_TASKS);
         // [END] implements LoaderCallBacksListenersInterface<Cursor>
 
         // [START] ContentObserver
@@ -66,9 +67,10 @@ public class TaskHistoryActivity extends AppCompatActivityEx
     // [START] implements LoaderCallBacksListenersInterface<Cursor>
     private void doQueryTasks() {
         Context context = this;
+        int loaderId = LoaderIds.LOADER_ID_GET_TASKS;
         LoaderManager loaderManager = getSupportLoaderManager();
         LoaderCallBacksListenersInterface<Cursor> loaderCallBacksListenersInterface = this;
-        LoaderUtils.queryTasks(context, loaderManager, loaderCallBacksListenersInterface);
+        LoaderUtils.initLoader(context, loaderId, loaderManager, loaderCallBacksListenersInterface);
     }
 
     @Override
@@ -141,7 +143,7 @@ public class TaskHistoryActivity extends AppCompatActivityEx
 
     @Override
     public void onChange() {
-        doQueryTasks();
+        initTaskLoader(LoaderIds.LOADER_ID_GET_TASKS);
     }
     // [END] ContentObserver
 }

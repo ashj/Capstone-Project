@@ -22,10 +22,10 @@ public class LoaderUtils {
         }
     }
     public static void initLoader(Context context,
-                                               int loaderId,
-                                               Bundle args,
-                                               LoaderManager loaderManager,
-                                               LoaderCallBacksListenersInterface<Cursor> loaderCallBacksListener) {
+                                  int loaderId,
+                                  Bundle args,
+                                  LoaderManager loaderManager,
+                                  LoaderCallBacksListenersInterface<Cursor> loaderCallBacksListener) {
         LoaderCallBacksEx<Cursor> loaderCallBacks =
                 new LoaderCallBacksEx<>(context, loaderCallBacksListener);
 
@@ -36,12 +36,12 @@ public class LoaderUtils {
                 loaderCallBacks);
     }
 
-    public static void queryTasks(Context context,
-                                               LoaderManager loaderManager,
-                                               LoaderCallBacksListenersInterface<Cursor> loaderCallBacksListener) {
-        int loaderId = LoaderIds.LOADER_ID_QUERY_TASKS;
-        Bundle args = null;
-        initLoader(context, loaderId, args, loaderManager, loaderCallBacksListener);
+    public static void initLoader(Context context,
+                                  int loaderId,
+                                  LoaderManager loaderManager,
+                                  LoaderCallBacksListenersInterface<Cursor> loaderCallBacksListener) {
+
+        initLoader(context, loaderId, null, loaderManager, loaderCallBacksListener);
     }
 
 }
