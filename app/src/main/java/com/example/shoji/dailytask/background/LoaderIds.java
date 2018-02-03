@@ -5,5 +5,6 @@ public class LoaderIds {
     public final static int LOADER_ID_GET_TASKS_HISTORY = 2;
     public final static int LOADER_ID_GET_TASKS_DETAIL = 3;
 
+    public final static int LOADER_ID_GET_TASKS_EDIT = 4;
     private LoaderIds() {}
 }

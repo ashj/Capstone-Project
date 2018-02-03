@@ -22,7 +22,7 @@ import timber.log.Timber;
 
 public class TaskDetailActivity extends AppCompatActivityEx
                                 implements LoaderCallBacksListenersInterface<Cursor> {
-    private static final long INVALID_ID = -1;
+
     public static final String EXTRA_TASK_ID = "extra-task-id";
 
     private long mTaskId;
@@ -45,32 +45,35 @@ public class TaskDetailActivity extends AppCompatActivityEx
         mProgressBar = findViewById(R.id.progressbar);
         mTaskTitleTextView = findViewById(R.id.task_title_text_view);
 
+        // [START] need valid intent to proceed
+        mTaskId = getIdFromIntent();
+        Timber.d("Got ID: %d", mTaskId);
+        if(mTaskId == TaskContract.INVALID_ID)
+            return;
+        // [END] need valid intent to proceed
+
+        // [START] use FAB to open a task to edit
         mFab = findViewById(R.id.fab);
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, TaskEditorActivity.class);
+                intent.putExtra(TaskEditorActivity.EXTRA_TASK_ID, mTaskId);
                 startActivity(intent);
             }
         });
-
-        // [START] need valid intent to proceed
-        mTaskId = getIdFromIntent();
-        Timber.d("Got ID: %d", mTaskId);
-        if(mTaskId == INVALID_ID)
-            return;
-        // [END] need valid intent to proceed
+        // [END] use FAB to open a task to edit
 
         initTaskLoader(LoaderIds.LOADER_ID_GET_TASKS_DETAIL);
     }
 
     // [START] need valid intent to proceed
     private long getIdFromIntent() {
-        long id = INVALID_ID;
+        long id = TaskContract.INVALID_ID;
 
         Intent intent = getIntent();
         if(intent != null && intent.hasExtra(EXTRA_TASK_ID))
-            id = intent.getLongExtra(EXTRA_TASK_ID, INVALID_ID);
+            id = intent.getLongExtra(EXTRA_TASK_ID, TaskContract.INVALID_ID);
 
         return id;
     }

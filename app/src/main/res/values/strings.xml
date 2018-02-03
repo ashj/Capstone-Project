@@ -3,6 +3,7 @@
 
     <!-- Task Editor -->
     <string name="task_editor_activity_title_add">Add a new task</string>
+    <string name="task_editor_activity_title_edit">Edit task</string>
 
     <string name="new_task_hint_title">Task title</string>
     <string name="new_task_descr_title">Task description</string>
@@ -12,7 +13,7 @@
     <string name="priority_label_normal">normal</string>
     <string name="priority_label_high">high</string>
 
-    <string name="button_task_new">Add task</string>
+    <string name="button_task_add">Add task</string>
     <string name="button_task_edit">Update task</string>
     <string name="button_task_conclude">Mark as done</string>
 
@@ -20,6 +21,7 @@
     <string name="validate_task_error_title">Write something to do</string>
     <string name="validate_task_error_description">Something is wrong with this description.</string>
 
+    <string name="update_task_success">Updated task!</string>
     <!-- Main activity -->
     <string name="menu_history_label">@string/history_activity_title</string>
     <string name="menu_settings_label">@string/settings_activity_title</string>

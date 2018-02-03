@@ -7,6 +7,8 @@ import net.simonvt.schematic.annotation.NotNull;
 import net.simonvt.schematic.annotation.PrimaryKey;
 
 public class TaskContract {
+    public static final long INVALID_ID = -1;
+
     /* internal database id */
     @DataType(DataType.Type.INTEGER)
     @PrimaryKey(onConflict = ConflictResolutionType.REPLACE)
