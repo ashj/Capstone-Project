@@ -4,9 +4,12 @@ package com.example.shoji.dailytask.background;
 import android.content.ContentValues;
 import android.content.Context;
 import android.os.Bundle;
+import android.text.format.DateUtils;
 
 import com.example.shoji.dailytask.provider.TaskContract;
 import com.example.shoji.dailytask.provider.TaskProvider;
+
+import timber.log.Timber;
 
 public class LoaderTaskSetConcludedById implements LoaderCallBacksListenersInterface<Integer> {
     public static final String EXTRA_TASK_ID = "extra-task-id";
@@ -33,13 +36,32 @@ public class LoaderTaskSetConcludedById implements LoaderCallBacksListenersInter
                         && args.containsKey(EXTRA_TASK_CONCLUDED_STATE)) {
 
             long id = args.getLong(EXTRA_TASK_ID);
-            int concludedState = args.getInt(EXTRA_TASK_CONCLUDED_STATE);
+            long concludedState = args.getLong(EXTRA_TASK_CONCLUDED_STATE);
 
             String selection = TaskContract._ID + " IS " + id;
 
-            // TODO update concluded_date
+            // [START] Set task conclusion date
             ContentValues cv = new ContentValues();
             cv.put(TaskContract.COLUMN_IS_CONCLUDED, concludedState);
+
+
+            // reset the conclusion date if marking as not concluded
+            // otherwise, use current time
+            long concludedDate = TaskContract.NOT_CONCLUDED;
+            if(concludedState == TaskContract.CONCLUDED) {
+                concludedDate = System.currentTimeMillis();
+
+                int flags = DateUtils.FORMAT_SHOW_DATE
+                        | DateUtils.FORMAT_SHOW_TIME;
+
+                String dateStr = DateUtils.formatDateTime(context, concludedDate, flags);
+
+                Timber.d("Current UTC Date: %d", concludedDate);
+                Timber.d("Current UTC String: %s", dateStr);
+            }
+            cv.put(TaskContract.COLUMN_CONCLUDED_DATE, concludedDate);
+            // [END] Set task conclusion date
+
             int rows = context.getContentResolver().update(TaskProvider.Tasks.CONTENT_URI, cv, selection, null);
 
             integer = Integer.valueOf(rows);

@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
+import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -182,10 +183,14 @@ public class TaskDetailActivity extends AppCompatActivityEx
         String priority = mCursor.getString(index);
 
         index = mCursor.getColumnIndex(TaskContract.COLUMN_IS_CONCLUDED);
-        int concluded = mCursor.getInt(index);
+        long concluded = mCursor.getLong(index);
 
         index = mCursor.getColumnIndex(TaskContract.COLUMN_CONCLUDED_DATE);
-        int concluded_date = mCursor.getInt(index);
+        long concluded_date = mCursor.getLong(index);
+
+        int flags = DateUtils.FORMAT_SHOW_DATE
+                | DateUtils.FORMAT_SHOW_TIME;
+        String dateStr = DateUtils.formatDateTime(mContext, concluded_date, flags);
 
         mCursor.close();
 
@@ -194,7 +199,8 @@ public class TaskDetailActivity extends AppCompatActivityEx
                 .append("\nDescr: ").append(description)
                 .append("\nPriority: P").append(priority)
                 .append("\nConcluded?: ").append(concluded)
-                .append("\nConcluded Date: ").append(concluded_date);
+                .append("\nConcluded Date: ").append(concluded_date)
+                .append("\nConcluded Date: ").append(dateStr);
         mTaskTitleTextView.setText(sb.toString());
 
 

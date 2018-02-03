@@ -168,7 +168,7 @@ public class MainActivity extends AppCompatActivityEx
         // [START] mask test as done
         Bundle args = new Bundle();
         args.putLong(LoaderTaskSetConcludedById.EXTRA_TASK_ID, id);
-        args.putInt(LoaderTaskSetConcludedById.EXTRA_TASK_CONCLUDED_STATE, TaskContract.CONCLUDED);
+        args.putLong(LoaderTaskSetConcludedById.EXTRA_TASK_CONCLUDED_STATE, TaskContract.CONCLUDED);
 
         LoaderTaskSetConcludedById.OnTaskSetStateListener listener = this;
         LoaderTaskSetConcludedById loaderTaskSetConcludedById = new LoaderTaskSetConcludedById(listener);
