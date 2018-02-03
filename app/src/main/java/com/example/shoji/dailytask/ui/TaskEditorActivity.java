@@ -242,7 +242,6 @@ public class TaskEditorActivity extends AppCompatActivityEx
     // [END] Check if it is a task to edit or a new one
 
     // [START] get task by id
-    @Override
     protected void initTaskLoader(int loaderId) {
         Context context = this;
 

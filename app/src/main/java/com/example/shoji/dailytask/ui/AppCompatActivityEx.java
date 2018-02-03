@@ -12,8 +12,7 @@ import android.view.MenuItem;
 import com.example.shoji.dailytask.background.LoaderCallBacksListenersInterface;
 import com.example.shoji.dailytask.background.LoaderUtils;
 
-public abstract class AppCompatActivityEx extends AppCompatActivity
-                                          implements LoaderCallBacksListenersInterface<Cursor> {
+public abstract class AppCompatActivityEx extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,22 +38,12 @@ public abstract class AppCompatActivityEx extends AppCompatActivity
     // [END] customize action bar
 
     // [START] implements LoaderCallBacksListenersInterface<Cursor>
-    protected void initTaskLoader(int loaderId) {
+    protected void initTaskLoader(int loaderId, LoaderCallBacksListenersInterface<Cursor> loaderCallBacksListenersInterface) {
         Context context = this;
 
         LoaderManager loaderManager = getSupportLoaderManager();
-        LoaderCallBacksListenersInterface<Cursor> loaderCallBacksListenersInterface = this;
         LoaderUtils.initLoader(context, loaderId, loaderManager, loaderCallBacksListenersInterface);
     }
-
-    // Leave implementation for children classes
-    @Override
-    public void onStartLoading(Context context) { }
-
-    @Override
-    public Cursor onLoadInBackground(Context context, Bundle args) { return null; }
-
-    @Override
-    public void onLoadFinished(Context context, Cursor cursor) { }
     // [END] implements LoaderCallBacksListenersInterface<Cursor>
+
 }

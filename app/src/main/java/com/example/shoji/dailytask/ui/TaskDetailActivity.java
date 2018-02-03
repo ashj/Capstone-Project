@@ -146,7 +146,6 @@ public class TaskDetailActivity extends AppCompatActivityEx
     // [END] use FAB to delete the task
 
     // [START] get task by id
-    @Override
     protected void initTaskLoader(int loaderId) {
         Context context = this;
 

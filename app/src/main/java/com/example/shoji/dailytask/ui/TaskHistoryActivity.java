@@ -56,7 +56,7 @@ public class TaskHistoryActivity extends AppCompatActivityEx
         // [END] Adapter initialization
 
         // [START] implements LoaderCallBacksListenersInterface<Cursor>
-        initTaskLoader(LoaderIds.LOADER_ID_GET_TASKS_HISTORY);
+        initTaskLoader(LoaderIds.LOADER_ID_GET_TASKS_HISTORY, this);
         // [END] implements LoaderCallBacksListenersInterface<Cursor>
 
         // [START] ContentObserver
@@ -137,7 +137,7 @@ public class TaskHistoryActivity extends AppCompatActivityEx
 
     @Override
     public void onChange() {
-        initTaskLoader(LoaderIds.LOADER_ID_GET_TASKS_HISTORY);
+        initTaskLoader(LoaderIds.LOADER_ID_GET_TASKS_HISTORY, this);
     }
     // [END] ContentObserver
 }
