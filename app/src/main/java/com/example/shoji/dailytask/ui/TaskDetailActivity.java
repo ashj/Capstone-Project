@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
@@ -17,6 +18,7 @@ import com.example.shoji.dailytask.R;
 import com.example.shoji.dailytask.background.LoaderCallBacksListenersInterface;
 import com.example.shoji.dailytask.background.LoaderIds;
 import com.example.shoji.dailytask.background.LoaderTaskDeleteById;
+import com.example.shoji.dailytask.background.LoaderTaskGetById;
 import com.example.shoji.dailytask.background.LoaderUtils;
 import com.example.shoji.dailytask.provider.TaskContentObserver;
 import com.example.shoji.dailytask.provider.TaskContract;
@@ -25,9 +27,10 @@ import com.example.shoji.dailytask.provider.TaskProvider;
 import timber.log.Timber;
 
 public class TaskDetailActivity extends AppCompatActivityEx
-                                implements LoaderCallBacksListenersInterface<Cursor>,
-                                           TaskContentObserver.OnChangeListener,
-                                           LoaderTaskDeleteById.OnTaskDeletedListener {
+                                implements TaskContentObserver.OnChangeListener,
+                                           LoaderTaskDeleteById.OnTaskDeletedListener,
+                                           LoaderTaskGetById.OnTaskGetByIdListener {
+
 
     public static final String EXTRA_TASK_ID = "extra-task-id";
 
@@ -145,32 +148,28 @@ public class TaskDetailActivity extends AppCompatActivityEx
     }
     // [END] use FAB to delete the task
 
+    // [START] get task by id
+    @Override
+    protected void initTaskLoader(int loaderId) {
+        Context context = this;
 
+        LoaderManager loaderManager = getSupportLoaderManager();
+        LoaderTaskGetById.OnTaskGetByIdListener listener = this;
 
-    // [START] implements LoaderCallBacksListenersInterface<Cursor>
+        Bundle args = new Bundle();
+        args.putLong(LoaderTaskDeleteById.EXTRA_TASK_ID, mTaskId);
+
+        LoaderTaskGetById loaderTaskGetById = new LoaderTaskGetById(listener);
+        LoaderUtils.initLoader(context, loaderId, args, loaderManager, loaderTaskGetById);
+    }
+
     @Override
     public void onStartLoading(Context context) {
         mProgressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
-    public Cursor onLoadInBackground(Context context, Bundle args) {
-        String[] projection = null;
-        // Select by taskId
-        String selection = TaskContract._ID + " IS " + mTaskId;
-        String[] selectionArgs = null;
-        String sortOrder = null;
-
-        Cursor cursor = getContentResolver().query(TaskProvider.Tasks.CONTENT_URI,
-                projection,
-                selection,
-                selectionArgs,
-                sortOrder);
-        return cursor;
-    }
-
-    @Override
-    public void onLoadFinished(Context context, Cursor cursor) {
+    public void onLoadFinished(Cursor cursor) {
         mProgressBar.setVisibility(View.INVISIBLE);
         mCursor = cursor;
 
@@ -206,7 +205,7 @@ public class TaskDetailActivity extends AppCompatActivityEx
 
 
     }
-    // [END] implements LoaderCallBacksListenersInterface<Cursor>
+    // [END] get task by id
 
 
 
