@@ -4,6 +4,7 @@ import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -27,6 +28,7 @@ public class TaskDetailActivity extends AppCompatActivityEx
     private long mTaskId;
     private ProgressBar mProgressBar;
     private TextView mTaskTitleTextView;
+    private FloatingActionButton mFab;
 
     private Cursor mCursor;
 
@@ -35,11 +37,22 @@ public class TaskDetailActivity extends AppCompatActivityEx
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_detail);
 
+        final Context context = this;
+
         // Set title in action bar
         getSupportActionBar().setTitle(getString(R.string.task_details_activity_title));
 
         mProgressBar = findViewById(R.id.progressbar);
         mTaskTitleTextView = findViewById(R.id.task_title_text_view);
+
+        mFab = findViewById(R.id.fab);
+        mFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, TaskEditorActivity.class);
+                startActivity(intent);
+            }
+        });
 
         // [START] need valid intent to proceed
         mTaskId = getIdFromIntent();

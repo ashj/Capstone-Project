@@ -30,6 +30,8 @@
     <string name="task_details_activity_title">Task details</string>
     <string name="tools_task_details_title_text">Todo: something</string>
 
+    <string name="content_description_edit_task_label">Edit task</string>
+
     <!-- History -->
     <string name="history_activity_title">History</string>
 
