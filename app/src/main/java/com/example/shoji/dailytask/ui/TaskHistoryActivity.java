@@ -1,6 +1,7 @@
 package com.example.shoji.dailytask.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
@@ -102,8 +103,9 @@ public class TaskHistoryActivity extends AppCompatActivityEx
     // [START] OnClickListener
     @Override
     public void onClickTask(long id) {
-        Toast.makeText(this, "Tapped at "+id, Toast.LENGTH_SHORT).show();
-
+        Intent intent = new Intent(this, TaskDetailActivity.class);
+        intent.putExtra(TaskDetailActivity.EXTRA_TASK_ID, id);
+        startActivity(intent);
     }
 
     @Override
