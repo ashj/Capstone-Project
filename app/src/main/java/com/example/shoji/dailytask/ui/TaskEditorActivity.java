@@ -21,7 +21,7 @@ import com.example.shoji.dailytask.provider.TaskProvider;
 import timber.log.Timber;
 
 
-public class TaskEditorActivity extends AppCompatActivity
+public class TaskEditorActivity extends AppCompatActivityEx
     implements View.OnClickListener {
 
     private Context mContext;
@@ -39,6 +39,8 @@ public class TaskEditorActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_editor);
 
+        // Set title in action bar
+        getSupportActionBar().setTitle(getString(R.string.menu_add_task_label));
 
         mTitleEditText = findViewById(R.id.task_title_edit_text);
         mDescriptionEditTask = findViewById(R.id.task_description_edit_text);

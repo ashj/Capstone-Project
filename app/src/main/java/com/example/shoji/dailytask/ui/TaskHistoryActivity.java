@@ -19,7 +19,7 @@ import com.example.shoji.dailytask.provider.TaskContentObserver;
 import com.example.shoji.dailytask.provider.TaskContract;
 import com.example.shoji.dailytask.provider.TaskProvider;
 
-public class TaskHistoryActivity extends AppCompatActivity
+public class TaskHistoryActivity extends AppCompatActivityEx
                                  implements LoaderCallBacksListenersInterface<Cursor>,
                                             TaskAdapter.OnClickListener,
                                             TaskContentObserver.OnChangeListener {
@@ -34,6 +34,9 @@ public class TaskHistoryActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_history);
+
+        // Set title in action bar
+        getSupportActionBar().setTitle(getString(R.string.menu_history_label));
 
         final Context context = this;
 

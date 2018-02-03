@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.MainActivity"
+        <activity
+            android:name=".ui.MainActivity"
             android:theme="@style/AppThemeNoBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -17,8 +18,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.TaskEditorActivity"
-            android:parentActivityName="com.example.shoji.dailytask.ui.MainActivity">
+        <activity
+            android:name=".ui.TaskEditorActivity"
+            android:parentActivityName=".ui.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.shoji.dailytask.ui.MainActivity" />
@@ -29,15 +31,16 @@
             android:authorities="com.example.shoji.dailytask.provider.tasks"
             android:exported="true" />
 
-        <activity android:name=".ui.SettingsActivity"
-            android:parentActivityName="com.example.shoji.dailytask.ui.MainActivity">
+        <activity
+            android:name=".ui.SettingsActivity"
+            android:parentActivityName=".ui.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.shoji.dailytask.ui.MainActivity" />
         </activity>
-
-        <activity android:name=".ui.TaskHistoryActivity"
-            android:parentActivityName="com.example.shoji.dailytask.ui.MainActivity">
+        <activity
+            android:name=".ui.TaskHistoryActivity"
+            android:parentActivityName=".ui.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.shoji.dailytask.ui.MainActivity" />

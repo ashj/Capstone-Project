@@ -20,6 +20,8 @@
     <string name="menu_history_label">History</string>
     <string name="menu_settings_label">Settings</string>
 
+    <string name="menu_add_task_label">Add a new task</string>
+
     <string name="empty_string"></string>
     <!-- Settings -->
     <string name="pref_daily_notification_key">daily-notification</string>

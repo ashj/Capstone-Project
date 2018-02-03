@@ -8,29 +8,14 @@ import android.view.MenuItem;
 
 import com.example.shoji.dailytask.R;
 
-public class SettingsActivity extends AppCompatActivity {
+public class SettingsActivity extends AppCompatActivityEx {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        // [START] customize action bar
+        // Set title in action bar
         getSupportActionBar().setTitle(getString(R.string.menu_settings_label));
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        // [END] customize action bar
     }
-
-    // [START] customize action bar
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            // Respond to the action bar's Up/Home button
-            case android.R.id.home:
-                NavUtils.navigateUpFromSameTask(this);
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-    // [END] customize action bar
 }
