@@ -74,12 +74,11 @@ public class TaskHistoryActivity extends AppCompatActivityEx
     @Override
     public Cursor onLoadInBackground(Context context, Bundle args) {
         String[] projection = null;
-        // Select not concluded tasks
-        // TODO update the query
+        // Select concluded tasks
         String selection = TaskContract.COLUMN_IS_CONCLUDED + " IS " + TaskContract.CONCLUDED;
         String[] selectionArgs = null;
-        // Sort by priority (first: high, last: low)
-        String sortOrder = TaskContract.COLUMN_PRIORITY + " DESC";
+        // Sort by concluded date (most recent concluded tasks on top)
+        String sortOrder = TaskContract.COLUMN_CONCLUDED_DATE + " DESC";
 
         Cursor cursor = getContentResolver().query(TaskProvider.Tasks.CONTENT_URI,
                 projection,
