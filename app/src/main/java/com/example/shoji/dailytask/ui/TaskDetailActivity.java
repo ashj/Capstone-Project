@@ -15,13 +15,15 @@ import android.widget.Toast;
 import com.example.shoji.dailytask.R;
 import com.example.shoji.dailytask.background.LoaderCallBacksListenersInterface;
 import com.example.shoji.dailytask.background.LoaderIds;
+import com.example.shoji.dailytask.provider.TaskContentObserver;
 import com.example.shoji.dailytask.provider.TaskContract;
 import com.example.shoji.dailytask.provider.TaskProvider;
 
 import timber.log.Timber;
 
 public class TaskDetailActivity extends AppCompatActivityEx
-                                implements LoaderCallBacksListenersInterface<Cursor> {
+                                implements LoaderCallBacksListenersInterface<Cursor>,
+                                           TaskContentObserver.OnChangeListener {
 
     public static final String EXTRA_TASK_ID = "extra-task-id";
 
@@ -31,6 +33,7 @@ public class TaskDetailActivity extends AppCompatActivityEx
     private FloatingActionButton mFab;
 
     private Cursor mCursor;
+    private static TaskContentObserver sTaskContentObserver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +68,11 @@ public class TaskDetailActivity extends AppCompatActivityEx
         // [END] use FAB to open a task to edit
 
         initTaskLoader(LoaderIds.LOADER_ID_GET_TASKS_DETAIL);
+
+        // [START] ContentObserver
+        TaskContentObserver.OnChangeListener onChangeListener = this;
+        sTaskContentObserver = new TaskContentObserver(getContentResolver(), onChangeListener);
+        // [END] ContentObserver
     }
 
     // [START] need valid intent to proceed
@@ -141,4 +149,31 @@ public class TaskDetailActivity extends AppCompatActivityEx
 
     }
     // [END] implements LoaderCallBacksListenersInterface<Cursor>
+
+
+
+    // [START] ContentObserver
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        if(sTaskContentObserver != null) {
+            sTaskContentObserver.register();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        if(sTaskContentObserver != null) {
+            sTaskContentObserver.unregister();
+        }
+    }
+
+    @Override
+    public void onChange() {
+        initTaskLoader(LoaderIds.LOADER_ID_GET_TASKS_DETAIL);
+    }
+    // [END] ContentObserver
 }
