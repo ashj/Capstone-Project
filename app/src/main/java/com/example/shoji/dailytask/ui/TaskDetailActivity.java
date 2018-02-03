@@ -9,6 +9,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.text.format.DateUtils;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,6 +18,7 @@ import com.example.shoji.dailytask.R;
 import com.example.shoji.dailytask.background.LoaderIds;
 import com.example.shoji.dailytask.background.LoaderTaskDeleteById;
 import com.example.shoji.dailytask.background.LoaderTaskGetById;
+import com.example.shoji.dailytask.background.LoaderTaskSetConcludedById;
 import com.example.shoji.dailytask.background.LoaderUtils;
 import com.example.shoji.dailytask.provider.TaskContentObserver;
 import com.example.shoji.dailytask.provider.TaskContract;
@@ -47,6 +49,17 @@ public class TaskDetailActivity extends AppCompatActivityEx
 
     private Cursor mCursor;
     private static TaskContentObserver sTaskContentObserver;
+
+    // [START] Check from which screen we came from
+    private static final int DETAIL_FROM_MAIN = 0;
+    private static final int DETAIL_FROM_HISTORY = 1;
+    private int mDetailFrom;
+    // [END] Check from which screen we came from
+
+    // [START] Detail screen buttons
+    private Button mMarkAsDoneButton;
+
+    // [END] Detail screen buttons
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +115,11 @@ public class TaskDetailActivity extends AppCompatActivityEx
         TaskContentObserver.OnChangeListener onChangeListener = this;
         sTaskContentObserver = new TaskContentObserver(getContentResolver(), onChangeListener);
         // [END] ContentObserver
+
+        // [START] Detail screen buttons
+        mMarkAsDoneButton = findViewById(R.id.mark_as_done_button);
+
+        // [END] Detail screen buttons
     }
 
     // [START] need valid intent to proceed
@@ -173,7 +191,20 @@ public class TaskDetailActivity extends AppCompatActivityEx
 
         mCursor.moveToPosition(0);
 
-        int index = mCursor.getColumnIndex(TaskContract.COLUMN_TITLE);
+
+        // [START] Check from which screen we came from
+        int index = mCursor.getColumnIndex(TaskContract.COLUMN_IS_CONCLUDED);
+        long concluded = mCursor.getLong(index);
+
+        if(concluded == TaskContract.NOT_CONCLUDED) {
+            mDetailFrom = DETAIL_FROM_MAIN;
+        }
+        else {
+            mDetailFrom = DETAIL_FROM_HISTORY;
+        }
+        // [END] Check from which screen we came from
+
+        index = mCursor.getColumnIndex(TaskContract.COLUMN_TITLE);
         String title = mCursor.getString(index);
 
         index = mCursor.getColumnIndex(TaskContract.COLUMN_DESCRIPTION);
@@ -181,9 +212,6 @@ public class TaskDetailActivity extends AppCompatActivityEx
 
         index = mCursor.getColumnIndex(TaskContract.COLUMN_PRIORITY);
         String priority = mCursor.getString(index);
-
-        index = mCursor.getColumnIndex(TaskContract.COLUMN_IS_CONCLUDED);
-        long concluded = mCursor.getLong(index);
 
         index = mCursor.getColumnIndex(TaskContract.COLUMN_CONCLUDED_DATE);
         long concluded_date = mCursor.getLong(index);
@@ -197,15 +225,57 @@ public class TaskDetailActivity extends AppCompatActivityEx
         StringBuilder sb = new StringBuilder();
         sb.append("Task: ").append(title)
                 .append("\nDescr: ").append(description)
-                .append("\nPriority: P").append(priority)
-                .append("\nConcluded?: ").append(concluded)
-                .append("\nConcluded Date: ").append(concluded_date)
-                .append("\nConcluded Date: ").append(dateStr);
+                .append("\nPriority: P").append(priority);
+
+        if(mDetailFrom == DETAIL_FROM_HISTORY) {
+            sb.append("\nConcluded Date: ").append(concluded_date)
+                    .append("\nConcluded Date: ").append(dateStr);
+        }
+
         mTaskTitleTextView.setText(sb.toString());
 
 
+        // [START] Detail screen buttons
+        bindDetailButtons();
+        // [END] Detail screen buttons
     }
     // [END] get task by id
+
+
+
+
+    // [START] Detail screen buttons
+    private void bindDetailButtons() {
+        if(mDetailFrom == DETAIL_FROM_MAIN) {
+            mMarkAsDoneButton.setVisibility(View.VISIBLE);
+            mMarkAsDoneButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // [START] mark test as done
+                    Bundle args = new Bundle();
+                    args.putLong(LoaderTaskSetConcludedById.EXTRA_TASK_ID, mTaskId);
+                    args.putLong(LoaderTaskSetConcludedById.EXTRA_TASK_CONCLUDED_STATE, TaskContract.CONCLUDED);
+
+                    LoaderTaskSetConcludedById.OnTaskSetStateListener listener = new OnTaskSetStateListener();
+                    LoaderTaskSetConcludedById loaderTaskSetConcludedById = new LoaderTaskSetConcludedById(listener);
+
+                    initTaskLoader(LoaderIds.LOADER_ID_GET_TASKS_UPDATE_MAIN, args, loaderTaskSetConcludedById);
+                    // [END] mark test as done
+                }
+            });
+        }
+
+    }
+    private class OnTaskSetStateListener implements LoaderTaskSetConcludedById.OnTaskSetStateListener {
+        @Override
+        public void onTaskSetState(Integer integer) {
+            if(integer != null && integer == 1) {
+                Toast.makeText(mContext, R.string.task_details_task_marked_as_done, Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        }
+    }
+    // [END] Detail screen buttons
 
 
 

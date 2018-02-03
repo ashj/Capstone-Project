@@ -165,7 +165,7 @@ public class MainActivity extends AppCompatActivityEx
 
     @Override
     public void onClickDoneTask(long id) {
-        // [START] mask test as done
+        // [START] mark test as done
         Bundle args = new Bundle();
         args.putLong(LoaderTaskSetConcludedById.EXTRA_TASK_ID, id);
         args.putLong(LoaderTaskSetConcludedById.EXTRA_TASK_CONCLUDED_STATE, TaskContract.CONCLUDED);
@@ -174,13 +174,14 @@ public class MainActivity extends AppCompatActivityEx
         LoaderTaskSetConcludedById loaderTaskSetConcludedById = new LoaderTaskSetConcludedById(listener);
 
         initTaskLoader(LoaderIds.LOADER_ID_GET_TASKS_UPDATE_MAIN, args, loaderTaskSetConcludedById);
-        // [END] mask test as done
+        // [END] mark test as done
     }
 
     // [START] mask test as done
     @Override
     public void onTaskSetState(Integer integer) {
-        Toast.makeText(this, R.string.main_activity_task_marked_as_done, Toast.LENGTH_SHORT).show();
+        if(integer != null && integer == 1)
+            Toast.makeText(this, R.string.main_activity_task_marked_as_done, Toast.LENGTH_SHORT).show();
     }
     // [END] mask test as done
     // [END] OnClickListener
