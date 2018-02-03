@@ -6,14 +6,18 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.Loader;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.shoji.dailytask.R;
 import com.example.shoji.dailytask.background.LoaderCallBacksListenersInterface;
 import com.example.shoji.dailytask.background.LoaderIds;
+import com.example.shoji.dailytask.background.LoaderTaskDeleteById;
+import com.example.shoji.dailytask.background.LoaderUtils;
 import com.example.shoji.dailytask.provider.TaskContentObserver;
 import com.example.shoji.dailytask.provider.TaskContract;
 import com.example.shoji.dailytask.provider.TaskProvider;
@@ -22,11 +26,14 @@ import timber.log.Timber;
 
 public class TaskDetailActivity extends AppCompatActivityEx
                                 implements LoaderCallBacksListenersInterface<Cursor>,
-                                           TaskContentObserver.OnChangeListener {
+                                           TaskContentObserver.OnChangeListener,
+                                           LoaderTaskDeleteById.OnTaskDeletedListener {
 
     public static final String EXTRA_TASK_ID = "extra-task-id";
 
     private long mTaskId;
+    private Context mContext;
+
     private ProgressBar mProgressBar;
     private TextView mTaskTitleTextView;
     private FloatingActionButton mFabEdit;
@@ -40,7 +47,7 @@ public class TaskDetailActivity extends AppCompatActivityEx
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_detail);
 
-        final Context context = this;
+        mContext = this;
 
         // Set title in action bar
         getSupportActionBar().setTitle(getString(R.string.task_details_activity_title));
@@ -60,7 +67,7 @@ public class TaskDetailActivity extends AppCompatActivityEx
         mFabEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, TaskEditorActivity.class);
+                Intent intent = new Intent(mContext, TaskEditorActivity.class);
                 intent.putExtra(TaskEditorActivity.EXTRA_TASK_ID, mTaskId);
                 startActivity(intent);
             }
@@ -72,7 +79,7 @@ public class TaskDetailActivity extends AppCompatActivityEx
         mFabDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDeleteDialog(context);
+                showDeleteDialog();
             }
         });
         // [END] use FAB to delete the task
@@ -97,14 +104,28 @@ public class TaskDetailActivity extends AppCompatActivityEx
     }
     // [END] need valid intent to proceed
 
+
+
     // [START] use FAB to delete the task
-    private void showDeleteDialog(Context context) {
+    private void showDeleteDialog() {
+        final LoaderTaskDeleteById.OnTaskDeletedListener listener = this;
+        final LoaderTaskDeleteById loaderTaskDeleteById = new LoaderTaskDeleteById(listener);
+
         DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 switch (which){
                     case DialogInterface.BUTTON_POSITIVE:
                         //Yes button clicked
+                        // [START] Delete this task in a Loader
+                        Bundle args = new Bundle();
+                        args.putLong(LoaderTaskDeleteById.EXTRA_TASK_ID, mTaskId);
+                        LoaderUtils.initTaskDeleteLoader(mContext,
+                                               LoaderIds.LOADER_ID_GET_TASKS_DELETE,
+                                               args,
+                                               getSupportLoaderManager(),
+                                               loaderTaskDeleteById);
+                        // [END] Delete this task in a Loader
                         break;
 
                     case DialogInterface.BUTTON_NEGATIVE:
@@ -116,7 +137,7 @@ public class TaskDetailActivity extends AppCompatActivityEx
             }
         };
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
         builder.setMessage(R.string.task_details_delete_task_prompt)
                 .setPositiveButton(R.string.task_details_delete_task_positive, dialogClickListener)
                 .setNegativeButton(R.string.task_details_delete_task_negative, dialogClickListener)
@@ -213,4 +234,21 @@ public class TaskDetailActivity extends AppCompatActivityEx
         initTaskLoader(LoaderIds.LOADER_ID_GET_TASKS_DETAIL);
     }
     // [END] ContentObserver
+
+
+
+
+    // [START] Delete this task in a Loader
+    @Override
+    public void onTaskDeleted(Integer integer) {
+        if(integer == null || integer != 1) {
+            Timber.d("Deleted task failed!");
+        }
+        else {
+            Timber.d("Deleted task!");
+            Toast.makeText(mContext, R.string.task_details_delete_task_success, Toast.LENGTH_SHORT).show();
+            finish();
+        }
+    }
+    // [END] Delete this task in a Loader
 }

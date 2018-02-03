@@ -21,6 +21,20 @@ public class LoaderUtils {
                     args, callback);
         }
     }
+    public static void initTaskDeleteLoader(Context context,
+                                  int loaderId,
+                                  Bundle args,
+                                  LoaderManager loaderManager,
+                                  LoaderCallBacksListenersInterface<Integer> loaderCallBacksListener) {
+        LoaderCallBacksEx<Integer> loaderCallBacks =
+                new LoaderCallBacksEx<>(context, loaderCallBacksListener);
+
+        initOrRestartLoader(
+                loaderId,
+                args,
+                loaderManager,
+                loaderCallBacks);
+    }
     public static void initLoader(Context context,
                                   int loaderId,
                                   Bundle args,

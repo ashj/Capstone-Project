@@ -39,6 +39,8 @@
     <string name="task_details_delete_task_positive">Yes</string>
     <string name="task_details_delete_task_negative">No</string>
 
+    <string name="task_details_delete_task_success">Task deleted</string>
+
     <!-- History -->
     <string name="history_activity_title">History</string>
 
