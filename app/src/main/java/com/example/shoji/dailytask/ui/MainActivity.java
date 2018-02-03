@@ -154,8 +154,9 @@ public class MainActivity extends AppCompatActivityEx
     // [START] OnClickListener
     @Override
     public void onClickTask(long id) {
-        Toast.makeText(this, "Tapped at "+id, Toast.LENGTH_SHORT).show();
-
+        Intent intent = new Intent(this, TaskDetailActivity.class);
+        intent.putExtra(TaskDetailActivity.EXTRA_TASK_ID, id);
+        startActivity(intent);
     }
 
     @Override

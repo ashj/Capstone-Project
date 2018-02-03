@@ -45,6 +45,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.shoji.dailytask.ui.MainActivity" />
         </activity>
+        <activity android:name=".ui.TaskDetailActivity"></activity>
     </application>
 
 </manifest>
