@@ -92,5 +92,5 @@
         app:layout_anchorGravity="bottom|end"
         app:srcCompat="@android:drawable/ic_input_add"
         android:tint="@android:color/white"
-        android:contentDescription="@string/menu_add_task_label" />
+        android:contentDescription="@string/content_description_add_task_label" />
 </android.support.design.widget.CoordinatorLayout>

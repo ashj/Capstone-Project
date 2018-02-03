@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Daily Ten-Minutes Tasks</string>
 
+    <!-- Task Editor -->
+    <string name="task_editor_activity_title_add">Add a new task</string>
+
     <string name="new_task_hint_title">Task title</string>
     <string name="new_task_descr_title">Task description</string>
 
@@ -17,18 +20,23 @@
     <string name="validate_task_error_title">Write something to do</string>
     <string name="validate_task_error_description">Something is wrong with this description.</string>
 
-    <string name="menu_history_label">History</string>
-    <string name="menu_settings_label">Settings</string>
+    <!-- Main activity -->
+    <string name="menu_history_label">@string/history_activity_title</string>
+    <string name="menu_settings_label">@string/settings_activity_title</string>
 
-    <string name="menu_add_task_label">Add a new task</string>
+    <string name="content_description_add_task_label">Add a new task</string>
 
     <!-- Task details -->
     <string name="task_details_activity_title">Task details</string>
     <string name="tools_task_details_title_text">Todo: something</string>
 
+    <!-- History -->
+    <string name="history_activity_title">History</string>
 
-    <string name="empty_string"></string>
     <!-- Settings -->
+    <string name="empty_string"></string>
+
+    <string name="settings_activity_title">Settings</string>
     <string name="pref_daily_notification_key">daily-notification</string>
     <string name="pref_daily_notification_summaryOff">Disabled</string>
     <string name="pref_daily_notification_summaryOn">Enabled</string>

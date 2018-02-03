@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Task Editor -->
     <string-array name="priority_label_array">
         <item>@string/priority_label_low</item>
         <item>@string/priority_label_normal</item>

@@ -12,6 +12,6 @@ public class SettingsActivity extends AppCompatActivityEx {
         setContentView(R.layout.activity_settings);
 
         // Set title in action bar
-        getSupportActionBar().setTitle(getString(R.string.menu_settings_label));
+        getSupportActionBar().setTitle(getString(R.string.settings_activity_title));
     }
 }

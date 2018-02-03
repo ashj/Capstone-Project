@@ -40,7 +40,7 @@ public class TaskEditorActivity extends AppCompatActivityEx
         setContentView(R.layout.activity_task_editor);
 
         // Set title in action bar
-        getSupportActionBar().setTitle(getString(R.string.menu_add_task_label));
+        getSupportActionBar().setTitle(getString(R.string.task_editor_activity_title_add));
 
         mTitleEditText = findViewById(R.id.task_title_edit_text);
         mDescriptionEditTask = findViewById(R.id.task_description_edit_text);
