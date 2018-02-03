@@ -7,7 +7,6 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.LoaderManager;
 import android.support.v4.util.Pair;
 import android.view.View;
 import android.widget.Button;
@@ -20,7 +19,6 @@ import android.widget.Toast;
 import com.example.shoji.dailytask.R;
 import com.example.shoji.dailytask.background.LoaderIds;
 import com.example.shoji.dailytask.background.LoaderTaskGetById;
-import com.example.shoji.dailytask.background.LoaderUtils;
 import com.example.shoji.dailytask.provider.TaskContract;
 import com.example.shoji.dailytask.provider.TaskProvider;
 
@@ -36,6 +34,12 @@ public class TaskEditorActivity extends AppCompatActivityEx
 
     private long mTaskId;
     private Context mContext;
+
+    // [START] get task by id
+    private Bundle mBundle;
+    LoaderTaskGetById.OnTaskGetByIdListener mListener;
+    LoaderTaskGetById mLoaderTaskGetById;
+    // [END] get task by id
 
     private ProgressBar mProgressBar;
     private EditText mTitleEditText;
@@ -95,7 +99,13 @@ public class TaskEditorActivity extends AppCompatActivityEx
             getSupportActionBar().setTitle(getString(R.string.task_editor_activity_title_edit));
             mButton.setText(R.string.button_task_edit);
 
-            initTaskLoader(LoaderIds.LOADER_ID_GET_TASKS_EDIT);
+            // [START] get task by id
+            mBundle = new Bundle();
+            mBundle.putLong(LoaderTaskGetById.EXTRA_TASK_ID, mTaskId);
+            mListener = this;
+            mLoaderTaskGetById = new LoaderTaskGetById(mListener);
+            initTaskLoader(LoaderIds.LOADER_ID_GET_TASKS_EDIT, mBundle, mLoaderTaskGetById);
+            // [END] get task by id
         }
         // [END] Check if it is a task to edit or a new one
 
@@ -242,19 +252,6 @@ public class TaskEditorActivity extends AppCompatActivityEx
     // [END] Check if it is a task to edit or a new one
 
     // [START] get task by id
-    protected void initTaskLoader(int loaderId) {
-        Context context = this;
-
-        LoaderManager loaderManager = getSupportLoaderManager();
-        LoaderTaskGetById.OnTaskGetByIdListener listener = this;
-
-        Bundle args = new Bundle();
-        args.putLong(LoaderTaskGetById.EXTRA_TASK_ID, mTaskId);
-
-        LoaderTaskGetById loaderTaskGetById = new LoaderTaskGetById(listener);
-        LoaderUtils.initLoader(context, loaderId, args, loaderManager, loaderTaskGetById);
-    }
-
     @Override
     public void onStartLoading(Context context) {
         mProgressBar.setVisibility(View.VISIBLE);

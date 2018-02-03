@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.LoaderManager;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -92,7 +91,7 @@ public class TaskDetailActivity extends AppCompatActivityEx
 
         // [START] get task by id
         mBundle = new Bundle();
-        mBundle.putLong(LoaderTaskDeleteById.EXTRA_TASK_ID, mTaskId);
+        mBundle.putLong(LoaderTaskGetById.EXTRA_TASK_ID, mTaskId);
         mListener = this;
         mLoaderTaskGetById = new LoaderTaskGetById(mListener);
         initTaskLoader(LoaderIds.LOADER_ID_GET_TASKS_DETAIL, mBundle, mLoaderTaskGetById);
