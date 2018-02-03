@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.shoji.dailytask.BuildConfig;
@@ -32,14 +33,13 @@ public class MainActivity extends AppCompatActivity
                                      TaskContentObserver.OnChangeListener {
 
     private Toolbar mToolbar;
+    private ProgressBar mProgressBar;
     private TaskAdapter mTaskAdapter;
     private RecyclerView mRecyclerView;
     private FloatingActionButton mFab;
-
     private static TaskContentObserver sTaskContentObserver;
-
-
     private Cursor mCursor;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         if(savedInstanceState == null) {
@@ -55,6 +55,8 @@ public class MainActivity extends AppCompatActivity
 
         mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
+
+        mProgressBar = findViewById(R.id.progressbar);
 
         mRecyclerView = findViewById(R.id.recycler_view);
         LinearLayoutManager lym =
@@ -126,7 +128,9 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onStartLoading(Context context) { }
+    public void onStartLoading(Context context) {
+        mProgressBar.setVisibility(View.VISIBLE);
+    }
 
     @Override
     public Cursor onLoadInBackground(Context context, Bundle args) {
@@ -147,6 +151,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onLoadFinished(Context context, Cursor cursor) {
+        mProgressBar.setVisibility(View.INVISIBLE);
         mCursor = cursor;
         mTaskAdapter.swapCursor(mCursor);
     }

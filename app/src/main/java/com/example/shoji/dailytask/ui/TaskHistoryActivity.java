@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.shoji.dailytask.R;
@@ -22,6 +24,7 @@ public class TaskHistoryActivity extends AppCompatActivity
                                             TaskAdapter.OnClickListener,
                                             TaskContentObserver.OnChangeListener {
 
+    private ProgressBar mProgressBar;
     private TaskAdapter mTaskAdapter;
     private RecyclerView mRecyclerView;
     private static TaskContentObserver sTaskContentObserver;
@@ -33,6 +36,8 @@ public class TaskHistoryActivity extends AppCompatActivity
         setContentView(R.layout.activity_task_history);
 
         final Context context = this;
+
+        mProgressBar = findViewById(R.id.progressbar);
 
         mRecyclerView = findViewById(R.id.recycler_view);
         LinearLayoutManager lym =
@@ -65,7 +70,9 @@ public class TaskHistoryActivity extends AppCompatActivity
     }
 
     @Override
-    public void onStartLoading(Context context) { }
+    public void onStartLoading(Context context) {
+        mProgressBar.setVisibility(View.VISIBLE);
+    }
 
     @Override
     public Cursor onLoadInBackground(Context context, Bundle args) {
@@ -87,6 +94,7 @@ public class TaskHistoryActivity extends AppCompatActivity
 
     @Override
     public void onLoadFinished(Context context, Cursor cursor) {
+        mProgressBar.setVisibility(View.INVISIBLE);
         mCursor = cursor;
         mTaskAdapter.swapCursor(mCursor);
     }
