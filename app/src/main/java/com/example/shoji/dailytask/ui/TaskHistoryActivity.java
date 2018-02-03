@@ -1,21 +1,14 @@
 package com.example.shoji.dailytask.ui;
 
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
-import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.LoaderManager;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
-import com.example.shoji.dailytask.BuildConfig;
 import com.example.shoji.dailytask.R;
 import com.example.shoji.dailytask.adapter.TaskAdapter;
 import com.example.shoji.dailytask.background.LoaderCallBacksListenersInterface;
@@ -24,53 +17,27 @@ import com.example.shoji.dailytask.provider.TaskContentObserver;
 import com.example.shoji.dailytask.provider.TaskContract;
 import com.example.shoji.dailytask.provider.TaskProvider;
 
-import timber.log.Timber;
+public class TaskHistoryActivity extends AppCompatActivity
+                                 implements LoaderCallBacksListenersInterface<Cursor>,
+                                            TaskAdapter.OnClickListener,
+                                            TaskContentObserver.OnChangeListener {
 
-public class MainActivity extends AppCompatActivity
-                          implements LoaderCallBacksListenersInterface<Cursor>,
-                                     TaskAdapter.OnClickListener,
-                                     TaskContentObserver.OnChangeListener {
-
-    private Toolbar mToolbar;
     private TaskAdapter mTaskAdapter;
     private RecyclerView mRecyclerView;
-    private FloatingActionButton mFab;
-
     private static TaskContentObserver sTaskContentObserver;
-
-
     private Cursor mCursor;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if(savedInstanceState == null) {
-            if(BuildConfig.DEBUG)
-                Timber.plant(new Timber.DebugTree());
-            Timber.d("Logging With Timber");
-        }
-
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_task_history);
 
         final Context context = this;
-
-        mToolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(mToolbar);
 
         mRecyclerView = findViewById(R.id.recycler_view);
         LinearLayoutManager lym =
                 new LinearLayoutManager(context);
         mRecyclerView.setLayoutManager(lym);
-
-        mFab = findViewById(R.id.fab);
-
-
-        mFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, TaskEditorActivity.class);
-                startActivity(intent);
-            }
-        });
 
         // [START] Adapter initialization
         TaskAdapter.OnClickListener onClickListener = this;
@@ -89,34 +56,6 @@ public class MainActivity extends AppCompatActivity
         // [END] ContentObserver
     }
 
-    // [START] Toolbar - inflate and item selected
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_main_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if(id == R.id.action_history) {
-            Intent intent = new Intent(this, TaskHistoryActivity.class);
-            startActivity(intent);
-            return true;
-        }
-        else if(id == R.id.action_settings) {
-            Intent intent = new Intent(this, SettingsActivity.class);
-            startActivity(intent);
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-    // [END] Toolbar - inflate and item selected
-
-
-
-
     // [START] implements LoaderCallBacksListenersInterface<Cursor>
     private void doQueryTasks() {
         Context context = this;
@@ -132,6 +71,7 @@ public class MainActivity extends AppCompatActivity
     public Cursor onLoadInBackground(Context context, Bundle args) {
         String[] projection = null;
         // Select not concluded tasks
+        // TODO update the query
         String selection = TaskContract.COLUMN_IS_CONCLUDED + " IS " + TaskContract.NOT_CONCLUDED;
         String[] selectionArgs = null;
         // Sort by priority (first: high, last: low)
@@ -194,7 +134,4 @@ public class MainActivity extends AppCompatActivity
         doQueryTasks();
     }
     // [END] ContentObserver
-
-
-
 }
