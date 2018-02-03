@@ -40,27 +40,13 @@ public class LoaderTaskSetConcludedById implements LoaderCallBacksListenersInter
 
             String selection = TaskContract._ID + " IS " + id;
 
-            // [START] Set task conclusion date
+            // [START] Set task conclusion state and date
             ContentValues cv = new ContentValues();
             cv.put(TaskContract.COLUMN_IS_CONCLUDED, concludedState);
 
-
-            // reset the conclusion date if marking as not concluded
-            // otherwise, use current time
-            long concludedDate = TaskContract.NOT_CONCLUDED;
-            if(concludedState == TaskContract.CONCLUDED) {
-                concludedDate = System.currentTimeMillis();
-
-                int flags = DateUtils.FORMAT_SHOW_DATE
-                        | DateUtils.FORMAT_SHOW_TIME;
-
-                String dateStr = DateUtils.formatDateTime(context, concludedDate, flags);
-
-                Timber.d("Current UTC Date: %d", concludedDate);
-                Timber.d("Current UTC String: %s", dateStr);
-            }
-            cv.put(TaskContract.COLUMN_CONCLUDED_DATE, concludedDate);
-            // [END] Set task conclusion date
+            long modificationDate = System.currentTimeMillis();
+            cv.put(TaskContract.COLUMN_CONCLUDED_DATE, modificationDate);
+            // [END] Set task conclusion tate and date
 
             int rows = context.getContentResolver().update(TaskProvider.Tasks.CONTENT_URI, cv, selection, null);
 

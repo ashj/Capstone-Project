@@ -134,7 +134,8 @@ public class MainActivity extends AppCompatActivityEx
         String selection = TaskContract.COLUMN_IS_CONCLUDED + " IS " + TaskContract.NOT_CONCLUDED;
         String[] selectionArgs = null;
         // Sort by priority (first: high, last: low)
-        String sortOrder = TaskContract.COLUMN_PRIORITY + " DESC";
+        String sortOrder = TaskContract.COLUMN_PRIORITY + " DESC"
+                            + " , " + TaskContract.COLUMN_CONCLUDED_DATE + " ASC";
 
         Cursor cursor = getContentResolver().query(TaskProvider.Tasks.CONTENT_URI,
                 projection,

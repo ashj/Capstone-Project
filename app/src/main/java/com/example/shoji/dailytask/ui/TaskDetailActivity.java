@@ -214,11 +214,11 @@ public class TaskDetailActivity extends AppCompatActivityEx
         String priority = mCursor.getString(index);
 
         index = mCursor.getColumnIndex(TaskContract.COLUMN_CONCLUDED_DATE);
-        long concluded_date = mCursor.getLong(index);
+        long modification_date = mCursor.getLong(index);
 
         int flags = DateUtils.FORMAT_SHOW_DATE
                 | DateUtils.FORMAT_SHOW_TIME;
-        String dateStr = DateUtils.formatDateTime(mContext, concluded_date, flags);
+        String dateStr = DateUtils.formatDateTime(mContext, modification_date, flags);
 
         mCursor.close();
 
@@ -228,8 +228,8 @@ public class TaskDetailActivity extends AppCompatActivityEx
                 .append("\nPriority: P").append(priority);
 
         if(mDetailFrom == DETAIL_FROM_HISTORY) {
-            sb.append("\nConcluded Date: ").append(concluded_date)
-                    .append("\nConcluded Date: ").append(dateStr);
+            sb.append("\nModification Date: ").append(modification_date)
+                    .append("\nModification Date: ").append(dateStr);
         }
 
         mTaskTitleTextView.setText(sb.toString());
