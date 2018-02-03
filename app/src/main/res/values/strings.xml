@@ -49,7 +49,6 @@
     <string name="history_activity_title">History</string>
 
     <string name="tools_history_viewholder_title">@string/tools_task_details_title_text</string>
-    <string name="history_viewholder_modified_date">Completed in:</string>
     <string name="tools_history_viewholder_modified_date">01/01/1999</string>
 
     <!-- Settings -->
