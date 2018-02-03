@@ -6,9 +6,9 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.support.v4.util.Pair;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.util.Pair;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,6 +19,8 @@ import android.widget.Toast;
 
 import com.example.shoji.dailytask.R;
 import com.example.shoji.dailytask.background.LoaderIds;
+import com.example.shoji.dailytask.background.LoaderTaskGetById;
+import com.example.shoji.dailytask.background.LoaderUtils;
 import com.example.shoji.dailytask.provider.TaskContract;
 import com.example.shoji.dailytask.provider.TaskProvider;
 
@@ -28,7 +30,8 @@ import timber.log.Timber;
 
 
 public class TaskEditorActivity extends AppCompatActivityEx
-    implements View.OnClickListener {
+    implements View.OnClickListener,
+               LoaderTaskGetById.OnTaskGetByIdListener{
     public static final String EXTRA_TASK_ID = "extra-task-id";
 
     private long mTaskId;
@@ -147,6 +150,7 @@ public class TaskEditorActivity extends AppCompatActivityEx
         return retValue;
     }
 
+
     private void performActionIntoDatabase() {
         insertIntoDb();
     }
@@ -237,30 +241,28 @@ public class TaskEditorActivity extends AppCompatActivityEx
     }
     // [END] Check if it is a task to edit or a new one
 
-    // [START] implements LoaderCallBacksListenersInterface<Cursor>
+    // [START] get task by id
+    @Override
+    protected void initTaskLoader(int loaderId) {
+        Context context = this;
+
+        LoaderManager loaderManager = getSupportLoaderManager();
+        LoaderTaskGetById.OnTaskGetByIdListener listener = this;
+
+        Bundle args = new Bundle();
+        args.putLong(LoaderTaskGetById.EXTRA_TASK_ID, mTaskId);
+
+        LoaderTaskGetById loaderTaskGetById = new LoaderTaskGetById(listener);
+        LoaderUtils.initLoader(context, loaderId, args, loaderManager, loaderTaskGetById);
+    }
+
     @Override
     public void onStartLoading(Context context) {
         mProgressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
-    public Cursor onLoadInBackground(Context context, Bundle args) {
-        String[] projection = null;
-        // Select by taskId
-        String selection = TaskContract._ID + " IS " + mTaskId;
-        String[] selectionArgs = null;
-        String sortOrder = null;
-
-        Cursor cursor = getContentResolver().query(TaskProvider.Tasks.CONTENT_URI,
-                projection,
-                selection,
-                selectionArgs,
-                sortOrder);
-        return cursor;
-    }
-
-    @Override
-    public void onLoadFinished(Context context, Cursor cursor) {
+    public void onLoadFinished(Cursor cursor) {
         mProgressBar.setVisibility(View.INVISIBLE);
 
         if(cursor == null || cursor.getCount() != 1)
@@ -307,5 +309,5 @@ public class TaskEditorActivity extends AppCompatActivityEx
 
 
     }
-    // [END] implements LoaderCallBacksListenersInterface<Cursor>
+    // [END] get task by id
 }

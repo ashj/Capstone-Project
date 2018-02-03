@@ -7,7 +7,6 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.LoaderManager;
-import android.support.v4.content.Loader;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -15,14 +14,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.shoji.dailytask.R;
-import com.example.shoji.dailytask.background.LoaderCallBacksListenersInterface;
 import com.example.shoji.dailytask.background.LoaderIds;
 import com.example.shoji.dailytask.background.LoaderTaskDeleteById;
 import com.example.shoji.dailytask.background.LoaderTaskGetById;
 import com.example.shoji.dailytask.background.LoaderUtils;
 import com.example.shoji.dailytask.provider.TaskContentObserver;
 import com.example.shoji.dailytask.provider.TaskContract;
-import com.example.shoji.dailytask.provider.TaskProvider;
 
 import timber.log.Timber;
 
@@ -123,7 +120,7 @@ public class TaskDetailActivity extends AppCompatActivityEx
                         // [START] Delete this task in a Loader
                         Bundle args = new Bundle();
                         args.putLong(LoaderTaskDeleteById.EXTRA_TASK_ID, mTaskId);
-                        LoaderUtils.initTaskDeleteLoader(mContext,
+                        LoaderUtils.initLoader(mContext,
                                                LoaderIds.LOADER_ID_GET_TASKS_DELETE,
                                                args,
                                                getSupportLoaderManager(),

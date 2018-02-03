@@ -21,26 +21,13 @@ public class LoaderUtils {
                     args, callback);
         }
     }
-    public static void initTaskDeleteLoader(Context context,
-                                  int loaderId,
-                                  Bundle args,
-                                  LoaderManager loaderManager,
-                                  LoaderCallBacksListenersInterface<Integer> loaderCallBacksListener) {
-        LoaderCallBacksEx<Integer> loaderCallBacks =
-                new LoaderCallBacksEx<>(context, loaderCallBacksListener);
 
-        initOrRestartLoader(
-                loaderId,
-                args,
-                loaderManager,
-                loaderCallBacks);
-    }
-    public static void initLoader(Context context,
+    public static <T> void initLoader(Context context,
                                   int loaderId,
                                   Bundle args,
                                   LoaderManager loaderManager,
-                                  LoaderCallBacksListenersInterface<Cursor> loaderCallBacksListener) {
-        LoaderCallBacksEx<Cursor> loaderCallBacks =
+                                  LoaderCallBacksListenersInterface<T> loaderCallBacksListener) {
+        LoaderCallBacksEx<T> loaderCallBacks =
                 new LoaderCallBacksEx<>(context, loaderCallBacksListener);
 
         initOrRestartLoader(
@@ -50,10 +37,10 @@ public class LoaderUtils {
                 loaderCallBacks);
     }
 
-    public static void initLoader(Context context,
+    public static <T> void initLoader(Context context,
                                   int loaderId,
                                   LoaderManager loaderManager,
-                                  LoaderCallBacksListenersInterface<Cursor> loaderCallBacksListener) {
+                                  LoaderCallBacksListenersInterface<T> loaderCallBacksListener) {
 
         initLoader(context, loaderId, null, loaderManager, loaderCallBacksListener);
     }
