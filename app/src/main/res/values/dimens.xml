@@ -17,6 +17,9 @@
     <dimen name="text_size_task_list">24sp</dimen>
     <dimen name="text_size_small">16sp</dimen>
 
+    <!-- Main activity -->
+    <dimen name="activity_main_horizontal_padding">16dp</dimen>
+    <dimen name="activity_main_vertical_padding">12dp</dimen>
     <dimen name="activity_main__padding_bottom">48dp</dimen>
 
     <!-- Style -->
@@ -29,6 +32,6 @@
 
     <!-- History -->
     <dimen name="activity_task_history_horizontal_padding">16dp</dimen>
-    <dimen name="activity_task_history_vertical_padding">12dp</dimen>
+    <dimen name="activity_task_history_vertical_padding">24dp</dimen>
 
 </resources>
