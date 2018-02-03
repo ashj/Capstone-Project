@@ -20,6 +20,8 @@ import com.example.shoji.dailytask.R;
 import com.example.shoji.dailytask.adapter.TaskAdapter;
 import com.example.shoji.dailytask.background.LoaderCallBacksListenersInterface;
 import com.example.shoji.dailytask.background.LoaderIds;
+import com.example.shoji.dailytask.background.LoaderTaskGetById;
+import com.example.shoji.dailytask.background.LoaderTaskSetConcludedById;
 import com.example.shoji.dailytask.provider.TaskContentObserver;
 import com.example.shoji.dailytask.provider.TaskContract;
 import com.example.shoji.dailytask.provider.TaskProvider;
@@ -29,7 +31,8 @@ import timber.log.Timber;
 public class MainActivity extends AppCompatActivityEx
                           implements LoaderCallBacksListenersInterface<Cursor>,
                                      TaskAdapter.OnClickListener,
-                                     TaskContentObserver.OnChangeListener {
+                                     TaskContentObserver.OnChangeListener,
+                                     LoaderTaskSetConcludedById.OnTaskSetStateListener {
 
     private Toolbar mToolbar;
     private ProgressBar mProgressBar;
@@ -162,16 +165,25 @@ public class MainActivity extends AppCompatActivityEx
 
     @Override
     public void onClickDoneTask(long id) {
-        Toast.makeText(this, "Tapped to mark as done "+id, Toast.LENGTH_SHORT).show();
+        // [START] mask test as done
+        Bundle args = new Bundle();
+        args.putLong(LoaderTaskSetConcludedById.EXTRA_TASK_ID, id);
+        args.putInt(LoaderTaskSetConcludedById.EXTRA_TASK_CONCLUDED_STATE, TaskContract.CONCLUDED);
 
-        // TODO do this in background - update concluded_date
-        ContentValues cv = new ContentValues();
-        String where = TaskContract._ID + " IS " + id;
-        cv.put(TaskContract.COLUMN_IS_CONCLUDED, TaskContract.CONCLUDED);
-        getContentResolver().update(TaskProvider.Tasks.CONTENT_URI, cv, where, null);
+        LoaderTaskSetConcludedById.OnTaskSetStateListener listener = this;
+        LoaderTaskSetConcludedById loaderTaskSetConcludedById = new LoaderTaskSetConcludedById(listener);
+
+        initTaskLoader(LoaderIds.LOADER_ID_GET_TASKS_UPDATE_MAIN, args, loaderTaskSetConcludedById);
+        // [END] mask test as done
     }
-    // [END] OnClickListener
 
+    // [START] mask test as done
+    @Override
+    public void onTaskSetState(Integer integer) {
+        Toast.makeText(this, R.string.main_activity_task_marked_as_done, Toast.LENGTH_SHORT).show();
+    }
+    // [END] mask test as done
+    // [END] OnClickListener
 
 
     // [START] ContentObserver

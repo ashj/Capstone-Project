@@ -28,6 +28,8 @@
 
     <string name="content_description_add_task_label">Add a new task</string>
 
+    <string name="main_activity_task_marked_as_done">Completed the task</string>
+
     <!-- Task details -->
     <string name="task_details_activity_title">Task details</string>
     <string name="tools_task_details_title_text">Todo: something</string>
