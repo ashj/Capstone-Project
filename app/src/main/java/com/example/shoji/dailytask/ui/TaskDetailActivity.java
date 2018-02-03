@@ -1,16 +1,15 @@
 package com.example.shoji.dailytask.ui;
 
-import android.app.IntentService;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.shoji.dailytask.R;
 import com.example.shoji.dailytask.background.LoaderCallBacksListenersInterface;
@@ -30,7 +29,8 @@ public class TaskDetailActivity extends AppCompatActivityEx
     private long mTaskId;
     private ProgressBar mProgressBar;
     private TextView mTaskTitleTextView;
-    private FloatingActionButton mFab;
+    private FloatingActionButton mFabEdit;
+    private FloatingActionButton mFabDelete;
 
     private Cursor mCursor;
     private static TaskContentObserver sTaskContentObserver;
@@ -55,9 +55,9 @@ public class TaskDetailActivity extends AppCompatActivityEx
             return;
         // [END] need valid intent to proceed
 
-        // [START] use FAB to open a task to edit
-        mFab = findViewById(R.id.fab);
-        mFab.setOnClickListener(new View.OnClickListener() {
+        // [START] use FAB to open the task to edit
+        mFabEdit = findViewById(R.id.fab_edit);
+        mFabEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, TaskEditorActivity.class);
@@ -65,7 +65,17 @@ public class TaskDetailActivity extends AppCompatActivityEx
                 startActivity(intent);
             }
         });
-        // [END] use FAB to open a task to edit
+        // [END] use FAB to open the task to edit
+
+        // [START] use FAB to delete the task
+        mFabDelete = findViewById(R.id.fab_delete);
+        mFabDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDeleteDialog(context);
+            }
+        });
+        // [END] use FAB to delete the task
 
         initTaskLoader(LoaderIds.LOADER_ID_GET_TASKS_DETAIL);
 
@@ -86,6 +96,33 @@ public class TaskDetailActivity extends AppCompatActivityEx
         return id;
     }
     // [END] need valid intent to proceed
+
+    // [START] use FAB to delete the task
+    private void showDeleteDialog(Context context) {
+        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which){
+                    case DialogInterface.BUTTON_POSITIVE:
+                        //Yes button clicked
+                        break;
+
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        // Do nothing
+                        break;
+                    default:
+                        break;
+                }
+            }
+        };
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setMessage(R.string.task_details_delete_task_prompt)
+                .setPositiveButton(R.string.task_details_delete_task_positive, dialogClickListener)
+                .setNegativeButton(R.string.task_details_delete_task_negative, dialogClickListener)
+                .show();
+    }
+    // [END] use FAB to delete the task
 
 
 

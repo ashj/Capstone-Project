@@ -33,6 +33,11 @@
     <string name="tools_task_details_title_text">Todo: something</string>
 
     <string name="content_description_edit_task_label">Edit task</string>
+    <string name="content_description_delete_task_label">Delete task</string>
+
+    <string name="task_details_delete_task_prompt">Delete this task. Are you sure?</string>
+    <string name="task_details_delete_task_positive">Yes</string>
+    <string name="task_details_delete_task_negative">No</string>
 
     <!-- History -->
     <string name="history_activity_title">History</string>
