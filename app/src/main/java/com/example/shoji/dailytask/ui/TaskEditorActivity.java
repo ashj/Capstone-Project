@@ -111,28 +111,40 @@ public class TaskEditorActivity extends AppCompatActivityEx
 
     }
 
+
+    // [START] Set task priority
     private void createRadioGroup() {
         Context context = this;
-        String[] labels = getResources().getStringArray(R.array.priority_label_array);
+
         int[] values = getResources().getIntArray(R.array.priority_value_array);
         int defaultValue = getResources().getInteger(R.integer.priority_value_default);
-        int[] colors = getResources().getIntArray(R.array.priority_color_array);
         mRadioButtons = new ArrayList<>();
+        mRadioButtons.add((RadioButton) findViewById(R.id.radioButtonLow));
+        mRadioButtons.add((RadioButton) findViewById(R.id.radioButtonNormal));
+        mRadioButtons.add((RadioButton) findViewById(R.id.radioButtonHigh));
 
-        for(int i=0; i< labels.length; ++i) {
-            RadioButton button = new RadioButton(context);
-            button.setText(labels[i]);
+        for(int i=0; i< mRadioButtons.size(); ++i) {
+            RadioButton button = mRadioButtons.get(i);
             button.setId(values[i]);
-            button.setBackgroundColor(colors[i]);
-
-
             if(defaultValue == values[i])
                 button.setChecked(true);
-            mRadioButtons.add(button);
-            mRadioGroup.addView(button);
-        }
+         }
     }
+//    public void onPrioritySelected(View view) {
+//
+//        if (((RadioButton) findViewById(R.id.radioButtonLow)).isChecked()) {
+//            ((RadioButton) findViewById(R.id.radioButtonLow)).setChecked(true);
+//        } else if (((RadioButton) findViewById(R.id.radioButtonNormal)).isChecked()) {
+//            ((RadioButton) findViewById(R.id.radioButtonNormal)).setChecked(true);
+//        } else if (((RadioButton) findViewById(R.id.radioButtonHigh)).isChecked()) {
+//            ((RadioButton) findViewById(R.id.radioButtonHigh)).setChecked(true);
+//        }
+//    }
+    // [END] Set task priority
 
+
+
+    // [START] Clicked to save or update task
     @Override
     public void onClick(View view) {
         int validation = validateForm();
@@ -159,6 +171,7 @@ public class TaskEditorActivity extends AppCompatActivityEx
         }
         return retValue;
     }
+    // [END] Clicked to save or update task
 
 
     private void performActionIntoDatabase() {

@@ -61,13 +61,84 @@
             android:text="@string/priority_label"
             android:textSize="@dimen/style_text_view_textsize" />
 
-        <RadioGroup
-            android:id="@+id/radio_group"
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="@dimen/view_vertical_margin"
-            android:layout_marginBottom="@dimen/view_vertical_margin"/>
+            android:layout_marginBottom="@dimen/activity_vertical_margin">
+
+            <!-- Linear layout that contains all three priority buttons (high, medium, low)
+            in a single line -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center"
+                android:weightSum="3">
+
+                <Button
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:textColor="@android:color/primary_text_light"
+                    android:id="@+id/buttonHigh"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/materialRed"
+                    android:text="@string/priority_label_high"
+                    android:layout_weight="1" />
+
+                <Button
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:textColor="@android:color/primary_text_light"
+                    android:id="@+id/buttonNormal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/materialOrange"
+                    android:text="@string/priority_label_normal"
+                    android:layout_weight="1" />
+
+                <Button
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:textColor="@android:color/primary_text_light"
+                    android:id="@+id/buttonLow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/materialYellow"
+                    android:text="@string/priority_label_low"
+                    android:layout_weight="1" />
+
+            </LinearLayout>
+
+            <RadioGroup
+                android:id="@+id/radio_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center"
+                android:weightSum="3">
+
+                <RadioButton
+                    android:id="@+id/radioButtonHigh"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:theme="@style/WhiteRadioButton"/>
+
+                <RadioButton
+                    android:id="@+id/radioButtonNormal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:theme="@style/WhiteRadioButton"/>
+
+                <RadioButton
+                    android:id="@+id/radioButtonLow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:theme="@style/WhiteRadioButton"/>
+
+            </RadioGroup>
+
+        </FrameLayout>
 
         <Button
             android:id="@+id/button"
