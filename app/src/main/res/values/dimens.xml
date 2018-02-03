@@ -15,9 +15,11 @@
 
     <!-- Text size -->
     <dimen name="text_size_task_list">24sp</dimen>
+    <dimen name="text_size_large">28sp</dimen>
     <dimen name="text_size_small">16sp</dimen>
 
     <!-- Main activity -->
+    <dimen name="activity_main_first_activity_height">200dp</dimen>
     <dimen name="activity_main_horizontal_padding">16dp</dimen>
     <dimen name="activity_main_vertical_padding">12dp</dimen>
     <dimen name="activity_main__padding_bottom">48dp</dimen>
@@ -25,6 +27,7 @@
     <!-- Style -->
     <dimen name="style_text_view_textsize">16sp</dimen>
     <dimen name="style_button_padding">16dp</dimen>
+    <dimen name="style_button_padding_small">8dp</dimen>
 
     <!-- Editor -->
     <dimen name="activity_task_editor_layout_padding">16dp</dimen>

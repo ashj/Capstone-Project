@@ -15,7 +15,7 @@
 
     <string name="button_task_add">Add task</string>
     <string name="button_task_edit">Update task</string>
-    <string name="button_task_conclude">Mark as done</string>
+    <string name="button_task_conclude">mark as done</string>
     <string name="button_task_restore">Mark as not done</string>
 
     <string name="insert_task_success">Added new task!</string>
