@@ -175,9 +175,10 @@ public class TaskEditorActivity extends AppCompatActivityEx
         cv.put(TaskContract.COLUMN_TITLE, mTitleEditText.getText().toString());
         cv.put(TaskContract.COLUMN_DESCRIPTION, mDescriptionEditTask.getText().toString());
         cv.put(TaskContract.COLUMN_PRIORITY, mRadioGroup.getCheckedRadioButtonId());
-        //TODO : for ADD, values are 0, to do for other modes
-        cv.put(TaskContract.COLUMN_IS_CONCLUDED, TaskContract.NOT_CONCLUDED);
-        cv.put(TaskContract.COLUMN_CONCLUDED_DATE, TaskContract.NOT_CONCLUDED);
+        if(mEditorMode == EDITOR_MODE_ADD) {
+            cv.put(TaskContract.COLUMN_IS_CONCLUDED, TaskContract.NOT_CONCLUDED);
+            cv.put(TaskContract.COLUMN_CONCLUDED_DATE, TaskContract.NOT_CONCLUDED);
+        }
 
         return cv;
     }
