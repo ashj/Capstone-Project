@@ -21,6 +21,7 @@ import com.example.shoji.dailytask.adapter.TaskAdapter;
 import com.example.shoji.dailytask.background.LoaderCallBacksListenersInterface;
 import com.example.shoji.dailytask.background.LoaderIds;
 import com.example.shoji.dailytask.background.LoaderTaskGetById;
+import com.example.shoji.dailytask.background.LoaderTaskGetTasks;
 import com.example.shoji.dailytask.background.LoaderTaskSetConcludedById;
 import com.example.shoji.dailytask.provider.TaskContentObserver;
 import com.example.shoji.dailytask.provider.TaskContract;
@@ -29,7 +30,7 @@ import com.example.shoji.dailytask.provider.TaskProvider;
 import timber.log.Timber;
 
 public class MainActivity extends AppCompatActivityEx
-                          implements LoaderCallBacksListenersInterface<Cursor>,
+                          implements LoaderTaskGetTasks.OnTaskGetTasksListener,
                                      TaskAdapter.OnClickListener,
                                      TaskContentObserver.OnChangeListener,
                                      LoaderTaskSetConcludedById.OnTaskSetStateListener {
@@ -41,6 +42,15 @@ public class MainActivity extends AppCompatActivityEx
     private FloatingActionButton mFab;
     private static TaskContentObserver sTaskContentObserver;
     private Cursor mCursor;
+
+    // [START] get tasks
+    private Bundle mBundle;
+    LoaderTaskGetTasks.OnTaskGetTasksListener mListener;
+    LoaderTaskGetTasks mLoaderTaskGetTasks;
+    private static final String WHERE = TaskContract.COLUMN_IS_CONCLUDED + " IS " + TaskContract.NOT_CONCLUDED;
+    private static final String SORT_BY = TaskContract.COLUMN_PRIORITY + " DESC"
+                                + " , " + TaskContract.COLUMN_CONCLUDED_DATE + " ASC";
+    // [END] get tasks
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,8 +94,17 @@ public class MainActivity extends AppCompatActivityEx
         // [END] Adapter initialization
 
         // [START] implements LoaderCallBacksListenersInterface<Cursor>
-        initTaskLoader(LoaderIds.LOADER_ID_GET_TASKS_MAIN, this);
+        //initTaskLoader(LoaderIds.LOADER_ID_GET_TASKS_MAIN, this);
         // [END] implements LoaderCallBacksListenersInterface<Cursor>
+
+        // [START] get tasks
+        mBundle = new Bundle();
+        mBundle.putString(LoaderTaskGetTasks.EXTRA_WHERE, WHERE);
+        mBundle.putString(LoaderTaskGetTasks.EXTRA_SORT_BY, SORT_BY);
+        mListener = this;
+        mLoaderTaskGetTasks = new LoaderTaskGetTasks(mListener);
+        initTaskLoader(LoaderIds.LOADER_ID_GET_TASKS_MAIN, mBundle, mLoaderTaskGetTasks);
+        // [END] get tasks
 
         // [START] ContentObserver
         TaskContentObserver.OnChangeListener onChangeListener = this;
@@ -121,37 +140,19 @@ public class MainActivity extends AppCompatActivityEx
 
 
 
-    // [START] implements LoaderCallBacksListenersInterface<Cursor>
+    // [START] get tasks
     @Override
     public void onStartLoading(Context context) {
         mProgressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
-    public Cursor onLoadInBackground(Context context, Bundle args) {
-        String[] projection = null;
-        // Select not concluded tasks
-        String selection = TaskContract.COLUMN_IS_CONCLUDED + " IS " + TaskContract.NOT_CONCLUDED;
-        String[] selectionArgs = null;
-        // Sort by priority (first: high, last: low)
-        String sortOrder = TaskContract.COLUMN_PRIORITY + " DESC"
-                            + " , " + TaskContract.COLUMN_CONCLUDED_DATE + " ASC";
-
-        Cursor cursor = getContentResolver().query(TaskProvider.Tasks.CONTENT_URI,
-                projection,
-                selection,
-                selectionArgs,
-                sortOrder);
-        return cursor;
-    }
-
-    @Override
-    public void onLoadFinished(Context context, Cursor cursor) {
+    public void onLoadFinished(Cursor cursor) {
         mProgressBar.setVisibility(View.INVISIBLE);
         mCursor = cursor;
         mTaskAdapter.swapCursor(mCursor);
     }
-    // [END] implements LoaderCallBacksListenersInterface<Cursor>
+    // [END] get tasks
 
 
 
@@ -209,7 +210,7 @@ public class MainActivity extends AppCompatActivityEx
 
     @Override
     public void onChange() {
-        initTaskLoader(LoaderIds.LOADER_ID_GET_TASKS_MAIN, this);
+        initTaskLoader(LoaderIds.LOADER_ID_GET_TASKS_MAIN, mBundle, mLoaderTaskGetTasks);
     }
     // [END] ContentObserver
 
