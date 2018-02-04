@@ -23,6 +23,7 @@ import com.example.shoji.dailytask.background.LoaderIds;
 import com.example.shoji.dailytask.background.LoaderTaskGetById;
 import com.example.shoji.dailytask.background.LoaderTaskGetTasks;
 import com.example.shoji.dailytask.background.LoaderTaskSetConcludedById;
+import com.example.shoji.dailytask.notification.TaskNotification;
 import com.example.shoji.dailytask.provider.TaskContentObserver;
 import com.example.shoji.dailytask.provider.TaskContract;
 import com.example.shoji.dailytask.provider.TaskProvider;
@@ -151,6 +152,15 @@ public class MainActivity extends AppCompatActivityEx
         mProgressBar.setVisibility(View.INVISIBLE);
         mCursor = cursor;
         mTaskAdapter.swapCursor(mCursor);
+
+        // [START][TEMP] TODO - temporary notifications
+        if(mCursor != null && mCursor.getCount() > 0) {
+            mCursor.moveToPosition(0);
+            int index = mCursor.getColumnIndex(TaskContract.COLUMN_TITLE);
+            String title = mCursor.getString(index);
+            TaskNotification.notifyTodaysTask(this, title);
+        }
+        // [END] today'a task notification
     }
     // [END] get tasks
 
