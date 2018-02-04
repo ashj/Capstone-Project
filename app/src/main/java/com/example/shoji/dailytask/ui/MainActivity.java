@@ -1,5 +1,7 @@
 package com.example.shoji.dailytask.ui;
 
+import android.app.IntentService;
+import android.app.PendingIntent;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -25,6 +27,8 @@ import com.example.shoji.dailytask.background.LoaderIds;
 import com.example.shoji.dailytask.background.LoaderTaskGetById;
 import com.example.shoji.dailytask.background.LoaderTaskGetTasks;
 import com.example.shoji.dailytask.background.LoaderTaskSetConcludedById;
+import com.example.shoji.dailytask.notification.IntentServiceTasks;
+import com.example.shoji.dailytask.notification.TaskIntentService;
 import com.example.shoji.dailytask.notification.TaskNotification;
 import com.example.shoji.dailytask.provider.TaskContentObserver;
 import com.example.shoji.dailytask.provider.TaskContract;
@@ -171,7 +175,11 @@ public class MainActivity extends AppCompatActivityEx
             mCursor.moveToPosition(0);
             int index = mCursor.getColumnIndex(TaskContract.COLUMN_TITLE);
             String title = mCursor.getString(index);
-            TaskNotification.notifyTodaysTask(this, title);
+
+            index = mCursor.getColumnIndex(TaskContract._ID);
+            long id = mCursor.getLong(index);
+
+            TaskNotification.notifyTodaysTask(this, id, title);
         }
         // [END] today'a task notification
     }
@@ -234,6 +242,24 @@ public class MainActivity extends AppCompatActivityEx
     @Override
     public void onChange() {
         initTaskLoader(LoaderIds.LOADER_ID_GET_TASKS_MAIN, mBundle, mLoaderTaskGetTasks);
+
+        // [START] dismiss notification after a database modification
+        Context context = this;
+        int requestCode = TaskNotification.ACTION_DISMISS_NOTIFICATION_PENDING_INTENT_ID;
+        int flag = PendingIntent.FLAG_UPDATE_CURRENT;
+
+        Intent dismissNotificationIntent = new Intent(context, TaskIntentService.class);
+        dismissNotificationIntent.setAction(IntentServiceTasks.ACTION_DISMISS_NOTIFICATION);
+
+        PendingIntent pendingIntent = PendingIntent.getService(
+                context, requestCode, dismissNotificationIntent, flag);
+
+        try {
+            pendingIntent.send();
+        } catch (PendingIntent.CanceledException e) {
+            Timber.e(e.getMessage());
+        }
+        // [END] dismiss notification after a database modification
     }
     // [END] ContentObserver
 

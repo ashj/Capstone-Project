@@ -54,6 +54,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.shoji.dailytask.ui.MainActivity" />
         </activity>
+        <service
+            android:name=".notification.TaskIntentService"
+            android:exported="false"/>
     </application>
 
 </manifest>
