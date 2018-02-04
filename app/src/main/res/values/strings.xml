@@ -13,8 +13,8 @@
     <string name="priority_label_normal">normal</string>
     <string name="priority_label_high">high</string>
 
-    <string name="button_task_add">Add task</string>
-    <string name="button_task_edit">Update task</string>
+    <string name="button_task_add">add task</string>
+    <string name="button_task_edit">update task</string>
     <string name="button_task_conclude">mark as done</string>
     <string name="button_task_restore">mark as not done</string>
 

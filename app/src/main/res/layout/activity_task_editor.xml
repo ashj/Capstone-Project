@@ -4,6 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_task_editor_layout_padding"
+    android:paddingStart="@dimen/activity_task_editor_layout_padding"
+    android:paddingEnd="@dimen/activity_task_editor_layout_padding"
+    android:paddingTop="@dimen/activity_task_editor_layout_padding"
     tools:context="com.example.shoji.dailytask.ui.TaskDetailActivity">
 
     <ProgressBar
@@ -20,10 +24,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="@dimen/activity_task_editor_layout_padding"
-        android:paddingStart="@dimen/activity_task_editor_layout_padding"
-        android:paddingEnd="@dimen/activity_task_editor_layout_padding"
-        android:paddingTop="@dimen/activity_task_editor_layout_padding"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -48,7 +48,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/new_task_descr_title"
-            android:inputType="text"
+            android:inputType="text|textMultiLine"
+            android:lines="@integer/editor_num_lines"
+            android:gravity="start|top"
             android:layout_marginTop="@dimen/view_vertical_margin"
             android:layout_marginBottom="@dimen/view_vertical_margin"
             app:layout_constraintStart_toStartOf="parent"
@@ -83,6 +85,7 @@
                     android:layout_height="wrap_content"
                     android:background="@color/materialRed"
                     android:text="@string/priority_label_high"
+                    android:textAllCaps="false"
                     android:layout_weight="1" />
 
                 <Button
@@ -93,6 +96,7 @@
                     android:layout_height="wrap_content"
                     android:background="@color/materialOrange"
                     android:text="@string/priority_label_normal"
+                    android:textAllCaps="false"
                     android:layout_weight="1" />
 
                 <Button
@@ -103,6 +107,7 @@
                     android:layout_height="wrap_content"
                     android:background="@color/materialYellow"
                     android:text="@string/priority_label_low"
+                    android:textAllCaps="false"
                     android:layout_weight="1" />
 
             </LinearLayout>
@@ -144,8 +149,8 @@
             android:id="@+id/button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            style="@style/ButtonTheme"
+            style="@style/ButtonThemeSmall"
+            android:layout_marginTop="@dimen/activity_task_editor_layout_padding"
             tools:text="@string/button_task_add"/>
 
     </LinearLayout>

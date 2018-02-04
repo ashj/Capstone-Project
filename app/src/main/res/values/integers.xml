@@ -6,4 +6,6 @@
     <integer name="priority_value_low">1</integer>
 
     <integer name="priority_value_default">@integer/priority_value_normal</integer>
+
+    <integer name="editor_num_lines">5</integer>
 </resources>
