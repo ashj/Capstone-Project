@@ -160,26 +160,20 @@ public class MainActivity extends AppCompatActivityEx
         mTaskAdapter.swapCursor(mCursor);
 
         // [START][TEMP] TODO - temporary notifications
-        // [START] Check shared preference for notification
         Context context = this;
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        String key = context.getString(R.string.pref_daily_notification_key);
-        boolean defValue = context.getResources().getBoolean(R.bool.pref_daily_notification_default_value);
-        boolean showNotification = sharedPreferences.getBoolean(key, defValue);
-        if(!showNotification) {
-            Timber.d("Notifications are disabled");
-            return;
-        }
-        // [END] Check shared preference for notification
-        if(mCursor != null && mCursor.getCount() > 0) {
-            mCursor.moveToPosition(0);
-            int index = mCursor.getColumnIndex(TaskContract.COLUMN_TITLE);
-            String title = mCursor.getString(index);
+        int requestCode = TaskNotification.ACTION_TASK_REMINDER_PENDING_INTENT_ID;
+        int flag = PendingIntent.FLAG_UPDATE_CURRENT;
 
-            index = mCursor.getColumnIndex(TaskContract._ID);
-            long id = mCursor.getLong(index);
+        Intent taskReminderIntent = new Intent(context, TaskIntentService.class);
+        taskReminderIntent.setAction(IntentServiceTasks.ACTION_TASK_REMINDER);
 
-            TaskNotification.notifyTodaysTask(this, id, title);
+        PendingIntent pendingIntent = PendingIntent.getService(
+                context, requestCode, taskReminderIntent, flag);
+
+        try {
+            pendingIntent.send();
+        } catch (PendingIntent.CanceledException e) {
+            Timber.e(e.getMessage());
         }
         // [END] today'a task notification
     }

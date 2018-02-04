@@ -14,6 +14,8 @@ public class IntentServiceTasks {
     public static final String ACTION_MARK_TASK_AS_DONE = "action-mark-task-as-done";
     public static final String ACTION_DISMISS_NOTIFICATION = "action-dismiss-notification";
 
+    public static final String ACTION_TASK_REMINDER = "action-task-reminder";
+
     public static void executeTask(Context context, Intent intent) {
         Timber.d("executeTask");
         if(intent == null)
@@ -28,6 +30,10 @@ public class IntentServiceTasks {
 
         else if(TextUtils.equals(action, ACTION_DISMISS_NOTIFICATION)) {
             TaskNotification.clearAllNotifications(context);
+        }
+
+        else if(TextUtils.equals(action, ACTION_TASK_REMINDER)) {
+            TaskNotification.showNotificationTaskReminder(context);
         }
 
     }

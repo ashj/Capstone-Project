@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
 
-import com.example.shoji.dailytask.provider.TaskContract;
 import com.example.shoji.dailytask.provider.TaskProvider;
 
 public class LoaderTaskGetTasks implements LoaderCallBacksListenersInterface<Cursor> {
@@ -30,6 +29,19 @@ public class LoaderTaskGetTasks implements LoaderCallBacksListenersInterface<Cur
 
     @Override
     public Cursor onLoadInBackground(Context context, Bundle args) {
+        return queryTasks(context, args);
+    }
+
+    @Override
+    public void onLoadFinished(Context context, Cursor cursor) {
+        mOnTaskGetTasksListener.onLoadFinished(cursor);
+    }
+
+    public static Cursor queryTasks(Context context) {
+        return queryTasks(context, null);
+    }
+
+    public static Cursor queryTasks(Context context, Bundle args) {
         String[] projection = null;
         String selection = null;
         String[] selectionArgs = null;
@@ -47,10 +59,6 @@ public class LoaderTaskGetTasks implements LoaderCallBacksListenersInterface<Cur
                 sortOrder);
 
         return cursor;
-    }
 
-    @Override
-    public void onLoadFinished(Context context, Cursor cursor) {
-        mOnTaskGetTasksListener.onLoadFinished(cursor);
     }
 }

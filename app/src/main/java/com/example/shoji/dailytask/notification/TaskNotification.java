@@ -6,18 +6,26 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.CursorLoader;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.preference.PreferenceManager;
 
 import com.example.shoji.dailytask.R;
+import com.example.shoji.dailytask.background.LoaderTaskGetTasks;
 import com.example.shoji.dailytask.background.LoaderTaskSetConcludedById;
 import com.example.shoji.dailytask.provider.TaskContract;
 import com.example.shoji.dailytask.ui.TaskDetailActivity;
+
+import timber.log.Timber;
 
 public class TaskNotification {
     private static final int TASK_NOTIFICATION_ID = 1000;
@@ -28,8 +36,9 @@ public class TaskNotification {
 
     public static final int ACTION_DISMISS_NOTIFICATION_PENDING_INTENT_ID = 6000;
     public static final int ACTION_MARK_TASK_AS_DONE_PENDING_INTENT_ID = 6001;
+    public static final int ACTION_TASK_REMINDER_PENDING_INTENT_ID = 6002;
 
-    public static void notifyTodaysTask(Context context, long taskId, String taskTitle) {
+    private static void notifyTodaysTask(Context context, long taskId, String taskTitle) {
         NotificationManager notificationManager = (NotificationManager)
                 context.getSystemService(Context.NOTIFICATION_SERVICE);
 
@@ -112,4 +121,40 @@ public class TaskNotification {
 
         return markTaskAsDoneAction;
     }
+
+    // [START] Notify about today's task
+    public static void showNotificationTaskReminder(Context context) {
+        // [START] Check shared preference for notification
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        String key = context.getString(R.string.pref_daily_notification_key);
+        boolean defValue = context.getResources().getBoolean(R.bool.pref_daily_notification_default_value);
+        boolean showNotification = sharedPreferences.getBoolean(key, defValue);
+        if(!showNotification) {
+            Timber.d("Notifications are disabled");
+            return;
+        }
+        // [END] Check shared preference for notification
+
+        // [START] Query today's task
+        final String WHERE = TaskContract.COLUMN_IS_CONCLUDED + " IS " + TaskContract.NOT_CONCLUDED;
+        String SORT_BY = TaskContract.COLUMN_PRIORITY + " DESC"
+                + " , " + TaskContract.COLUMN_CONCLUDED_DATE + " ASC";
+        Bundle bundle = new Bundle();
+        bundle.putString(LoaderTaskGetTasks.EXTRA_WHERE, WHERE);
+        bundle.putString(LoaderTaskGetTasks.EXTRA_SORT_BY, SORT_BY);
+        Cursor cursor = LoaderTaskGetTasks.queryTasks(context, bundle);
+
+        if(cursor != null && cursor.getCount() > 0) {
+            cursor.moveToPosition(0);
+            int index = cursor.getColumnIndex(TaskContract.COLUMN_TITLE);
+            String title = cursor.getString(index);
+
+            index = cursor.getColumnIndex(TaskContract._ID);
+            long id = cursor.getLong(index);
+
+            TaskNotification.notifyTodaysTask(context, id, title);
+        }
+        // [END] Query today's task
+    }
+    // [END] Notify about today's task
 }
