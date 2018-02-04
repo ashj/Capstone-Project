@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="colorPrimaryLight">#5c6bc0</color>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
@@ -7,4 +8,10 @@
     <color name="materialRed">#E74C3C</color>
     <color name="materialOrange">#E67E22</color>
     <color name="materialYellow">#F1C40F</color>
+
+    <!-- list selector colors -->
+    <color name="list_light_selector_pressed">@color/colorPrimaryLight</color>
+    <color name="list_light_selector_activated">@color/colorPrimaryLight</color>
+    <color name="list_light_selector_selected">@color/colorPrimaryLight</color>
+    <color name="list_light_selector_default">@android:color/transparent</color>
 </resources>
