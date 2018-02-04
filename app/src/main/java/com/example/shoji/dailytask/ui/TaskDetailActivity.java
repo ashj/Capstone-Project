@@ -44,6 +44,9 @@ public class TaskDetailActivity extends AppCompatActivityEx
 
     private ProgressBar mProgressBar;
     private TextView mTaskTitleTextView;
+    private TextView mTaskDescriptionTextView;
+    private TextView mTaskPriorityTextView;
+    private TextView mTaskModifiedDateTextView;
     private FloatingActionButton mFabEdit;
     private FloatingActionButton mFabDelete;
 
@@ -73,6 +76,9 @@ public class TaskDetailActivity extends AppCompatActivityEx
 
         mProgressBar = findViewById(R.id.progressbar);
         mTaskTitleTextView = findViewById(R.id.task_title_text_view);
+        mTaskDescriptionTextView = findViewById(R.id.task_description_text_view);
+        mTaskPriorityTextView = findViewById(R.id.task_priority_text_view);
+        mTaskModifiedDateTextView = findViewById(R.id.task_modified_date_text_view);
 
         // [START] need valid intent to proceed
         mTaskId = getIdFromIntent();
@@ -204,6 +210,7 @@ public class TaskDetailActivity extends AppCompatActivityEx
         }
         // [END] Check from which screen we came from
 
+        // [START] fill the view with data from cursor
         index = mCursor.getColumnIndex(TaskContract.COLUMN_TITLE);
         String title = mCursor.getString(index);
 
@@ -211,29 +218,39 @@ public class TaskDetailActivity extends AppCompatActivityEx
         String description = mCursor.getString(index);
 
         index = mCursor.getColumnIndex(TaskContract.COLUMN_PRIORITY);
-        String priority = mCursor.getString(index);
+        // [START] priority: from value to label
+        int priorityInt = mCursor.getInt(index);
+        String[] labels = getResources().getStringArray(R.array.priority_label_array);
+        String priority = getString(R.string.empty_string);
+        int[] values = getResources().getIntArray(R.array.priority_value_array);
+        for(int i= 0; i < values.length; ++i) {
+            if(values[i] == priorityInt) {
+                priority = labels[i];
+                break;
+            }
+        }
+        // [END] priority: from value to label
 
-        index = mCursor.getColumnIndex(TaskContract.COLUMN_CONCLUDED_DATE);
-        long modification_date = mCursor.getLong(index);
+        mTaskTitleTextView.setText(title);
+        mTaskDescriptionTextView.setText(description);
+        mTaskPriorityTextView.setText(getString(R.string.task_details_priority_text, priority));
 
-        int flags = DateUtils.FORMAT_SHOW_DATE
-                | DateUtils.FORMAT_SHOW_TIME;
-        String dateStr = DateUtils.formatDateTime(mContext, modification_date, flags);
+        // [START} convert time in millis to local time
+        if(mDetailFrom == DETAIL_FROM_HISTORY) {
+            index = mCursor.getColumnIndex(TaskContract.COLUMN_CONCLUDED_DATE);
+            long modification_date = mCursor.getLong(index);
+
+            int flags = DateUtils.FORMAT_SHOW_DATE
+                    | DateUtils.FORMAT_SHOW_TIME;
+            String dateStr = DateUtils.formatDateTime(mContext, modification_date, flags);
+
+            mTaskModifiedDateTextView.setText(getString(R.string.task_details_modified_date_text, dateStr));
+            mTaskModifiedDateTextView.setVisibility(View.VISIBLE);
+        }
+        // [END} convert time in millis to local time
 
         mCursor.close();
-
-        StringBuilder sb = new StringBuilder();
-        sb.append("Task: ").append(title)
-                .append("\nDescr: ").append(description)
-                .append("\nPriority: P").append(priority);
-
-        if(mDetailFrom == DETAIL_FROM_HISTORY) {
-            sb.append("\nModification Date: ").append(modification_date)
-                    .append("\nModification Date: ").append(dateStr);
-        }
-
-        mTaskTitleTextView.setText(sb.toString());
-
+        // [END] fill the view with data from cursor
 
         // [START] Detail screen buttons
         bindDetailButtons();

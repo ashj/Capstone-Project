@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name">Daily Ten-Minutes Tasks</string>
 
     <!-- Task Editor -->
@@ -36,6 +36,9 @@
     <!-- Task details -->
     <string name="task_details_activity_title">Task details</string>
     <string name="tools_task_details_title_text">Todo: something</string>
+    <string name="tools_task_details_description_text">Describe the task</string>
+    <string name="tools_task_details_priority_text">Priority: low</string>
+    <string name="tools_task_details_modified_date_text">Finished: 01/01/1999</string>
 
     <string name="content_description_edit_task_label">Edit task</string>
     <string name="content_description_delete_task_label">Delete task</string>
@@ -47,6 +50,9 @@
     <string name="task_details_delete_task_success">Task deleted</string>
     <string name="task_details_task_marked_as_done">@string/main_activity_task_marked_as_done</string>
     <string name="task_details_task_unmarked_as_done">Moved task to ToDo list</string>
+
+    <string name="task_details_priority_text">Priority: <xliff:g>%1$s</xliff:g></string>
+    <string name="task_details_modified_date_text">Finished: <xliff:g>%1$s</xliff:g></string>
     <!-- History -->
     <string name="history_activity_title">History</string>
 
