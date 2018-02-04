@@ -76,4 +76,5 @@
     <!-- Notification -->
     <string name="main_notification_channel_name">Primary</string>
     <string name="notification_todays_task">Today\'s task</string>
+    <string name="notification_mark_task_as_done_action">mark as done</string>
 </resources>

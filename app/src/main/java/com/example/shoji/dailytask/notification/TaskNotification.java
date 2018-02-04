@@ -15,7 +15,8 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 
 import com.example.shoji.dailytask.R;
-import com.example.shoji.dailytask.ui.MainActivity;
+import com.example.shoji.dailytask.background.LoaderTaskSetConcludedById;
+import com.example.shoji.dailytask.provider.TaskContract;
 import com.example.shoji.dailytask.ui.TaskDetailActivity;
 
 public class TaskNotification {
@@ -52,6 +53,7 @@ public class TaskNotification {
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(taskTitle))
                 .setDefaults(Notification.DEFAULT_VIBRATE)
                 .setContentIntent(contentIntent(context, taskId))
+                .addAction(markTaskAsDoneAction(context, taskId))
                 .setAutoCancel(true);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN
@@ -86,5 +88,27 @@ public class TaskNotification {
         NotificationManager notificationManager = (NotificationManager)
                 context.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.cancelAll();
+    }
+
+    private static NotificationCompat.Action markTaskAsDoneAction(Context context, long taskId) {
+        Intent markTaskAsDoneIntent = new Intent(context, TaskIntentService.class);
+        markTaskAsDoneIntent.setAction(IntentServiceTasks.ACTION_MARK_TASK_AS_DONE);
+        markTaskAsDoneIntent.putExtra(LoaderTaskSetConcludedById.EXTRA_TASK_ID, taskId);
+        markTaskAsDoneIntent.putExtra(LoaderTaskSetConcludedById.EXTRA_TASK_CONCLUDED_STATE, TaskContract.CONCLUDED);
+
+        PendingIntent markTaskAsDonePendingIntent = PendingIntent.getService(
+                context,
+                ACTION_MARK_TASK_AS_DONE_PENDING_INTENT_ID,
+                markTaskAsDoneIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+
+        String title = context.getString(R.string.notification_mark_task_as_done_action);
+
+        NotificationCompat.Action markTaskAsDoneAction =
+                new NotificationCompat.Action(android.R.drawable.checkbox_on_background,
+                        title,
+                        markTaskAsDonePendingIntent);
+
+        return markTaskAsDoneAction;
     }
 }

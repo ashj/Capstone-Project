@@ -38,17 +38,7 @@ public class LoaderTaskSetConcludedById implements LoaderCallBacksListenersInter
             long id = args.getLong(EXTRA_TASK_ID);
             long concludedState = args.getLong(EXTRA_TASK_CONCLUDED_STATE);
 
-            String selection = TaskContract._ID + " IS " + id;
-
-            // [START] Set task conclusion state and date
-            ContentValues cv = new ContentValues();
-            cv.put(TaskContract.COLUMN_IS_CONCLUDED, concludedState);
-
-            long modificationDate = System.currentTimeMillis();
-            cv.put(TaskContract.COLUMN_CONCLUDED_DATE, modificationDate);
-            // [END] Set task conclusion tate and date
-
-            int rows = context.getContentResolver().update(TaskProvider.Tasks.CONTENT_URI, cv, selection, null);
+            int rows = update(context, id, concludedState);
 
             integer = Integer.valueOf(rows);
         }
@@ -60,4 +50,20 @@ public class LoaderTaskSetConcludedById implements LoaderCallBacksListenersInter
     public void onLoadFinished(Context context, Integer integer) {
         mOnTaskSetStateListener.onTaskSetState(integer);
     }
+
+    // [START] update task state
+    public static int update(Context context, long id, long state) {
+        String selection = TaskContract._ID + " IS " + id;
+
+        // [START] Set task conclusion state and date
+        ContentValues cv = new ContentValues();
+        cv.put(TaskContract.COLUMN_IS_CONCLUDED, state);
+
+        long modificationDate = System.currentTimeMillis();
+        cv.put(TaskContract.COLUMN_CONCLUDED_DATE, modificationDate);
+        // [END] Set task conclusion tate and date
+
+        return context.getContentResolver().update(TaskProvider.Tasks.CONTENT_URI, cv, selection, null);
+    }
+    // [END] update task state
 }

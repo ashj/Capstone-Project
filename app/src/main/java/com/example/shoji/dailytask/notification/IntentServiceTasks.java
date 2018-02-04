@@ -1,9 +1,18 @@
 package com.example.shoji.dailytask.notification;
 
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.app.LoaderManager;
 import android.text.TextUtils;
+
+import com.example.shoji.dailytask.background.LoaderIds;
+import com.example.shoji.dailytask.background.LoaderTaskSetConcludedById;
+import com.example.shoji.dailytask.background.LoaderUtils;
+import com.example.shoji.dailytask.provider.TaskContract;
+import com.example.shoji.dailytask.provider.TaskProvider;
 
 import timber.log.Timber;
 
@@ -20,8 +29,7 @@ public class IntentServiceTasks {
         Timber.d("executeTask, action: %s", action);
 
         if(TextUtils.equals(action, ACTION_MARK_TASK_AS_DONE)) {
-            // do something
-
+            markTaskAsDone(context, intent);
         }
 
         else if(TextUtils.equals(action, ACTION_DISMISS_NOTIFICATION)) {
@@ -29,4 +37,17 @@ public class IntentServiceTasks {
         }
 
     }
+
+    // [START] mark test as done
+    private static void markTaskAsDone(Context context, Intent intent) {
+        long id = intent.getLongExtra(LoaderTaskSetConcludedById.EXTRA_TASK_ID,
+                TaskContract.INVALID_ID);
+
+        long concludedState = intent.getLongExtra(LoaderTaskSetConcludedById.EXTRA_TASK_CONCLUDED_STATE,
+                -1);
+
+        if(id != TaskContract.INVALID_ID && concludedState != -1)
+            LoaderTaskSetConcludedById.update(context, id, concludedState);
+    }
+    // [END] mark test as done
 }
