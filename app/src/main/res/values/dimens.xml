@@ -21,7 +21,7 @@
     <!-- Main activity -->
     <dimen name="activity_main_first_activity_height">200dp</dimen>
     <dimen name="activity_main_horizontal_padding">16dp</dimen>
-    <dimen name="activity_main_vertical_padding">12dp</dimen>
+    <dimen name="activity_main_vertical_padding">18dp</dimen>
     <dimen name="activity_main__padding_bottom">48dp</dimen>
 
     <!-- Style -->
