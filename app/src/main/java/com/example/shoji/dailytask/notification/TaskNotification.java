@@ -41,8 +41,8 @@ public class TaskNotification {
             notificationManager.createNotificationChannel(mChannel);
         }
 
-        int resIdSmallIcon = R.drawable.ic_launcher_background; //TODO: GET IMAGES
-        Bitmap largeIcon = largeIcon(context, R.drawable.ic_launcher_background); //TODO: GET IMAGES
+        int resIdSmallIcon = android.R.drawable.checkbox_off_background;
+        Bitmap largeIcon = largeIcon(context, android.R.drawable.checkbox_off_background);
 
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context,TASK_DAILY_NOTIFICATION_CHANNEL_ID)
                 .setColor(ContextCompat.getColor(context, R.color.colorPrimary))
@@ -102,10 +102,11 @@ public class TaskNotification {
                 markTaskAsDoneIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
 
+        int resIdIcon = android.R.drawable.checkbox_on_background;
         String title = context.getString(R.string.notification_mark_task_as_done_action);
 
         NotificationCompat.Action markTaskAsDoneAction =
-                new NotificationCompat.Action(android.R.drawable.checkbox_on_background,
+                new NotificationCompat.Action(resIdIcon,
                         title,
                         markTaskAsDonePendingIntent);
 

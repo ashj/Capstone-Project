@@ -4,12 +4,9 @@ package com.example.shoji.dailytask.background;
 import android.content.ContentValues;
 import android.content.Context;
 import android.os.Bundle;
-import android.text.format.DateUtils;
 
 import com.example.shoji.dailytask.provider.TaskContract;
 import com.example.shoji.dailytask.provider.TaskProvider;
-
-import timber.log.Timber;
 
 public class LoaderTaskSetConcludedById implements LoaderCallBacksListenersInterface<Integer> {
     public static final String EXTRA_TASK_ID = "extra-task-id";
