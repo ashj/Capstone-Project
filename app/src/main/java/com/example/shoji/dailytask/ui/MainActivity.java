@@ -3,9 +3,11 @@ package com.example.shoji.dailytask.ui;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -154,6 +156,17 @@ public class MainActivity extends AppCompatActivityEx
         mTaskAdapter.swapCursor(mCursor);
 
         // [START][TEMP] TODO - temporary notifications
+        // [START] Check shared preference for notification
+        Context context = this;
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        String key = context.getString(R.string.pref_daily_notification_key);
+        boolean defValue = context.getResources().getBoolean(R.bool.pref_daily_notification_default_value);
+        boolean showNotification = sharedPreferences.getBoolean(key, defValue);
+        if(!showNotification) {
+            Timber.d("Notifications are disabled");
+            return;
+        }
+        // [END] Check shared preference for notification
         if(mCursor != null && mCursor.getCount() > 0) {
             mCursor.moveToPosition(0);
             int index = mCursor.getColumnIndex(TaskContract.COLUMN_TITLE);
