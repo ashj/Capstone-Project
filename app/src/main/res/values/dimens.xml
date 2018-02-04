@@ -29,6 +29,10 @@
     <dimen name="style_button_padding">16dp</dimen>
     <dimen name="style_button_padding_small">8dp</dimen>
 
+    <!-- Detail -->
+    <dimen name="activity_task_detail_horizontal_padding">16dp</dimen>
+    <dimen name="activity_task_detail_vertical_padding">16dp</dimen>
+
     <!-- Editor -->
     <dimen name="activity_task_editor_layout_padding">16dp</dimen>
     <dimen name="activity_task_editor_buttonpadding">4dp</dimen>

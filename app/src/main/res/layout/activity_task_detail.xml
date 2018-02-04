@@ -4,6 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingTop="@dimen/activity_task_history_vertical_padding"
+    android:paddingStart="@dimen/activity_task_detail_horizontal_padding"
+    android:paddingEnd="@dimen/activity_task_detail_horizontal_padding"
     tools:context="com.example.shoji.dailytask.ui.TaskDetailActivity">
 
     <ProgressBar
@@ -35,7 +38,8 @@
         android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/task_title_text_view"
-        style="@style/ButtonTheme" />
+        style="@style/ButtonThemeSmall"
+        android:layout_marginTop="@dimen/activity_task_detail_vertical_padding" />
 
     <Button
         android:id="@+id/unmark_as_done_button"
@@ -45,7 +49,8 @@
         android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/task_title_text_view"
-        style="@style/ButtonTheme" />
+        style="@style/ButtonThemeSmall"
+        android:layout_marginTop="@dimen/activity_task_detail_vertical_padding" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_edit"
