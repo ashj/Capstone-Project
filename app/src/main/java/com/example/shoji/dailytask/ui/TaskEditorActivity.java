@@ -130,16 +130,6 @@ public class TaskEditorActivity extends AppCompatActivityEx
                 button.setChecked(true);
          }
     }
-//    public void onPrioritySelected(View view) {
-//
-//        if (((RadioButton) findViewById(R.id.radioButtonLow)).isChecked()) {
-//            ((RadioButton) findViewById(R.id.radioButtonLow)).setChecked(true);
-//        } else if (((RadioButton) findViewById(R.id.radioButtonNormal)).isChecked()) {
-//            ((RadioButton) findViewById(R.id.radioButtonNormal)).setChecked(true);
-//        } else if (((RadioButton) findViewById(R.id.radioButtonHigh)).isChecked()) {
-//            ((RadioButton) findViewById(R.id.radioButtonHigh)).setChecked(true);
-//        }
-//    }
     // [END] Set task priority
 
 
@@ -149,6 +139,7 @@ public class TaskEditorActivity extends AppCompatActivityEx
     public void onClick(View view) {
         int validation = validateForm();
         if(validation == FORM_ERROR_NO_ERROR) {
+            view.setClickable(false);
             performActionIntoDatabase();
         }
         else if(validation == FORM_ERROR_INVALID_TITLE) {
@@ -252,6 +243,8 @@ public class TaskEditorActivity extends AppCompatActivityEx
     }
     // [END] use AsyncTask to add a task into the database
 
+
+
     // [START] Check if it is a task to edit or a new one
     private long getIdFromIntent() {
         long id = TaskContract.INVALID_ID;
@@ -264,6 +257,8 @@ public class TaskEditorActivity extends AppCompatActivityEx
     }
     // [END] Check if it is a task to edit or a new one
 
+
+
     // [START] get task by id
     @Override
     public void onStartLoading(Context context) {
@@ -273,6 +268,7 @@ public class TaskEditorActivity extends AppCompatActivityEx
     @Override
     public void onLoadFinished(Cursor cursor) {
         mProgressBar.setVisibility(View.INVISIBLE);
+        mButton.setClickable(true);
 
         if(cursor == null || cursor.getCount() != 1)
             return;
@@ -300,9 +296,6 @@ public class TaskEditorActivity extends AppCompatActivityEx
         }
         // [END] Check from which screen we came from
 
-        index = cursor.getColumnIndex(TaskContract.COLUMN_CONCLUDED_DATE);
-        int concluded_date = cursor.getInt(index);
-
         cursor.close();
 
         mTitleEditText.setText(title);
@@ -314,9 +307,6 @@ public class TaskEditorActivity extends AppCompatActivityEx
             }
 
         }
-
-
-
     }
     // [END] get task by id
 }
