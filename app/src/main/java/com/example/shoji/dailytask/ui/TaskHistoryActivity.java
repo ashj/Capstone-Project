@@ -16,6 +16,7 @@ import com.example.shoji.dailytask.adapter.TaskAdapter;
 import com.example.shoji.dailytask.adapter.TaskHistoryAdapter;
 import com.example.shoji.dailytask.background.LoaderCallBacksListenersInterface;
 import com.example.shoji.dailytask.background.LoaderIds;
+import com.example.shoji.dailytask.background.LoaderTaskGetTasks;
 import com.example.shoji.dailytask.background.LoaderUtils;
 import com.example.shoji.dailytask.provider.TaskContentObserver;
 import com.example.shoji.dailytask.provider.TaskContract;
@@ -31,6 +32,8 @@ public class TaskHistoryActivity extends AppCompatActivityEx
     private RecyclerView mRecyclerView;
     private static TaskContentObserver sTaskContentObserver;
     private Cursor mCursor;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,10 +79,10 @@ public class TaskHistoryActivity extends AppCompatActivityEx
     public Cursor onLoadInBackground(Context context, Bundle args) {
         String[] projection = null;
         // Select concluded tasks
-        String selection = TaskContract.COLUMN_IS_CONCLUDED + " IS " + TaskContract.CONCLUDED;
+        String selection = LoaderTaskGetTasks.CONCLUDED_TASKS_WHERE;
         String[] selectionArgs = null;
         // Sort by concluded date (most recent concluded tasks on top)
-        String sortOrder = TaskContract.COLUMN_CONCLUDED_DATE + " DESC";
+        String sortOrder = LoaderTaskGetTasks.CONCLUDED_TASKS_SORT_BY;
 
         Cursor cursor = getContentResolver().query(TaskProvider.Tasks.CONTENT_URI,
                 projection,

@@ -54,9 +54,6 @@ public class MainActivity extends AppCompatActivityEx
     private Bundle mBundle;
     LoaderTaskGetTasks.OnTaskGetTasksListener mListener;
     LoaderTaskGetTasks mLoaderTaskGetTasks;
-    private static final String WHERE = TaskContract.COLUMN_IS_CONCLUDED + " IS " + TaskContract.NOT_CONCLUDED;
-    private static final String SORT_BY = TaskContract.COLUMN_PRIORITY + " DESC"
-                                + " , " + TaskContract.COLUMN_CONCLUDED_DATE + " ASC";
     // [END] get tasks
 
     @Override
@@ -106,8 +103,8 @@ public class MainActivity extends AppCompatActivityEx
 
         // [START] get tasks
         mBundle = new Bundle();
-        mBundle.putString(LoaderTaskGetTasks.EXTRA_WHERE, WHERE);
-        mBundle.putString(LoaderTaskGetTasks.EXTRA_SORT_BY, SORT_BY);
+        mBundle.putString(LoaderTaskGetTasks.EXTRA_WHERE, LoaderTaskGetTasks.NOT_CONCLUDED_TASKS_WHERE);
+        mBundle.putString(LoaderTaskGetTasks.EXTRA_SORT_BY,  LoaderTaskGetTasks.NOT_CONCLUDED_TASKS_SORT_BY);
         mListener = this;
         mLoaderTaskGetTasks = new LoaderTaskGetTasks(mListener);
         initTaskLoader(LoaderIds.LOADER_ID_GET_TASKS_MAIN, mBundle, mLoaderTaskGetTasks);

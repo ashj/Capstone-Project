@@ -136,12 +136,9 @@ public class TaskNotification {
         // [END] Check shared preference for notification
 
         // [START] Query today's task
-        final String WHERE = TaskContract.COLUMN_IS_CONCLUDED + " IS " + TaskContract.NOT_CONCLUDED;
-        String SORT_BY = TaskContract.COLUMN_PRIORITY + " DESC"
-                + " , " + TaskContract.COLUMN_CONCLUDED_DATE + " ASC";
         Bundle bundle = new Bundle();
-        bundle.putString(LoaderTaskGetTasks.EXTRA_WHERE, WHERE);
-        bundle.putString(LoaderTaskGetTasks.EXTRA_SORT_BY, SORT_BY);
+        bundle.putString(LoaderTaskGetTasks.EXTRA_WHERE, LoaderTaskGetTasks.NOT_CONCLUDED_TASKS_WHERE);
+        bundle.putString(LoaderTaskGetTasks.EXTRA_SORT_BY, LoaderTaskGetTasks.NOT_CONCLUDED_TASKS_SORT_BY);
         Cursor cursor = LoaderTaskGetTasks.queryTasks(context, bundle);
 
         if(cursor != null && cursor.getCount() > 0) {

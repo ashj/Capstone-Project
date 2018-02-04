@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
 
+import com.example.shoji.dailytask.provider.TaskContract;
 import com.example.shoji.dailytask.provider.TaskProvider;
 
 public class LoaderTaskGetTasks implements LoaderCallBacksListenersInterface<Cursor> {
@@ -12,6 +13,17 @@ public class LoaderTaskGetTasks implements LoaderCallBacksListenersInterface<Cur
     public static final String EXTRA_SORT_BY = "extra-sort-by";
 
     private OnTaskGetTasksListener mOnTaskGetTasksListener;
+
+    // [START] Select not concluded tasks for main screen and today's task
+    public static final String NOT_CONCLUDED_TASKS_WHERE = TaskContract.COLUMN_IS_CONCLUDED + " IS " + TaskContract.NOT_CONCLUDED;
+    public static final String NOT_CONCLUDED_TASKS_SORT_BY = TaskContract.COLUMN_PRIORITY + " DESC"
+            + " , " + TaskContract.COLUMN_CONCLUDED_DATE + " ASC";
+    // [END] Select not concluded tasks for main screen and today's task
+
+    // [START] Select concluded tasks for history
+    public static final String CONCLUDED_TASKS_WHERE = TaskContract.COLUMN_IS_CONCLUDED + " IS " + TaskContract.CONCLUDED;
+    public static final String CONCLUDED_TASKS_SORT_BY = TaskContract.COLUMN_CONCLUDED_DATE + " DESC";
+    // [START] Select concluded tasks for history
 
     public LoaderTaskGetTasks(OnTaskGetTasksListener onTaskGetByIdListener) {
         mOnTaskGetTasksListener = onTaskGetByIdListener;
