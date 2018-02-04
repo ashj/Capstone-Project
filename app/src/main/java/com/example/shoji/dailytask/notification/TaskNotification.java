@@ -41,8 +41,8 @@ public class TaskNotification {
             notificationManager.createNotificationChannel(mChannel);
         }
 
-        int resIdSmallIcon = android.R.drawable.checkbox_off_background;
-        Bitmap largeIcon = largeIcon(context, android.R.drawable.checkbox_off_background);
+        int resIdSmallIcon = android.R.color.transparent;
+        Bitmap largeIcon = largeIcon(context, resIdSmallIcon);
 
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context,TASK_DAILY_NOTIFICATION_CHANNEL_ID)
                 .setColor(ContextCompat.getColor(context, R.color.colorPrimary))
