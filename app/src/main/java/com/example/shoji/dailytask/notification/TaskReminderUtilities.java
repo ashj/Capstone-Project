@@ -19,7 +19,9 @@ public class TaskReminderUtilities {
 
     private static final int REMINDER_INTERVAL_MINUTES = 1;
     private static final int REMINDER_INTERVAL_SECONDS = (int) (TimeUnit.MINUTES.toSeconds(REMINDER_INTERVAL_MINUTES));
-    private static final int SYNC_FLEXTIME_SECONDS = REMINDER_INTERVAL_SECONDS;
+
+    private static final int REMINDER_INTERVAL_DAILY = (int) (TimeUnit.HOURS.toSeconds(24));
+    private static final int SYNC_FLEXTIME_SECONDS = 30;
 
     private static final String REMINDER_JOB_TAG = "task_notification_reminder_tag";
 
@@ -40,8 +42,8 @@ public class TaskReminderUtilities {
                 .setLifetime(Lifetime.FOREVER)
                 .setRecurring(true)
                 .setTrigger(Trigger.executionWindow(
-                        REMINDER_INTERVAL_SECONDS,
-                        REMINDER_INTERVAL_SECONDS + SYNC_FLEXTIME_SECONDS))
+                        REMINDER_INTERVAL_DAILY,
+                        REMINDER_INTERVAL_DAILY + SYNC_FLEXTIME_SECONDS))
                 .setReplaceCurrent(true)
                 .build();
 
