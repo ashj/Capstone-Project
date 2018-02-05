@@ -8,11 +8,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -42,7 +44,7 @@ public class MainActivity extends AppCompatActivityEx
                                      TaskAdapter.OnClickListener,
                                      TaskContentObserver.OnChangeListener,
                                      LoaderTaskSetConcludedById.OnTaskSetStateListener {
-
+    private static boolean sPlantedTimberTree;
     private Toolbar mToolbar;
     private ProgressBar mProgressBar;
     private TaskAdapter mTaskAdapter;
@@ -50,6 +52,7 @@ public class MainActivity extends AppCompatActivityEx
     private FloatingActionButton mFab;
     private static TaskContentObserver sTaskContentObserver;
     private Cursor mCursor;
+    private final static String SAVE_INSTANCE_STATE_LIST_POSITION = "list-position";
 
     // [START] get tasks
     private Bundle mBundle;
@@ -57,12 +60,17 @@ public class MainActivity extends AppCompatActivityEx
     LoaderTaskGetTasks mLoaderTaskGetTasks;
     // [END] get tasks
 
+    // [START] shared preference onChange listener
+    OnSharedPreferenceChangeListener mOnSharedPreferenceChangeListener;
+    // [END]  shared preference onChange listener
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if(savedInstanceState == null) {
+        if(sPlantedTimberTree == false) {
             if(BuildConfig.DEBUG)
                 Timber.plant(new Timber.DebugTree());
             Timber.d("Logging With Timber");
+            sPlantedTimberTree = true;
         }
 
         super.onCreate(savedInstanceState);
@@ -98,6 +106,16 @@ public class MainActivity extends AppCompatActivityEx
         mRecyclerView.setAdapter(mTaskAdapter);
         // [END] Adapter initialization
 
+        // [START] Save instance state - restore
+        if(savedInstanceState != null &&
+                savedInstanceState.containsKey(SAVE_INSTANCE_STATE_LIST_POSITION)) {
+            Parcelable listState = savedInstanceState
+                    .getParcelable(SAVE_INSTANCE_STATE_LIST_POSITION);
+            mRecyclerView.getLayoutManager()
+                    .onRestoreInstanceState(listState);
+        }
+        // [END] Save instance state - restore
+
         // [START] implements LoaderCallBacksListenersInterface<Cursor>
         //initTaskLoader(LoaderIds.LOADER_ID_GET_TASKS_MAIN, this);
         // [END] implements LoaderCallBacksListenersInterface<Cursor>
@@ -117,8 +135,14 @@ public class MainActivity extends AppCompatActivityEx
         // [END] ContentObserver
 
         // [START] Start today's day notification reminder
-        TaskReminderUtilities.scheduleTaskNotificationReminder(context);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        setupTaskReminderNotification(sharedPreferences);
         // [END] Start today's day notification reminder
+
+        // [START] shared preference onChange listener
+        mOnSharedPreferenceChangeListener = new OnSharedPreferenceChangeListener();
+        sharedPreferences.registerOnSharedPreferenceChangeListener(mOnSharedPreferenceChangeListener);
+        // [END] shared preference onChange listener
     }
 
     // [START] Toolbar - inflate and item selected
@@ -233,6 +257,12 @@ public class MainActivity extends AppCompatActivityEx
         if(sTaskContentObserver != null) {
             sTaskContentObserver.unregister();
         }
+
+        // [START] shared preference onChange listener
+        mOnSharedPreferenceChangeListener = new OnSharedPreferenceChangeListener();
+        PreferenceManager.getDefaultSharedPreferences(this)
+                .registerOnSharedPreferenceChangeListener(mOnSharedPreferenceChangeListener);
+        // [END] shared preference onChange listener
     }
 
     @Override
@@ -260,5 +290,49 @@ public class MainActivity extends AppCompatActivityEx
     // [END] ContentObserver
 
 
+    // [START] shared preference onChange listener
+    private void setupTaskReminderNotification(SharedPreferences sharedPreferences) {
+        Context context = this;
+        String key = getString(R.string.pref_daily_notification_key);
+        boolean defValue = getResources().getBoolean(R.bool.pref_daily_notification_default_value);
+        boolean enabled = sharedPreferences.getBoolean(key, defValue);
+
+        if(enabled) {
+            // [START] Start today's day notification reminder
+            Timber.d("Notifications are enabled, so run service to show them");
+            TaskReminderUtilities.scheduleTaskNotificationReminder(context);
+            // [END] Start today's day notification reminder
+        }
+        else {
+            // [START] Stop today's day notification reminder
+            Timber.d("Notifications are disabled, so cancel the service that show them");
+            TaskReminderUtilities.unscheduleTaskNotificationReminder(context);
+            // [END] Stop today's day notification reminder
+        }
+
+    }
+
+    private class OnSharedPreferenceChangeListener
+            implements SharedPreferences.OnSharedPreferenceChangeListener {
+
+        @Override
+        public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+            if(TextUtils.equals(key, getString(R.string.pref_daily_notification_key))) {
+                setupTaskReminderNotification(sharedPreferences);
+            }
+
+        }
+    }
+    // [END] shared preference onChange listener
+
+    // [START] Save instance state
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(SAVE_INSTANCE_STATE_LIST_POSITION,
+                mRecyclerView.getLayoutManager()
+                        .onSaveInstanceState());
+    }
+    // [END] Save instance state
 
 }

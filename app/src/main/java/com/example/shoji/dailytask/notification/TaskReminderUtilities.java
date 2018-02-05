@@ -13,6 +13,8 @@ import com.firebase.jobdispatcher.Trigger;
 
 import java.util.concurrent.TimeUnit;
 
+import timber.log.Timber;
+
 public class TaskReminderUtilities {
 
     private static final int REMINDER_INTERVAL_MINUTES = 1;
@@ -24,7 +26,9 @@ public class TaskReminderUtilities {
     private static boolean sInitialized;
 
     synchronized public static void scheduleTaskNotificationReminder(@NonNull final Context context) {
+        Timber.d("scheduleTaskNotificationReminder -- %b", sInitialized);
         if (sInitialized) return;
+        Timber.d("scheduleTaskNotificationReminder START");
 
         Driver driver = new GooglePlayDriver(context);
         FirebaseJobDispatcher dispatcher = new FirebaseJobDispatcher(driver);
@@ -44,6 +48,19 @@ public class TaskReminderUtilities {
         dispatcher.schedule(constraintReminderJob);
 
         sInitialized = true;
+    }
+
+    synchronized public static void unscheduleTaskNotificationReminder(Context context) {
+        Timber.d("scheduleTaskNotificationReminder -- %b", sInitialized);
+        if (!sInitialized) return;
+        Timber.d("unscheduleTaskNotificationReminder START");
+
+        Driver driver = new GooglePlayDriver(context);
+        FirebaseJobDispatcher dispatcher = new FirebaseJobDispatcher(driver);
+
+        dispatcher.cancel(REMINDER_JOB_TAG);
+
+        sInitialized = false;
     }
 
 }
