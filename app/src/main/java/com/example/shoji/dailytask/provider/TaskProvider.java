@@ -21,7 +21,7 @@ public class TaskProvider {
                 path = PATH,
                 type = "vnd.android.cursor.dir/" + PATH,
                 defaultSort = TaskContract._ID + " ASC")
-        public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/" + PATH);
+        public static final Uri CONTENT_URI = Uri.parse("content://" + "com.example.shoji.dailytask.provider.tasks" + "/" + PATH);
 
     }
 }
