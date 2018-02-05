@@ -2,6 +2,8 @@ package com.example.shoji.dailytask.provider;
 
 import android.net.Uri;
 
+import com.example.shoji.dailytask.BuildConfig;
+
 import net.simonvt.schematic.annotation.ContentProvider;
 import net.simonvt.schematic.annotation.ContentUri;
 import net.simonvt.schematic.annotation.TableEndpoint;
@@ -10,7 +12,7 @@ import net.simonvt.schematic.annotation.TableEndpoint;
         authority = TaskProvider.AUTHORITY,
         database = TaskDatabase.class)
 public class TaskProvider {
-    public static final String AUTHORITY = "com.example.shoji.dailytask.provider.tasks";
+    public static final String AUTHORITY = BuildConfig.APPLICATION_ID + ".provider.tasks";
 
     @TableEndpoint(table = TaskDatabase.TABLE_NAME)
     public static class Tasks {

@@ -20,6 +20,20 @@ android {
     }
 }
 
+android {
+    flavorDimensions "mode"
+    productFlavors {
+        free {
+            applicationId "com.example.shoji.dailytask.lite"
+            dimension "mode"
+        }
+        paid {
+            applicationId "com.example.shoji.dailytask.pro"
+            dimension "mode"
+        }
+    }
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:appcompat-v7:26.1.0'
@@ -40,4 +54,8 @@ dependencies {
 
     // Send notifications
     implementation 'com.firebase:firebase-jobdispatcher:0.8.5'
+
+    // only for free version
+    freeImplementation 'com.google.android.gms:play-services-ads:11.8.0'
+
 }
