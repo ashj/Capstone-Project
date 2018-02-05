@@ -30,6 +30,7 @@ import com.example.shoji.dailytask.background.LoaderTaskSetConcludedById;
 import com.example.shoji.dailytask.notification.IntentServiceTasks;
 import com.example.shoji.dailytask.notification.TaskIntentService;
 import com.example.shoji.dailytask.notification.TaskNotification;
+import com.example.shoji.dailytask.notification.TaskReminderUtilities;
 import com.example.shoji.dailytask.provider.TaskContentObserver;
 import com.example.shoji.dailytask.provider.TaskContract;
 import com.example.shoji.dailytask.provider.TaskProvider;
@@ -114,6 +115,10 @@ public class MainActivity extends AppCompatActivityEx
         TaskContentObserver.OnChangeListener onChangeListener = this;
         sTaskContentObserver = new TaskContentObserver(getContentResolver(), onChangeListener);
         // [END] ContentObserver
+
+        // [START] Start today's day notification reminder
+        TaskReminderUtilities.scheduleTaskNotificationReminder(context);
+        // [END] Start today's day notification reminder
     }
 
     // [START] Toolbar - inflate and item selected
@@ -157,21 +162,21 @@ public class MainActivity extends AppCompatActivityEx
         mTaskAdapter.swapCursor(mCursor);
 
         // [START][TEMP] TODO - temporary notifications
-        Context context = this;
-        int requestCode = TaskNotification.ACTION_TASK_REMINDER_PENDING_INTENT_ID;
-        int flag = PendingIntent.FLAG_UPDATE_CURRENT;
-
-        Intent taskReminderIntent = new Intent(context, TaskIntentService.class);
-        taskReminderIntent.setAction(IntentServiceTasks.ACTION_TASK_REMINDER);
-
-        PendingIntent pendingIntent = PendingIntent.getService(
-                context, requestCode, taskReminderIntent, flag);
-
-        try {
-            pendingIntent.send();
-        } catch (PendingIntent.CanceledException e) {
-            Timber.e(e.getMessage());
-        }
+//        Context context = this;
+//        int requestCode = TaskNotification.ACTION_TASK_REMINDER_PENDING_INTENT_ID;
+//        int flag = PendingIntent.FLAG_UPDATE_CURRENT;
+//
+//        Intent taskReminderIntent = new Intent(context, TaskIntentService.class);
+//        taskReminderIntent.setAction(IntentServiceTasks.ACTION_TASK_REMINDER);
+//
+//        PendingIntent pendingIntent = PendingIntent.getService(
+//                context, requestCode, taskReminderIntent, flag);
+//
+//        try {
+//            pendingIntent.send();
+//        } catch (PendingIntent.CanceledException e) {
+//            Timber.e(e.getMessage());
+//        }
         // [END] today'a task notification
     }
     // [END] get tasks
