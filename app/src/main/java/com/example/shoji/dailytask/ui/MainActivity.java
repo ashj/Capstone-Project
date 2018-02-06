@@ -19,6 +19,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.shoji.dailytask.BuildConfig;
@@ -45,6 +46,8 @@ public class MainActivity extends AppCompatActivityEx
                                      TaskContentObserver.OnChangeListener,
                                      LoaderTaskSetConcludedById.OnTaskSetStateListener {
     private static boolean sPlantedTimberTree;
+
+    private TextView mTextView;
     private Toolbar mToolbar;
     private ProgressBar mProgressBar;
     private TaskAdapter mTaskAdapter;
@@ -77,6 +80,8 @@ public class MainActivity extends AppCompatActivityEx
         setContentView(R.layout.activity_main);
 
         final Context context = this;
+
+        mTextView = findViewById(R.id.text_view);
 
         mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
@@ -183,25 +188,14 @@ public class MainActivity extends AppCompatActivityEx
     public void onLoadFinished(Cursor cursor) {
         mProgressBar.setVisibility(View.INVISIBLE);
         mCursor = cursor;
-        mTaskAdapter.swapCursor(mCursor);
 
-        // [START][TEMP] TODO - temporary notifications
-//        Context context = this;
-//        int requestCode = TaskNotification.ACTION_TASK_REMINDER_PENDING_INTENT_ID;
-//        int flag = PendingIntent.FLAG_UPDATE_CURRENT;
-//
-//        Intent taskReminderIntent = new Intent(context, TaskIntentService.class);
-//        taskReminderIntent.setAction(IntentServiceTasks.ACTION_TASK_REMINDER);
-//
-//        PendingIntent pendingIntent = PendingIntent.getService(
-//                context, requestCode, taskReminderIntent, flag);
-//
-//        try {
-//            pendingIntent.send();
-//        } catch (PendingIntent.CanceledException e) {
-//            Timber.e(e.getMessage());
-//        }
-        // [END] today'a task notification
+        if(mCursor != null && mCursor.getCount() > 0) {
+            mTextView.setVisibility(View.INVISIBLE);
+        }
+        else {
+            mTextView.setVisibility(View.VISIBLE);
+        }
+        mTaskAdapter.swapCursor(mCursor);
     }
     // [END] get tasks
 

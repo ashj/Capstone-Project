@@ -24,6 +24,7 @@
 
     <string name="update_task_success">Updated task!</string>
     <!-- Main activity -->
+    <string name="main_activity_empty_task_list">Let\'s add some tasks!</string>
     <string name="menu_history_label">@string/history_activity_title</string>
     <string name="menu_settings_label">@string/settings_activity_title</string>
 

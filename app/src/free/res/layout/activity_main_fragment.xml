@@ -58,6 +58,18 @@
             android:layout_height="match_parent"
             android:paddingBottom="@dimen/activity_main__padding_bottom">
 
+            <TextView
+                android:id="@+id/text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:paddingTop="@dimen/activity_main_vertical_padding"
+                android:textSize="@dimen/text_size_task_list"
+                android:visibility="invisible"
+                android:text="@string/main_activity_empty_task_list" />
+
             <ProgressBar
                 android:id="@+id/progressbar"
                 android:layout_width="@dimen/progressbar_size"
@@ -73,6 +85,7 @@
                 android:id="@+id/recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:minHeight="@dimen/activity_main__padding_bottom_large"
                 android:paddingBottom="@dimen/activity_main_vertical_padding"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
