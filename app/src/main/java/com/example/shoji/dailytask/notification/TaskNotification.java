@@ -5,8 +5,8 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.ContentValues;
 import android.content.Context;
-import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -61,7 +61,7 @@ public class TaskNotification {
                 .setContentText(taskTitle)
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(taskTitle))
                 .setDefaults(Notification.DEFAULT_VIBRATE)
-                .setContentIntent(contentIntent(context, taskId))
+                .setContentIntent(getPendingIntentShowTaskById(context, taskId))
                 .addAction(markTaskAsDoneAction(context, taskId))
                 .setAutoCancel(true);
 
@@ -74,7 +74,7 @@ public class TaskNotification {
     }
 
 
-    private static PendingIntent contentIntent(Context context, long taskId) {
+    public static PendingIntent getPendingIntentShowTaskById(Context context, long taskId) {
 
         Intent startActivityIntent = new Intent(context, TaskDetailActivity.class);
         startActivityIntent.putExtra(TaskDetailActivity.EXTRA_TASK_ID, taskId);
@@ -99,7 +99,7 @@ public class TaskNotification {
         notificationManager.cancelAll();
     }
 
-    private static NotificationCompat.Action markTaskAsDoneAction(Context context, long taskId) {
+    public static PendingIntent getMarkTaskAsDonePendingIntent(Context context, long taskId) {
         Intent markTaskAsDoneIntent = new Intent(context, TaskIntentService.class);
         markTaskAsDoneIntent.setAction(IntentServiceTasks.ACTION_MARK_TASK_AS_DONE);
         markTaskAsDoneIntent.putExtra(LoaderTaskSetConcludedById.EXTRA_TASK_ID, taskId);
@@ -110,6 +110,12 @@ public class TaskNotification {
                 ACTION_MARK_TASK_AS_DONE_PENDING_INTENT_ID,
                 markTaskAsDoneIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
+
+        return markTaskAsDonePendingIntent;
+    }
+
+    private static NotificationCompat.Action markTaskAsDoneAction(Context context, long taskId) {
+        PendingIntent markTaskAsDonePendingIntent = getMarkTaskAsDonePendingIntent(context, taskId);
 
         int resIdIcon = android.R.drawable.checkbox_on_background;
         String title = context.getString(R.string.notification_mark_task_as_done_action);
