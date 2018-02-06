@@ -29,20 +29,29 @@ public class TaskWidgetProvider extends AppWidgetProvider {
         if(taskId != TaskContract.INVALID_ID) {
             // [START] Pending intent to mark task as done
             PendingIntent markTaskAsDonePendingIntent = TaskNotification.getMarkTaskAsDonePendingIntent(context, taskId);
-            views.setOnClickPendingIntent(R.id.mark_button, markTaskAsDonePendingIntent);
+            views.setOnClickPendingIntent(R.id.button, markTaskAsDonePendingIntent);
+            views.setTextViewText(R.id.button, context.getString(R.string.button_task_conclude));
             // [END] Pending intent to mark task as done
 
             // [START] Pending intent to open task
             PendingIntent showTaskById = TaskNotification.getPendingIntentShowTaskById(context, taskId);
-            widgetText = taskTitle+"//(id: "+taskId+")";
+            widgetText = taskTitle;
             views.setOnClickPendingIntent(R.id.task_title, showTaskById);
-            views.setViewVisibility(R.id.mark_button, View.VISIBLE);
             // [END] Pending intent to open task
         }
 
         else {
+            // [START] Pending intent to add a new task
+            PendingIntent addTaskPendingIntent = TaskNotification.getPendingIntentAddTasks(context);
+            views.setOnClickPendingIntent(R.id.button, addTaskPendingIntent);
+            views.setTextViewText(R.id.button, context.getString(R.string.button_task_add));
+            // [END] Pending intent to add a new task
+
+            // [START] Pending intent to show tasks
             widgetText = context.getString(R.string.widget_empty_task_list);
-            views.setViewVisibility(R.id.mark_button, View.GONE);
+            PendingIntent showTasks = TaskNotification.getPendingIntentShowTasks(context);
+            views.setOnClickPendingIntent(R.id.task_title, showTasks);
+            // [END] Pending intent to show tasks
         }
 
         views.setTextViewText(R.id.task_title, widgetText);

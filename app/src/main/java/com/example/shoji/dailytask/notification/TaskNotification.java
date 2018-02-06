@@ -23,7 +23,9 @@ import com.example.shoji.dailytask.R;
 import com.example.shoji.dailytask.background.LoaderTaskGetTasks;
 import com.example.shoji.dailytask.background.LoaderTaskSetConcludedById;
 import com.example.shoji.dailytask.provider.TaskContract;
+import com.example.shoji.dailytask.ui.MainActivity;
 import com.example.shoji.dailytask.ui.TaskDetailActivity;
+import com.example.shoji.dailytask.ui.TaskEditorActivity;
 
 import timber.log.Timber;
 
@@ -78,6 +80,28 @@ public class TaskNotification {
 
         Intent startActivityIntent = new Intent(context, TaskDetailActivity.class);
         startActivityIntent.putExtra(TaskDetailActivity.EXTRA_TASK_ID, taskId);
+
+        return PendingIntent.getActivity(
+                context,
+                TASK_PENDING_INTENT_ID,
+                startActivityIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+    }
+
+    public static PendingIntent getPendingIntentShowTasks(Context context) {
+
+        Intent startActivityIntent = new Intent(context, MainActivity.class);
+
+        return PendingIntent.getActivity(
+                context,
+                TASK_PENDING_INTENT_ID,
+                startActivityIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+    }
+
+    public static PendingIntent getPendingIntentAddTasks(Context context) {
+
+        Intent startActivityIntent = new Intent(context, TaskEditorActivity.class);
 
         return PendingIntent.getActivity(
                 context,
