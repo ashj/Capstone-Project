@@ -55,8 +55,13 @@ public class IntentServiceTasks {
         long concludedState = intent.getLongExtra(LoaderTaskSetConcludedById.EXTRA_TASK_CONCLUDED_STATE,
                 -1);
 
-        if(id != TaskContract.INVALID_ID && concludedState != -1)
-            LoaderTaskSetConcludedById.update(context, id, concludedState);
+        if(id != TaskContract.INVALID_ID && concludedState != -1) {
+            int rows = LoaderTaskSetConcludedById.update(context, id, concludedState);
+            //[START] update the widget
+            if(rows > 0)
+                IntentServiceTasks.startTaskWidgetUpdate(context);
+            //[END] update the widget
+        }
     }
     // [END] mark test as done
 

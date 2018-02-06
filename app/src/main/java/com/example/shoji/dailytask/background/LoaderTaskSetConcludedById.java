@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.os.Bundle;
 
+import com.example.shoji.dailytask.notification.IntentServiceTasks;
 import com.example.shoji.dailytask.provider.TaskContract;
 import com.example.shoji.dailytask.provider.TaskProvider;
 
@@ -36,6 +37,11 @@ public class LoaderTaskSetConcludedById implements LoaderCallBacksListenersInter
             long concludedState = args.getLong(EXTRA_TASK_CONCLUDED_STATE);
 
             int rows = update(context, id, concludedState);
+
+            //[START] update the widget
+            if(rows > 0)
+                IntentServiceTasks.startTaskWidgetUpdate(context);
+            //[END] update the widget
 
             integer = Integer.valueOf(rows);
         }

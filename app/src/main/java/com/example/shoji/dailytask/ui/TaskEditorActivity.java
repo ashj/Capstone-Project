@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.example.shoji.dailytask.R;
 import com.example.shoji.dailytask.background.LoaderIds;
 import com.example.shoji.dailytask.background.LoaderTaskGetById;
+import com.example.shoji.dailytask.notification.IntentServiceTasks;
 import com.example.shoji.dailytask.provider.TaskContract;
 import com.example.shoji.dailytask.provider.TaskProvider;
 
@@ -203,11 +204,22 @@ public class TaskEditorActivity extends AppCompatActivityEx
             Integer integer = null;
             if(mEditorMode == EDITOR_MODE_ADD) {
                 uri = mContext.getContentResolver().insert(TaskProvider.Tasks.CONTENT_URI, cv);
+
+                //[START] update the widget
+                if(uri != null)
+                    IntentServiceTasks.startTaskWidgetUpdate(mContext);
+                //[END] update the widget
             }
             else {
                 String selection = TaskContract._ID + " IS " + mTaskId;
                 int rows = mContext.getContentResolver().update(TaskProvider.Tasks.CONTENT_URI,
                         cv, selection, null);
+
+                //[START] update the widget
+                if(rows > 0)
+                    IntentServiceTasks.startTaskWidgetUpdate(mContext);
+                //[END] update the widget
+
                 integer = Integer.valueOf(rows);
             }
             return Pair.create(integer, uri);

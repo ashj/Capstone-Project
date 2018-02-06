@@ -21,18 +21,26 @@ public class TaskWidgetProvider extends AppWidgetProvider {
     private static void updateAppWidgetAux(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId, long taskId, String taskTitle) {
 
-        CharSequence widgetText = "Today's task: "+taskTitle+"//(id: "+taskId+")";
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.task_widget_provider);
 
-        // [START] Pending intent to open task
-        PendingIntent showTaskById = TaskNotification.getPendingIntentShowTaskById(context, taskId);
-        views.setOnClickPendingIntent(R.id.title_text_view, showTaskById);
-        // [END] Pending intent to open task
-        // [START] Pending intent to mark task as done
-        PendingIntent markTaskAsDonePendingIntent = TaskNotification.getMarkTaskAsDonePendingIntent(context, taskId);
-        views.setOnClickPendingIntent(R.id.mark_button, markTaskAsDonePendingIntent);
-        // [END] Pending intent to mark task as done
+        CharSequence widgetText = null;
+        if(taskId != TaskContract.INVALID_ID) {
+            // [START] Pending intent to mark task as done
+            PendingIntent markTaskAsDonePendingIntent = TaskNotification.getMarkTaskAsDonePendingIntent(context, taskId);
+            views.setOnClickPendingIntent(R.id.mark_button, markTaskAsDonePendingIntent);
+            // [END] Pending intent to mark task as done
+
+            // [START] Pending intent to open task
+            PendingIntent showTaskById = TaskNotification.getPendingIntentShowTaskById(context, taskId);
+            widgetText = "Today's task: "+taskTitle+"//(id: "+taskId+")";
+            views.setOnClickPendingIntent(R.id.title_text_view, showTaskById);
+            // [END] Pending intent to open task
+        }
+
+        else {
+            widgetText = context.getString(R.string.widget_empty_task_list);
+        }
 
         views.setTextViewText(R.id.title_text_view, widgetText);
 

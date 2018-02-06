@@ -5,6 +5,7 @@ import android.app.IntentService;
 import android.content.Context;
 import android.os.Bundle;
 
+import com.example.shoji.dailytask.notification.IntentServiceTasks;
 import com.example.shoji.dailytask.provider.TaskContract;
 import com.example.shoji.dailytask.provider.TaskProvider;
 
@@ -33,6 +34,12 @@ public class LoaderTaskDeleteById implements LoaderCallBacksListenersInterface<I
             String selection = TaskContract._ID + " IS " + id;
             int rows = context.getContentResolver().delete(TaskProvider.Tasks.CONTENT_URI,
                     selection, null);
+
+            //[START] update the widget
+            if(rows > 0)
+                IntentServiceTasks.startTaskWidgetUpdate(context);
+            //[END] update the widget
+
             integer = Integer.valueOf(rows);
         }
 
