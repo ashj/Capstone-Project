@@ -6,6 +6,7 @@ import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.RemoteViews;
 
 import com.example.shoji.dailytask.R;
@@ -33,16 +34,18 @@ public class TaskWidgetProvider extends AppWidgetProvider {
 
             // [START] Pending intent to open task
             PendingIntent showTaskById = TaskNotification.getPendingIntentShowTaskById(context, taskId);
-            widgetText = "Today's task: "+taskTitle+"//(id: "+taskId+")";
-            views.setOnClickPendingIntent(R.id.title_text_view, showTaskById);
+            widgetText = taskTitle+"//(id: "+taskId+")";
+            views.setOnClickPendingIntent(R.id.task_title, showTaskById);
+            views.setViewVisibility(R.id.mark_button, View.VISIBLE);
             // [END] Pending intent to open task
         }
 
         else {
             widgetText = context.getString(R.string.widget_empty_task_list);
+            views.setViewVisibility(R.id.mark_button, View.GONE);
         }
 
-        views.setTextViewText(R.id.title_text_view, widgetText);
+        views.setTextViewText(R.id.task_title, widgetText);
 
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);

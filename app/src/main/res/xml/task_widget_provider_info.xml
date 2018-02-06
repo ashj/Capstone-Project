@@ -2,7 +2,7 @@
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
     android:initialKeyguardLayout="@layout/task_widget_provider"
     android:initialLayout="@layout/task_widget_provider"
-    android:minHeight="110dp"
+    android:minHeight="50dp"
     android:minWidth="180dp"
     android:previewImage="@drawable/task_appwidget_preview"
     android:resizeMode="horizontal|vertical"
