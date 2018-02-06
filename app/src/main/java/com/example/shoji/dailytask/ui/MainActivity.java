@@ -143,6 +143,9 @@ public class MainActivity extends AppCompatActivityEx
         mOnSharedPreferenceChangeListener = new OnSharedPreferenceChangeListener();
         sharedPreferences.registerOnSharedPreferenceChangeListener(mOnSharedPreferenceChangeListener);
         // [END] shared preference onChange listener
+
+        //todo testing, move it where the db is changed
+        IntentServiceTasks.startTaskWidgetUpdate(this);
     }
 
     // [START] Toolbar - inflate and item selected

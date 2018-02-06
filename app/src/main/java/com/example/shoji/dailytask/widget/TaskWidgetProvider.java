@@ -18,7 +18,7 @@ import com.example.shoji.dailytask.provider.TaskContract;
  */
 public class TaskWidgetProvider extends AppWidgetProvider {
 
-    static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
+    private static void updateAppWidgetAux(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId, long taskId, String taskTitle) {
 
         CharSequence widgetText = "Today's task: "+taskTitle+"//(id: "+taskId+")";
@@ -41,7 +41,7 @@ public class TaskWidgetProvider extends AppWidgetProvider {
     }
 
     // [START] get today's task
-    private Cursor getTaskCursor(Context context) {
+    private static Cursor getTaskCursor(Context context) {
         Bundle bundle = new Bundle();
         bundle.putString(LoaderTaskGetTasks.EXTRA_WHERE, LoaderTaskGetTasks.NOT_CONCLUDED_TASKS_WHERE);
         bundle.putString(LoaderTaskGetTasks.EXTRA_SORT_BY, LoaderTaskGetTasks.NOT_CONCLUDED_TASKS_SORT_BY);
@@ -52,8 +52,8 @@ public class TaskWidgetProvider extends AppWidgetProvider {
     }
     // [END] get today's task
 
-    @Override
-    public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
+    // [START] Update app widget
+    public static void updateAppWidget(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         Cursor cursor = getTaskCursor(context);
 
         long taskId = TaskContract.INVALID_ID;
@@ -69,8 +69,15 @@ public class TaskWidgetProvider extends AppWidgetProvider {
 
         // There may be multiple widgets active, so update all of them
         for (int appWidgetId : appWidgetIds) {
-            updateAppWidget(context, appWidgetManager, appWidgetId, taskId, taskTitle);
+            updateAppWidgetAux(context, appWidgetManager, appWidgetId, taskId, taskTitle);
         }
+
+    }
+    // [END] Update app widget
+
+    @Override
+    public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
+        updateAppWidget(context, appWidgetManager, appWidgetIds);
     }
 
     @Override

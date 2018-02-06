@@ -1,12 +1,15 @@
 package com.example.shoji.dailytask.notification;
 
 
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
 
 import com.example.shoji.dailytask.background.LoaderTaskSetConcludedById;
 import com.example.shoji.dailytask.provider.TaskContract;
+import com.example.shoji.dailytask.widget.TaskWidgetProvider;
 
 import timber.log.Timber;
 
@@ -15,6 +18,8 @@ public class IntentServiceTasks {
     public static final String ACTION_DISMISS_NOTIFICATION = "action-dismiss-notification";
 
     public static final String ACTION_TASK_REMINDER = "action-task-reminder";
+
+    public static final String ACTION_REFRESH_TASK_WIDGET = "action-refresh-task-widget";
 
     public static void executeTask(Context context, Intent intent) {
         Timber.d("executeTask");
@@ -36,6 +41,10 @@ public class IntentServiceTasks {
             TaskNotification.showNotificationTaskReminder(context);
         }
 
+        else if(TextUtils.equals(action, ACTION_REFRESH_TASK_WIDGET)) {
+            updateTaskWidget(context);
+        }
+
     }
 
     // [START] mark test as done
@@ -50,4 +59,22 @@ public class IntentServiceTasks {
             LoaderTaskSetConcludedById.update(context, id, concludedState);
     }
     // [END] mark test as done
+
+    // [START] Update app widget
+    public static void startTaskWidgetUpdate(Context context) {
+        Timber.d("startTaskWidgetUpdate");
+        Intent intent = new Intent(context, TaskIntentService.class);
+        intent.setAction(ACTION_REFRESH_TASK_WIDGET);
+        context.startService(intent);
+    }
+
+    private static void updateTaskWidget(Context context) {
+        Timber.d("updateTaskWidget");
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+        int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(context, TaskWidgetProvider.class));
+
+        TaskWidgetProvider.updateAppWidget(context, appWidgetManager, appWidgetIds);
+
+    }
+    // [END] Update app widget
 }
