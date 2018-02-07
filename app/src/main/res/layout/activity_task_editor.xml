@@ -125,6 +125,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:nextFocusRight="@+id/radioButtonNormal"
                     android:theme="@style/WhiteRadioButton"/>
 
                 <RadioButton
@@ -132,6 +133,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:nextFocusLeft="@id/radioButtonHigh"
+                    android:nextFocusRight="@+id/radioButtonLow"
                     android:theme="@style/WhiteRadioButton"/>
 
                 <RadioButton
@@ -139,6 +142,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:nextFocusLeft="@id/radioButtonNormal"
                     android:theme="@style/WhiteRadioButton"/>
 
             </RadioGroup>
