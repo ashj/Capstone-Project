@@ -1,8 +1,6 @@
 package com.example.shoji.dailytask.ui;
 
-import android.app.IntentService;
 import android.app.PendingIntent;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -25,9 +23,7 @@ import android.widget.Toast;
 import com.example.shoji.dailytask.BuildConfig;
 import com.example.shoji.dailytask.R;
 import com.example.shoji.dailytask.adapter.TaskAdapter;
-import com.example.shoji.dailytask.background.LoaderCallBacksListenersInterface;
 import com.example.shoji.dailytask.background.LoaderIds;
-import com.example.shoji.dailytask.background.LoaderTaskGetById;
 import com.example.shoji.dailytask.background.LoaderTaskGetTasks;
 import com.example.shoji.dailytask.background.LoaderTaskSetConcludedById;
 import com.example.shoji.dailytask.notification.IntentServiceTasks;
@@ -36,7 +32,6 @@ import com.example.shoji.dailytask.notification.TaskNotification;
 import com.example.shoji.dailytask.notification.TaskReminderUtilities;
 import com.example.shoji.dailytask.provider.TaskContentObserver;
 import com.example.shoji.dailytask.provider.TaskContract;
-import com.example.shoji.dailytask.provider.TaskProvider;
 
 import timber.log.Timber;
 

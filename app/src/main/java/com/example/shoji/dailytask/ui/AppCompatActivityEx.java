@@ -1,7 +1,6 @@
 package com.example.shoji.dailytask.ui;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.app.NavUtils;

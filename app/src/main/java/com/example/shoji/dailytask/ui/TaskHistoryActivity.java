@@ -4,22 +4,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.v4.app.LoaderManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.example.shoji.dailytask.R;
-import com.example.shoji.dailytask.adapter.TaskAdapter;
 import com.example.shoji.dailytask.adapter.TaskHistoryAdapter;
 import com.example.shoji.dailytask.background.LoaderCallBacksListenersInterface;
 import com.example.shoji.dailytask.background.LoaderIds;
 import com.example.shoji.dailytask.background.LoaderTaskGetTasks;
-import com.example.shoji.dailytask.background.LoaderUtils;
 import com.example.shoji.dailytask.provider.TaskContentObserver;
-import com.example.shoji.dailytask.provider.TaskContract;
 import com.example.shoji.dailytask.provider.TaskProvider;
 
 public class TaskHistoryActivity extends AppCompatActivityEx

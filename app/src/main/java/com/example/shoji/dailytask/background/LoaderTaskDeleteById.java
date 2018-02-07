@@ -1,7 +1,6 @@
 package com.example.shoji.dailytask.background;
 
 
-import android.app.IntentService;
 import android.content.Context;
 import android.os.Bundle;
 
