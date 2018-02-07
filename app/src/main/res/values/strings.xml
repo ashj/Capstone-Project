@@ -74,6 +74,11 @@
     <string name="pref_location_service_summaryOn">Enabled</string>
     <string name="pref_location_service_title">Notify based on location</string>
 
+    <string name="pref_location_open_and_set_place_key">location-service-place</string>
+    <string name="pref_location_open_and_set_place_defaultValue">Pick a location</string>
+    <string name="pref_location_open_and_set_place_summaryOff">first, enable notifications based on location</string>
+    <string name="pref_location_open_and_set_place_title">Show notification when close to</string>
+
     <!-- Notification -->
     <string name="main_notification_channel_name">Primary</string>
     <string name="notification_todays_task">Today\'s task</string>

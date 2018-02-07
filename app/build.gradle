@@ -83,6 +83,7 @@ dependencies {
 
     // Preference
     implementation 'com.android.support:preference-v7:26.1.0'
+    implementation 'com.android.support:preference-v14:26.1.0'
 
     // Send notifications
     implementation 'com.firebase:firebase-jobdispatcher:0.8.5'

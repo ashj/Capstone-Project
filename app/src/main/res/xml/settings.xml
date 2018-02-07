@@ -13,4 +13,11 @@
         android:summaryOff="@string/pref_location_service_summaryOff"
         android:summaryOn="@string/pref_location_service_summaryOn"
         android:title="@string/pref_location_service_title" />
+
+    <Preference
+        android:key="@string/pref_location_open_and_set_place_key"
+        android:defaultValue="@string/pref_location_open_and_set_place_defaultValue"
+        android:persistent="false"
+        android:summary="@string/pref_location_open_and_set_place_defaultValue"
+        android:title="@string/pref_location_open_and_set_place_title" />
 </PreferenceScreen>
