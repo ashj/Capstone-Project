@@ -14,7 +14,6 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
 import com.example.shoji.dailytask.R;
 import com.example.shoji.dailytask.background.LoaderIds;
@@ -144,10 +143,10 @@ public class TaskEditorActivity extends AppCompatActivityEx
             performActionIntoDatabase();
         }
         else if(validation == FORM_ERROR_INVALID_TITLE) {
-            Toast.makeText(this, R.string.validate_task_error_title, Toast.LENGTH_SHORT).show();
+            showSnackBar(mTitleEditText, R.string.validate_task_error_title);
         }
         else if(validation == FORM_ERROR_INVALID_TITLE) {
-            Toast.makeText(this, R.string.validate_task_error_description, Toast.LENGTH_SHORT).show();
+            showSnackBar(mTitleEditText, R.string.validate_task_error_description);
         }
     }
 
@@ -236,7 +235,7 @@ public class TaskEditorActivity extends AppCompatActivityEx
                     Timber.d("Failed to insert new task");
                 } else {
                     Timber.d("Inserted new task!");
-                    Toast.makeText(mContext, R.string.insert_task_success, Toast.LENGTH_SHORT).show();
+                    setResultOk(R.string.insert_task_success);
                     finish();
                 }
             }
@@ -247,7 +246,7 @@ public class TaskEditorActivity extends AppCompatActivityEx
                 }
                 else {
                     Timber.d("Updated task!");
-                    Toast.makeText(mContext, R.string.update_task_success, Toast.LENGTH_SHORT).show();
+                    setResultOk(R.string.update_task_success);
                     finish();
                 }
 

@@ -18,7 +18,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.shoji.dailytask.BuildConfig;
 import com.example.shoji.dailytask.R;
@@ -62,6 +61,9 @@ public class MainActivity extends AppCompatActivityEx
     OnSharedPreferenceChangeListener mOnSharedPreferenceChangeListener;
     // [END]  shared preference onChange listener
 
+    private static final int NAV_TO_TASK_EDITOR = 350;
+    private static final int NAV_TO_TASK_DETAIL = 351;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         if(sPlantedTimberTree == false) {
@@ -95,7 +97,7 @@ public class MainActivity extends AppCompatActivityEx
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, TaskEditorActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, NAV_TO_TASK_EDITOR);
             }
         });
 
@@ -202,7 +204,7 @@ public class MainActivity extends AppCompatActivityEx
     public void onClickTask(long id) {
         Intent intent = new Intent(this, TaskDetailActivity.class);
         intent.putExtra(TaskDetailActivity.EXTRA_TASK_ID, id);
-        startActivity(intent);
+        startActivityForResult(intent, NAV_TO_TASK_DETAIL);
     }
 
     @Override
@@ -223,7 +225,7 @@ public class MainActivity extends AppCompatActivityEx
     @Override
     public void onTaskSetState(Integer integer) {
         if(integer != null && integer == 1)
-            Toast.makeText(this, R.string.main_activity_task_marked_as_done, Toast.LENGTH_SHORT).show();
+            showSnackBar(mRecyclerView, R.string.main_activity_task_marked_as_done);
     }
     // [END] mask test as done
     // [END] OnClickListener
@@ -324,4 +326,19 @@ public class MainActivity extends AppCompatActivityEx
     }
     // [END] Save instance state
 
+    // [START] Show snack bar
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode != RESULT_OK) return;
+        switch (requestCode) {
+            case NAV_TO_TASK_DETAIL:
+            case NAV_TO_TASK_EDITOR:
+                showSnackBar(mRecyclerView, data);
+                break;
+            default:
+                break;
+        }
+    }
+    // [END] Show snack bar
 }

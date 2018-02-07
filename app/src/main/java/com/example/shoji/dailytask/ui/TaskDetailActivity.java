@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.shoji.dailytask.R;
 import com.example.shoji.dailytask.background.LoaderIds;
@@ -64,6 +63,8 @@ public class TaskDetailActivity extends AppCompatActivityEx
     private Button mUnmarkAsDoneButton;
     // [END] Detail screen buttons
 
+    private static final int NAV_TO_TASK_EDITOR = 450;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,7 +95,7 @@ public class TaskDetailActivity extends AppCompatActivityEx
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, TaskEditorActivity.class);
                 intent.putExtra(TaskEditorActivity.EXTRA_TASK_ID, mTaskId);
-                startActivity(intent);
+                startActivityForResult(intent, NAV_TO_TASK_EDITOR);
             }
         });
         // [END] use FAB to open the task to edit
@@ -329,7 +330,7 @@ public class TaskDetailActivity extends AppCompatActivityEx
             }
 
             if( res_id != 0) {
-                Toast.makeText(mContext, res_id, Toast.LENGTH_SHORT).show();
+                setResultOk(res_id);
                 finish();
             }
             else {
@@ -381,9 +382,26 @@ public class TaskDetailActivity extends AppCompatActivityEx
         }
         else {
             Timber.d("Deleted task!");
-            Toast.makeText(mContext, R.string.task_details_delete_task_success, Toast.LENGTH_SHORT).show();
+            setResultOk(R.string.task_details_delete_task_success);
             finish();
         }
     }
     // [END] Delete this task in a Loader
+
+
+
+    // [START] Show snack bar
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode != RESULT_OK) return;
+        switch (requestCode) {
+            case NAV_TO_TASK_EDITOR:
+                showSnackBar(mTaskTitleTextView, data);
+                break;
+            default:
+                break;
+        }
+    }
+    // [END] Show snack bar
 }
