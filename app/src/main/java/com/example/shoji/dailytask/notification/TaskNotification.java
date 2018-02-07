@@ -39,6 +39,7 @@ public class TaskNotification {
     public static final int ACTION_DISMISS_NOTIFICATION_PENDING_INTENT_ID = 6000;
     public static final int ACTION_MARK_TASK_AS_DONE_PENDING_INTENT_ID = 6001;
     public static final int ACTION_TASK_REMINDER_PENDING_INTENT_ID = 6002;
+    public static final int ACTION_DISMISS_NOTIFICATIONS_PENDING_INTENT_ID = 6003;
 
     private static void notifyTodaysTask(Context context, long taskId, String taskTitle) {
         NotificationManager notificationManager = (NotificationManager)
@@ -65,6 +66,7 @@ public class TaskNotification {
                 .setDefaults(Notification.DEFAULT_VIBRATE)
                 .setContentIntent(getPendingIntentShowTaskById(context, taskId))
                 .addAction(markTaskAsDoneAction(context, taskId))
+                .addAction(clearAllNotificationsAction(context))
                 .setAutoCancel(true);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN
@@ -114,6 +116,36 @@ public class TaskNotification {
         Resources res = context.getResources();
         Bitmap largeIcon = BitmapFactory.decodeResource(res, resIdIcon);
         return largeIcon;
+    }
+
+    public static PendingIntent getDismissNotificationsPendingIntent(Context context) {
+        String action = IntentServiceTasks.ACTION_DISMISS_NOTIFICATION;
+        int requestCode = ACTION_DISMISS_NOTIFICATIONS_PENDING_INTENT_ID;
+
+        Intent intent = new Intent(context, TaskIntentService.class);
+
+        intent.setAction(action);
+
+        PendingIntent pendingIntent = PendingIntent.getService(
+                context,
+                requestCode,
+                intent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+
+        return pendingIntent;
+    }
+    private static NotificationCompat.Action clearAllNotificationsAction(Context context) {
+        PendingIntent pendingIntent = getDismissNotificationsPendingIntent(context);
+
+        int resIdIcon = android.R.drawable.ic_menu_close_clear_cancel;
+        String title = context.getString(R.string.notification_dismiss_action);
+
+        NotificationCompat.Action markTaskAsDoneAction =
+                new NotificationCompat.Action(resIdIcon,
+                        title,
+                        pendingIntent);
+
+        return markTaskAsDoneAction;
     }
 
 
