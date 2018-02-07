@@ -52,7 +52,7 @@ public class TaskNotification {
             notificationManager.createNotificationChannel(mChannel);
         }
 
-        int resIdSmallIcon = android.R.color.transparent;
+        int resIdSmallIcon = R.drawable.ic_task_notification;
         Bitmap largeIcon = largeIcon(context, resIdSmallIcon);
 
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context,TASK_DAILY_NOTIFICATION_CHANNEL_ID)

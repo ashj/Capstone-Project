@@ -35,6 +35,9 @@ public class TaskReminderUtilities {
         Driver driver = new GooglePlayDriver(context);
         FirebaseJobDispatcher dispatcher = new FirebaseJobDispatcher(driver);
 
+        int startInterval = REMINDER_INTERVAL_SECONDS;
+        int flexTime = SYNC_FLEXTIME_SECONDS;
+
         Job constraintReminderJob = dispatcher.newJobBuilder()
                 .setService(TaskReminderFirebaseJobService.class)
                 .setTag(REMINDER_JOB_TAG)
@@ -42,8 +45,8 @@ public class TaskReminderUtilities {
                 .setLifetime(Lifetime.FOREVER)
                 .setRecurring(true)
                 .setTrigger(Trigger.executionWindow(
-                        REMINDER_INTERVAL_DAILY,
-                        REMINDER_INTERVAL_DAILY + SYNC_FLEXTIME_SECONDS))
+                        startInterval,
+                        startInterval + flexTime))
                 .setReplaceCurrent(true)
                 .build();
 
