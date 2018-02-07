@@ -90,4 +90,8 @@ dependencies {
     // only for free version
     freeImplementation 'com.google.android.gms:play-services-ads:11.8.0'
 
+    // Location features
+    compile 'com.google.android.gms:play-services-places:11.8.0'
+    compile 'com.google.android.gms:play-services-location:11.8.0'
+
 }
