@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.v4.util.Pair;
 import android.support.v7.preference.PreferenceManager;
+import android.text.TextUtils;
 
 import com.example.shoji.dailytask.R;
 
@@ -38,6 +39,15 @@ public class LocationUtils {
 
         Timber.d("getPickedPlace - id: %s, address: %s", placeId, placeAddress);
         return new Pair<>(placeId, placeAddress);
+    }
+
+    public static boolean isPlaceIdValid(Context context, String placeId) {
+        if( placeId == null ||
+                TextUtils.equals(placeId, context.getString(R.string.empty_string))) {
+            return false;
+        }
+
+        return true;
     }
     // [END] Retrieve picked place into shared preference
 }

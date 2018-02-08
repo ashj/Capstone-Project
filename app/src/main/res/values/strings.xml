@@ -89,6 +89,7 @@
     <string name="location_pick_a_location">Pick a location</string>
     <string name="need_location_permission_message">You need to enable location permissions first</string>
     <string name="location_permissions_granted_message">Location permissions granted</string>
+    <string name="enable_geofences">Enable Geofences</string>
 
     <string name="pref_picked_place_id_key">pref-picked-place-id</string>
     <string name="pref_picked_place_adress_key">pref-picked-place-address</string>

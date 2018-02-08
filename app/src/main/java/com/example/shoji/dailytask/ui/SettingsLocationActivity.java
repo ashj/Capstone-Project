@@ -2,24 +2,33 @@ package com.example.shoji.dailytask.ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.util.Pair;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 
 import com.example.shoji.dailytask.R;
+import com.example.shoji.dailytask.location.Geofencing;
 import com.example.shoji.dailytask.location.LocationUtils;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.PlaceBuffer;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.location.places.ui.PlacePicker;
 
@@ -34,6 +43,10 @@ public class SettingsLocationActivity extends AppCompatActivityEx
 
     private Button mPickLocationButton;
 
+    private GoogleApiClient mClient;
+    private Geofencing mGeofencing;
+    private boolean mIsEnabled;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,11 +54,33 @@ public class SettingsLocationActivity extends AppCompatActivityEx
 
         mPickLocationButton = findViewById(R.id.button);
 
-        GoogleApiClient client = buildGoogleApiClient();
+        mClient = buildGoogleApiClient();
+        Context context = this;
+        mGeofencing = new Geofencing(context, mClient);
 
+        // TODO move to settings screen
+        // [START] Toggle geofence
+        Switch onOffSwitch = findViewById(R.id.enable_switch);
+        final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        mIsEnabled = sharedPreferences.getBoolean(getString(R.string.pref_location_service_key),
+                getResources().getBoolean(R.bool.pref_location_service_default_value));
 
+        onOffSwitch.setChecked(mIsEnabled);
+        onOffSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putBoolean(getString(R.string.pref_location_service_key), isChecked);
+                mIsEnabled = isChecked;
+                editor.commit();
+                if (isChecked) mGeofencing.registerAllGeofences();
+                else mGeofencing.unRegisterAllGeofences();
+            }
 
+        });
+        // [END] Toggle geofence
     }
+
     // [START] Build GoogleApiClient
     private GoogleApiClient buildGoogleApiClient() {
         Context context = this;
@@ -63,10 +98,36 @@ public class SettingsLocationActivity extends AppCompatActivityEx
     }
     // [END] Build GoogleApiClient
 
+
+
+    // [START] Retrieve picked place
+    public void refreshPlacesData() {
+        Context context = this;
+        Pair<String, String> pair = LocationUtils.getPickedPlace(context);
+        String placeId = pair.first;
+
+        if(!LocationUtils.isPlaceIdValid(context, placeId)) {
+            Timber.d("refreshPlacesData -- nothing to do");
+            return;
+        }
+        Timber.d("refreshPlacesData");
+        PendingResult<PlaceBuffer> placeResult = Places.GeoDataApi.getPlaceById(mClient, placeId);
+        placeResult.setResultCallback(new ResultCallback<PlaceBuffer>() {
+            @Override
+            public void onResult(@NonNull PlaceBuffer places) {
+                mGeofencing.updateGeofencesList(places);
+                if (mIsEnabled) mGeofencing.registerAllGeofences();
+            }
+        });
+    }
+    // [END] Rerieve picked place
+
+
     // [START] GoogleApiClient.ConnectionCallbacks
     @Override
     public void onConnected(@Nullable Bundle bundle) {
         Timber.d("GoogleApiClient -- onConnected");
+        refreshPlacesData();
     }
 
     @Override
@@ -94,9 +155,9 @@ public class SettingsLocationActivity extends AppCompatActivityEx
     public void onAddPlaceButtonClicked(View view) {
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
+            requestFineLocationPermission();
             //Toast.makeText(this, getString(R.string.need_location_permission_message), Toast.LENGTH_LONG).show();
             showSnackBar(mPickLocationButton, R.string.need_location_permission_message, Snackbar.LENGTH_LONG);
-            requestFineLocationPermission();
             return;
         }
 
@@ -140,6 +201,8 @@ public class SettingsLocationActivity extends AppCompatActivityEx
             Context context = this;
             LocationUtils.setPickedPlace(context, placeID, placeAddress);
             // [END] Save picked place into shared preference
+
+            refreshPlacesData();
         }
     }
     // [END] Place picker
