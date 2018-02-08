@@ -3,6 +3,7 @@ package com.example.shoji.dailytask.ui;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v4.util.Pair;
 import android.support.v7.preference.CheckBoxPreference;
 import android.support.v7.preference.EditTextPreference;
 import android.support.v7.preference.ListPreference;
@@ -13,6 +14,7 @@ import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.example.shoji.dailytask.R;
+import com.example.shoji.dailytask.location.LocationUtils;
 
 
 public class SettingsFragment extends PreferenceFragmentCompat
@@ -59,8 +61,15 @@ public class SettingsFragment extends PreferenceFragmentCompat
 
         else {
             preference.setSelectable(true);
-            preference.setSummary(sharedPreferences.getString(preference.getKey(),
-                                                                getString(R.string.pref_location_open_and_set_place_defaultValue)));
+            // [START] Retrieve picked place into shared preference
+            Pair<String, String> pair = LocationUtils.getPickedPlace(getContext());
+            String summaryAddress = pair.second;
+
+            if(TextUtils.equals(summaryAddress, getString(R.string.empty_string))) {
+                summaryAddress = getString(R.string.pref_location_open_and_set_place_defaultValue);
+            }
+            // [END] Retrieve picked place into shared preference
+            preference.setSummary(summaryAddress);
             preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
