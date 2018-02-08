@@ -11,7 +11,6 @@ import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
 import android.support.v7.preference.PreferenceScreen;
 import android.text.TextUtils;
-import android.widget.Toast;
 
 import com.example.shoji.dailytask.R;
 import com.example.shoji.dailytask.location.LocationUtils;
@@ -73,8 +72,6 @@ public class SettingsFragment extends PreferenceFragmentCompat
             preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
-                    // TODO open activity
-                    Toast.makeText(getContext(), "Open location screen here", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(getContext(), SettingsLocationActivity.class);
                     startActivity(intent);
                     return true;
