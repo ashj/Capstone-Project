@@ -94,6 +94,8 @@
                 android:resource="@xml/task_widget_provider_info" />
         </receiver>
 
+        <receiver android:name=".location.GeofenceBroadcastReceiver" />
+
         <!--Include the AdActivity configChanges and theme. -->
         <activity
             android:name="com.google.android.gms.ads.AdActivity"
