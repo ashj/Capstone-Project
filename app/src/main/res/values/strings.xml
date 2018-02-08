@@ -85,6 +85,11 @@
     <string name="notification_mark_task_as_done_action">mark task as done</string>
     <string name="notification_dismiss_action">dismiss</string>
 
+    <!-- Location -->
+    <string name="location_pick_a_location">Pick a location</string>
+    <string name="need_location_permission_message">You need to enable location permissions first</string>
+    <string name="location_permissions_granted_message">Location permissions granted</string>
+
     <!-- Ads -->
     <!-- TODO: move to free version -->
     <string name="banner_ad_unit_id" translatable="false">ca-app-pub-3940256099942544/6300978111</string>

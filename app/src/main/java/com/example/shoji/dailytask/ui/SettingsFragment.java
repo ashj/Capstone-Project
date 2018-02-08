@@ -1,5 +1,6 @@
 package com.example.shoji.dailytask.ui;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.preference.CheckBoxPreference;
@@ -7,10 +8,8 @@ import android.support.v7.preference.EditTextPreference;
 import android.support.v7.preference.ListPreference;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
-import android.support.v7.preference.PreferenceManager;
 import android.support.v7.preference.PreferenceScreen;
 import android.text.TextUtils;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.shoji.dailytask.R;
@@ -67,6 +66,8 @@ public class SettingsFragment extends PreferenceFragmentCompat
                 public boolean onPreferenceClick(Preference preference) {
                     // TODO open activity
                     Toast.makeText(getContext(), "Open location screen here", Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(getContext(), SettingsLocationActivity.class);
+                    startActivity(intent);
                     return true;
                 }
             });

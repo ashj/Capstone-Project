@@ -57,4 +57,8 @@ http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
     <dimen name="widget_padding_horizontal">4dp</dimen>
     <dimen name="style_button_padding_widget">4dp</dimen>
 
+    <!-- Location -->
+    <dimen name="activity_settings_location_vertical_margin">16dp</dimen>
+    <dimen name="activity_settings_location_horizontal_margin">16dp</dimen>
+
 </resources>
