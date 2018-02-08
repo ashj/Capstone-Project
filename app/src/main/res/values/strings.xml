@@ -90,6 +90,8 @@
     <string name="need_location_permission_message">You need to enable location permissions first</string>
     <string name="location_permissions_granted_message">Location permissions granted</string>
 
+    <string name="pref_picked_place_id_key">pref-picked-place-id</string>
+    <string name="pref_picked_place_adress_key">pref-picked-place-address</string>
     <!-- Ads -->
     <!-- TODO: move to free version -->
     <string name="banner_ad_unit_id" translatable="false">ca-app-pub-3940256099942544/6300978111</string>

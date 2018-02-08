@@ -7,9 +7,6 @@
     <!-- Location -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <meta-data
-        android:name="com.google.android.geo.API_KEY"
-        android:value="AIzaSyAKlpo3TD_Co6gnuUnOoa53bjyIbKbf274" />
 
     <application
         android:allowBackup="true"
@@ -19,6 +16,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <!-- Location -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAKlpo3TD_Co6gnuUnOoa53bjyIbKbf274" />
+
         <activity
             android:name=".ui.MainActivity"
             android:theme="@style/AppThemeNoBar">
