@@ -3,6 +3,7 @@ package com.example.shoji.dailytask.ui;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -25,6 +26,7 @@ import com.example.shoji.dailytask.adapter.TaskAdapter;
 import com.example.shoji.dailytask.background.LoaderIds;
 import com.example.shoji.dailytask.background.LoaderTaskGetTasks;
 import com.example.shoji.dailytask.background.LoaderTaskSetConcludedById;
+import com.example.shoji.dailytask.location.GeofenceBroadcastReceiver;
 import com.example.shoji.dailytask.notification.IntentServiceTasks;
 import com.example.shoji.dailytask.notification.TaskIntentService;
 import com.example.shoji.dailytask.notification.TaskNotification;
@@ -145,6 +147,15 @@ public class MainActivity extends AppCompatActivityEx
         mOnSharedPreferenceChangeListener = new OnSharedPreferenceChangeListener();
         sharedPreferences.registerOnSharedPreferenceChangeListener(mOnSharedPreferenceChangeListener);
         // [END] shared preference onChange listener
+
+        // TODO, remove later - to test the broadcast receiver
+//        GeofenceBroadcastReceiver br = new GeofenceBroadcastReceiver();
+//        IntentFilter filter = new IntentFilter();
+//        filter.addAction(Intent.ACTION_POWER_CONNECTED);
+//        filter.addAction(Intent.ACTION_POWER_DISCONNECTED);
+//        this.registerReceiver(br, filter);
+//        Intent intent = new Intent();
+//        sendBroadcast(intent);
     }
 
     // [START] Toolbar - inflate and item selected
