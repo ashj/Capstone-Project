@@ -61,4 +61,17 @@ public class TaskPendingIntentUtils {
 
         return markTaskAsDonePendingIntent;
     }
+
+    public static PendingIntent getUpdateAppWidgetPendingIntent(Context context) {
+        Intent intent = new Intent(context, TaskIntentService.class);
+        intent.setAction(TaskIntentServiceTasks.ACTION_REFRESH_TASK_WIDGET);
+
+        PendingIntent pendingIntent = PendingIntent.getService(
+                context,
+                TaskIntentServiceTasks.ACTION_REFRESH_WIDGET_PENDING_INTENT_ID,
+                intent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+
+        return pendingIntent;
+    }
 }

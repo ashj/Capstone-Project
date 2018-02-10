@@ -1,12 +1,11 @@
 package com.example.shoji.dailytask.widget;
 
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.Intent;
 
-import com.example.shoji.dailytask.intentservice.TaskIntentService;
-import com.example.shoji.dailytask.intentservice.TaskIntentServiceTasks;
+import com.example.shoji.dailytask.intentservice.TaskPendingIntentUtils;
 
 import timber.log.Timber;
 
@@ -14,9 +13,13 @@ public class WidgetUtils {
     // [START] Update app widget
     public static void startTaskWidgetUpdate(Context context) {
         Timber.d("startTaskWidgetUpdate");
-        Intent intent = new Intent(context, TaskIntentService.class);
-        intent.setAction(TaskIntentServiceTasks.ACTION_REFRESH_TASK_WIDGET);
-        context.startService(intent);
+        PendingIntent pendingIntent = TaskPendingIntentUtils.getUpdateAppWidgetPendingIntent(context);
+
+        try {
+            pendingIntent.send();
+        } catch (PendingIntent.CanceledException e) {
+            Timber.e(e.getMessage());
+        }
     }
 
     public static void updateTaskWidget(Context context) {
