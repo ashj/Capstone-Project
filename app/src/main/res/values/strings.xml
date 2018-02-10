@@ -75,7 +75,6 @@
     <string name="pref_location_service_title">Notify based on location</string>
 
     <string name="pref_location_open_and_set_place_key">location-service-place</string>
-    <string name="pref_location_open_and_set_place_defaultValue">Pick a location</string>
     <string name="pref_location_open_and_set_place_summaryOff">first, enable notifications based on location</string>
     <string name="pref_location_open_and_set_place_title">Show notification when close to</string>
 
@@ -88,7 +87,6 @@
     <!-- Location -->
     <string name="location_pick_a_location">Pick a location</string>
     <string name="need_location_permission_message">You need to enable location permissions first</string>
-    <string name="location_permissions_granted_message">Location permissions granted</string>
     <string name="enable_geofences">Enable Geofences</string>
 
     <string name="pref_picked_place_id_key">pref-picked-place-id</string>

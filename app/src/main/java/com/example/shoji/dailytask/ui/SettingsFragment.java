@@ -63,10 +63,6 @@ public class SettingsFragment extends PreferenceFragmentCompat
             // [START] Retrieve picked place into shared preference
             Pair<String, String> pair = LocationUtils.getPickedPlace(getContext());
             String summaryAddress = pair.second;
-
-            if(TextUtils.equals(summaryAddress, getString(R.string.empty_string))) {
-                summaryAddress = getString(R.string.pref_location_open_and_set_place_defaultValue);
-            }
             // [END] Retrieve picked place into shared preference
             preference.setSummary(summaryAddress);
             preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {

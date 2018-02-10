@@ -16,8 +16,8 @@
 
     <Preference
         android:key="@string/pref_location_open_and_set_place_key"
-        android:defaultValue="@string/pref_location_open_and_set_place_defaultValue"
+        android:defaultValue="@string/pref_picked_place_address_default_value"
         android:persistent="false"
-        android:summary="@string/pref_location_open_and_set_place_defaultValue"
+        android:summary="@string/pref_picked_place_address_default_value"
         android:title="@string/pref_location_open_and_set_place_title" />
 </PreferenceScreen>
