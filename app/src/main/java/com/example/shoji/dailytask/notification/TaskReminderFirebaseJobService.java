@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 
+import com.example.shoji.dailytask.intentservice.TaskIntentServiceTasks;
 import com.firebase.jobdispatcher.JobParameters;
 import com.firebase.jobdispatcher.JobService;
 
@@ -19,8 +20,8 @@ public class TaskReminderFirebaseJobService extends JobService {
             @Override
             protected Object doInBackground(Object[] params) {
                 Intent intent = new Intent();
-                intent.setAction(IntentServiceTasks.ACTION_TASK_REMINDER);
-                IntentServiceTasks.executeTask(context, intent);
+                intent.setAction(TaskIntentServiceTasks.ACTION_TASK_REMINDER);
+                TaskIntentServiceTasks.executeTask(context, intent);
                 return null;
             }
 

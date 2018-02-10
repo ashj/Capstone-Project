@@ -24,12 +24,13 @@ import com.example.shoji.dailytask.adapter.TaskAdapter;
 import com.example.shoji.dailytask.background.LoaderIds;
 import com.example.shoji.dailytask.background.LoaderTaskGetTasks;
 import com.example.shoji.dailytask.background.LoaderTaskSetConcludedById;
-import com.example.shoji.dailytask.notification.IntentServiceTasks;
-import com.example.shoji.dailytask.notification.TaskIntentService;
-import com.example.shoji.dailytask.notification.TaskNotification;
+import com.example.shoji.dailytask.intentservice.TaskIntentService;
+import com.example.shoji.dailytask.intentservice.TaskIntentServiceTasks;
+import com.example.shoji.dailytask.notification.TaskNotificationUtils;
 import com.example.shoji.dailytask.notification.TaskReminderUtilities;
 import com.example.shoji.dailytask.provider.TaskContentObserver;
 import com.example.shoji.dailytask.provider.TaskContract;
+import com.example.shoji.dailytask.widget.WidgetUtils;
 
 import timber.log.Timber;
 
@@ -240,7 +241,7 @@ public class MainActivity extends AppCompatActivityEx
             sTaskContentObserver.register();
         }
 
-        IntentServiceTasks.startTaskWidgetUpdate(this);
+        WidgetUtils.startTaskWidgetUpdate(this);
     }
 
     @Override
@@ -262,14 +263,7 @@ public class MainActivity extends AppCompatActivityEx
 
         // [START] dismiss notification after a database modification
         Context context = this;
-        int requestCode = TaskNotification.ACTION_DISMISS_NOTIFICATION_PENDING_INTENT_ID;
-        int flag = PendingIntent.FLAG_UPDATE_CURRENT;
-
-        Intent dismissNotificationIntent = new Intent(context, TaskIntentService.class);
-        dismissNotificationIntent.setAction(IntentServiceTasks.ACTION_DISMISS_NOTIFICATION);
-
-        PendingIntent pendingIntent = PendingIntent.getService(
-                context, requestCode, dismissNotificationIntent, flag);
+        PendingIntent pendingIntent = TaskNotificationUtils.getDismissNotificationsPendingIntent(context);
 
         try {
             pendingIntent.send();

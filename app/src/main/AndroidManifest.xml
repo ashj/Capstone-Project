@@ -74,7 +74,7 @@
         </activity>
 
         <service
-            android:name=".notification.TaskIntentService"
+            android:name=".intentservice.TaskIntentService"
             android:exported="false" />
         <service
             android:name=".notification.TaskReminderFirebaseJobService"

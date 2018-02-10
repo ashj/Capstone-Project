@@ -5,11 +5,10 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.os.Bundle;
 
-import com.example.shoji.dailytask.notification.IntentServiceTasks;
-import com.example.shoji.dailytask.notification.TaskReminderUtilities;
 import com.example.shoji.dailytask.provider.TaskContract;
 import com.example.shoji.dailytask.provider.TaskProvider;
 import com.example.shoji.dailytask.utils.TimeUtils;
+import com.example.shoji.dailytask.widget.WidgetUtils;
 
 import timber.log.Timber;
 
@@ -44,7 +43,7 @@ public class LoaderTaskSetConcludedById implements LoaderCallBacksListenersInter
 
             //[START] update the widget
             if(rows > 0)
-                IntentServiceTasks.startTaskWidgetUpdate(context);
+                WidgetUtils.startTaskWidgetUpdate(context);
             //[END] update the widget
 
             integer = Integer.valueOf(rows);
