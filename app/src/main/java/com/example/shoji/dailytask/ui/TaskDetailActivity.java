@@ -46,9 +46,8 @@ public class TaskDetailActivity extends AppCompatActivityEx
     // [END] get task by id
 
     private ProgressBar mProgressBar;
-    private TextView mTaskTitleTextView;
-    private TextView mTaskDescriptionTextView;
-    private TextView mTaskModifiedDateTextView;
+    private TextView mTaskTitle;
+    private TextView mTaskContents;
     private FloatingActionButton mFabEdit;
 
     private Cursor mCursor;
@@ -82,9 +81,8 @@ public class TaskDetailActivity extends AppCompatActivityEx
         getSupportActionBar().setTitle(getString(R.string.task_details_activity_title));
 
         mProgressBar = findViewById(R.id.progressbar);
-        mTaskTitleTextView = findViewById(R.id.task_title_text_view);
-        mTaskDescriptionTextView = findViewById(R.id.task_description_text_view);
-        mTaskModifiedDateTextView = findViewById(R.id.task_modified_date_text_view);
+        mTaskTitle = findViewById(R.id.task_title);
+        mTaskContents = findViewById(R.id.task_contents);
 
         // [START] need valid intent to proceed
         mTaskId = getIdFromIntent();
@@ -230,18 +228,23 @@ public class TaskDetailActivity extends AppCompatActivityEx
         // [END] Check from which screen we came from
 
         // [START] fill the view with data from cursor
+        // set title
         columnIndex = mCursor.getColumnIndex(TaskContract.COLUMN_TITLE);
         String title = mCursor.getString(columnIndex);
+        mTaskTitle.setText(title);
 
+        // set contents
+        StringBuffer sb = new StringBuffer();
         columnIndex = mCursor.getColumnIndex(TaskContract.COLUMN_DESCRIPTION);
         String description = mCursor.getString(columnIndex);
-
-        columnIndex = mCursor.getColumnIndex(TaskContract.COLUMN_PRIORITY);
+        if(description.length() > 0)
+            sb.append(description);
 
         // [START] priority: from value to label
+        columnIndex = mCursor.getColumnIndex(TaskContract.COLUMN_PRIORITY);
+
         int priorityInt = mCursor.getInt(columnIndex);
         Resources resources = getResources();
-        String priority = getString(R.string.empty_string);
         int index = -1;
 
         int[] values = resources.getIntArray(R.array.priority_value_array);
@@ -264,8 +267,6 @@ public class TaskDetailActivity extends AppCompatActivityEx
         // [END] show pretty priority field
         // [END] priority: from value to label
 
-        mTaskTitleTextView.setText(title);
-        mTaskDescriptionTextView.setText(description);
 
         // [START} convert time in millis to local time
         if(mDetailFrom == DETAIL_FROM_HISTORY) {
@@ -276,10 +277,21 @@ public class TaskDetailActivity extends AppCompatActivityEx
                     | DateUtils.FORMAT_SHOW_TIME;
             String dateStr = DateUtils.formatDateTime(mContext, modification_date, flags);
 
-            mTaskModifiedDateTextView.setText(getString(R.string.task_details_modified_date_text, dateStr));
-            mTaskModifiedDateTextView.setVisibility(View.VISIBLE);
+            // break one line if there is text
+            if(sb.length() != 0) {
+                sb.append("\n");
+            }
+
+            sb.append("\n")
+                .append(getString(R.string.task_details_modified_date_text, dateStr));
         }
         // [END} convert time in millis to local time
+        if(sb.length() == 0) {
+            mTaskContents.setVisibility(View.GONE);
+        } else {
+            mTaskContents.setVisibility(View.VISIBLE);
+            mTaskContents.setText(sb.toString());
+        }
 
         mCursor.close();
         // [END] fill the view with data from cursor
@@ -428,7 +440,7 @@ public class TaskDetailActivity extends AppCompatActivityEx
         if(resultCode != RESULT_OK) return;
         switch (requestCode) {
             case NAV_TO_TASK_EDITOR:
-                showSnackBar(mTaskTitleTextView, data);
+                showSnackBar(mTaskContents, data);
                 break;
             default:
                 break;
