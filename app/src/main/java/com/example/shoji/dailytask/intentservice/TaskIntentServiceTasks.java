@@ -14,17 +14,19 @@ import timber.log.Timber;
 
 public class TaskIntentServiceTasks {
     public static final String ACTION_MARK_TASK_AS_DONE = "action-mark-task-as-done";
+    public static final int ACTION_MARK_TASK_AS_DONE_PENDING_INTENT_ID = 6001;
+
     public static final String ACTION_DISMISS_NOTIFICATIONS = "action-dismiss-notification";
+    public static final int ACTION_DISMISS_NOTIFICATIONS_PENDING_INTENT_ID = 6003;
 
     public static final String ACTION_TASK_REMINDER = "action-task-reminder";
+    public static final int ACTION_TASK_REMINDER_PENDING_INTENT_ID = 6002;
 
     public static final String ACTION_REFRESH_TASK_WIDGET = "action-refresh-task-widget";
 
-
-    public static final int ACTION_DISMISS_NOTIFICATION_PENDING_INTENT_ID = 6000;
-    public static final int ACTION_MARK_TASK_AS_DONE_PENDING_INTENT_ID = 6001;
-    public static final int ACTION_TASK_REMINDER_PENDING_INTENT_ID = 6002;
-    public static final int ACTION_DISMISS_NOTIFICATIONS_PENDING_INTENT_ID = 6003;
+    public static final int ACTION_SHOW_TASK_BY_ID_PENDING_INTENT_ID = 6004;
+    public static final int ACTION_SHOW_TASKS_PENDING_INTENT_ID = 6005;
+    public static final int ACTION_ADD_TASK_PENDING_INTENT_ID = 6006;
 
     public static void executeTask(Context context, Intent intent) {
         Timber.d("executeTask");

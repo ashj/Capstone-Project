@@ -13,9 +13,6 @@ import com.example.shoji.dailytask.ui.TaskEditorActivity;
 public class TaskPendingIntentUtils {
     private static final int TASK_PENDING_INTENT_ID = 5000;
 
-
-
-
     public static PendingIntent getPendingIntentShowTaskById(Context context, long taskId) {
 
         Intent startActivityIntent = new Intent(context, TaskDetailActivity.class);
@@ -23,7 +20,7 @@ public class TaskPendingIntentUtils {
 
         return PendingIntent.getActivity(
                 context,
-                TASK_PENDING_INTENT_ID,
+                TaskIntentServiceTasks.ACTION_SHOW_TASK_BY_ID_PENDING_INTENT_ID,
                 startActivityIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
     }
@@ -34,7 +31,7 @@ public class TaskPendingIntentUtils {
 
         return PendingIntent.getActivity(
                 context,
-                TASK_PENDING_INTENT_ID,
+                TaskIntentServiceTasks.ACTION_SHOW_TASKS_PENDING_INTENT_ID,
                 startActivityIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
     }
@@ -45,7 +42,7 @@ public class TaskPendingIntentUtils {
 
         return PendingIntent.getActivity(
                 context,
-                TASK_PENDING_INTENT_ID,
+                TaskIntentServiceTasks.ACTION_ADD_TASK_PENDING_INTENT_ID,
                 startActivityIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
     }
