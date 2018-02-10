@@ -97,6 +97,7 @@
     <string name="pref_picked_place_address_key">pref-picked-place-address</string>
     <string name="pref_picked_place_address_default_value">1600 Amphitheatre Parkway in Mountain View, California, United States</string>
 
+    <string name="privacy">http://www.google.com/policies/privacy</string>
 
     <!-- Widget -->
     <string name="appwidget_text">EXAMPLE</string>
