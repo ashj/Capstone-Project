@@ -18,9 +18,6 @@ import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
 import android.support.v7.preference.PreferenceScreen;
 import android.text.TextUtils;
-import android.view.View;
-import android.widget.Button;
-import android.widget.CompoundButton;
 
 import com.example.shoji.dailytask.R;
 import com.example.shoji.dailytask.location.Geofencing;
@@ -51,14 +48,10 @@ public class SettingsFragment extends PreferenceFragmentCompat
 
     private FragmentActivity mActivity;
     private Context mContext;
-    private Button mPickLocationButton;
 
     private GoogleApiClient mClient;
     private Geofencing mGeofencing;
     private boolean mIsEnabled;
-
-    private CheckBoxPreference mNotificationCheckBox;
-    private CheckBoxPreference mLocationServiceCheckBox;
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
@@ -70,6 +63,10 @@ public class SettingsFragment extends PreferenceFragmentCompat
         // [START] Google API and Geofencing
         mClient = buildGoogleApiClient();
         mGeofencing = new Geofencing(mContext, mClient);
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
+        mIsEnabled = sharedPreferences.getBoolean(getString(R.string.pref_location_service_key),
+                getResources().getBoolean(R.bool.pref_location_service_default_value));
         // [END] Google API and Geofencing
 
         // [START] update summary
@@ -77,50 +74,33 @@ public class SettingsFragment extends PreferenceFragmentCompat
         // [END] update summary
 
 
-        // [START]
-        mNotificationCheckBox= (CheckBoxPreference) findPreference(getString(R.string.pref_daily_notification_key));
-        mLocationServiceCheckBox = (CheckBoxPreference) findPreference(getString(R.string.pref_location_service_key));
-
-        final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
-        mIsEnabled = sharedPreferences.getBoolean(getString(R.string.pref_location_service_key),
-                getResources().getBoolean(R.bool.pref_location_service_default_value));
-        Timber.d("Value #1 is %b", mIsEnabled);
-        mLocationServiceCheckBox.setChecked(mIsEnabled);
-        mLocationServiceCheckBox.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                // value is toggled
-                mIsEnabled = !mIsEnabled;
-                Timber.d("Value #2a is %b", mIsEnabled);
-                Timber.d("Value #2b is %b", sharedPreferences.getBoolean(getString(R.string.pref_location_service_key),
-                        getResources().getBoolean(R.bool.pref_location_service_default_value)));
-
-                // [START] check notification setting
-                String keyNotification = getString(R.string.pref_daily_notification_key);
-                boolean defValueNotification = getResources().getBoolean(R.bool.pref_daily_notification_default_value);
-                boolean enabledNotification = sharedPreferences.getBoolean(keyNotification, defValueNotification);
-                // [END] check notification setting
-
-                if (mIsEnabled && enabledNotification) {
-                    Timber.d("setupTaskReminderNotification II: Situation #1: noti:ON, locServ:ON");
-                    mGeofencing.registerAllGeofences();
-                }
-                else {
-                    Timber.d("setupTaskReminderNotification II: Situation #2/#3");
-                    mGeofencing.unRegisterAllGeofences();
-                }
-                return true;
-            }
-
-        });
-
-
-        // [END}
-
         // [START] notification by location
         bindLocationPicker();
         // [END] notification by location
     }
+
+    // [START] setup geofencing based on notification setting
+    private void configureGeofencing() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
+        // [START] check notification setting
+        String keyNotification = getString(R.string.pref_daily_notification_key);
+        boolean enabledNotification = sharedPreferences.getBoolean(keyNotification,
+                getResources().getBoolean(R.bool.pref_daily_notification_default_value));
+        // [END] check notification setting
+
+       boolean enabledLocation = sharedPreferences.getBoolean(getString(R.string.pref_location_service_key),
+                getResources().getBoolean(R.bool.pref_location_service_default_value));
+
+        if (enabledLocation && enabledNotification) {
+            Timber.d("setupTaskReminderNotification II: Situation #1: noti:ON, locServ:ON");
+            mGeofencing.registerAllGeofences();
+        }
+        else {
+            Timber.d("setupTaskReminderNotification II: Situation #2/#3");
+            mGeofencing.unRegisterAllGeofences();
+        }
+    }
+    // [END] setup geofencing based on notification setting
 
     // [START] update summary
     private void updateSummary() {
@@ -194,8 +174,10 @@ public class SettingsFragment extends PreferenceFragmentCompat
         Timber.d("onSharedPreferenceChanged - key: %s", key);
         // [START] enable or disable location selection screen
         if(TextUtils.equals(key, getString(R.string.pref_location_service_key))
-        || TextUtils.equals(key, getString(R.string.pref_picked_place_address_key))) {
+                || TextUtils.equals(key, getString(R.string.pref_picked_place_address_key))
+                || TextUtils.equals(key, getString(R.string.pref_daily_notification_key))) {
             bindLocationPicker();
+            configureGeofencing();
             TaskReminderUtilities.setupTaskReminderNotification(mContext, sharedPreferences);
         }
         // [END] enable or disable location selection screen
@@ -206,8 +188,8 @@ public class SettingsFragment extends PreferenceFragmentCompat
                     String value = sharedPreferences.getString(preference.getKey(),
                             getString(R.string.empty_string));
                     setPreferenceSummary(preference, value);
+                    TaskReminderUtilities.setupTaskReminderNotification(mContext, sharedPreferences);
                 }
-                TaskReminderUtilities.setupTaskReminderNotification(mContext, sharedPreferences);
             }
         }
 
@@ -321,6 +303,7 @@ public class SettingsFragment extends PreferenceFragmentCompat
     // [END] Place picker
     // [START] Retrieve picked place
     public void refreshPlacesData() {
+        Timber.d("setupTaskReminderNotification III - refreshPlacesData");
         Context context = mContext;
         Pair<String, String> pair = LocationUtils.getPickedPlace(context);
         String placeId = pair.first;
@@ -329,7 +312,7 @@ public class SettingsFragment extends PreferenceFragmentCompat
             Timber.d("refreshPlacesData -- nothing to do");
             return;
         }
-        Timber.d("refreshPlacesData");
+
         PendingResult<PlaceBuffer> placeResult = Places.GeoDataApi.getPlaceById(mClient, placeId);
         placeResult.setResultCallback(new ResultCallback<PlaceBuffer>() {
             @Override

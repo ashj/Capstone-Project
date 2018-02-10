@@ -31,7 +31,7 @@ public class TaskReminderUtilities {
     private static boolean sInitialized;
 
     synchronized public static void scheduleTaskNotificationReminder(@NonNull final Context context) {
-        Timber.d("scheduleTaskNotificationReminder -- %b", sInitialized);
+        Timber.d("scheduleTaskNotificationReminder -- init'd?: %b", sInitialized);
         if (sInitialized) return;
         Timber.d("scheduleTaskNotificationReminder START");
 
@@ -59,7 +59,7 @@ public class TaskReminderUtilities {
     }
 
     synchronized public static void unscheduleTaskNotificationReminder(Context context) {
-        Timber.d("scheduleTaskNotificationReminder -- %b", sInitialized);
+        Timber.d("unscheduleTaskNotificationReminder -- init'd?: %b", sInitialized);
         if (!sInitialized) return;
         Timber.d("unscheduleTaskNotificationReminder START");
 
@@ -88,14 +88,12 @@ public class TaskReminderUtilities {
             if(enabledLocationService) {
                 Timber.d("setupTaskReminderNotification: Situation #1: noti:ON, locServ:ON");
                 TaskReminderUtilities.unscheduleTaskNotificationReminder(context);
-                // TODO - register geofence, let it dispatch the notification
             }
             // [END] consider location service settings as well
             else {
                 // [START] Start today's day notification reminder
                 Timber.d("setupTaskReminderNotification: Situation #2: noti:ON, locServ:OFF");
                 TaskReminderUtilities.scheduleTaskNotificationReminder(context);
-                // TODO - unregister geofence.
                 // [END] Start today's day notification reminder
             }
         }
