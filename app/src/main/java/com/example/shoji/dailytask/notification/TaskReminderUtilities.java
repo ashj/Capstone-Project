@@ -5,8 +5,6 @@ import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 
 import com.example.shoji.dailytask.R;
-import com.example.shoji.dailytask.location.Geofencing;
-import com.example.shoji.dailytask.location.LocationUtils;
 import com.firebase.jobdispatcher.Driver;
 import com.firebase.jobdispatcher.FirebaseJobDispatcher;
 import com.firebase.jobdispatcher.GooglePlayDriver;

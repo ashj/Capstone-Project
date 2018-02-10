@@ -1,7 +1,6 @@
 package com.example.shoji.dailytask.adapter;
 
 
-import android.app.LoaderManager;
 import android.content.Context;
 import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;

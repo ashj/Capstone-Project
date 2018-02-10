@@ -6,7 +6,6 @@ import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.RemoteViews;
 
 import com.example.shoji.dailytask.R;

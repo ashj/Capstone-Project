@@ -40,7 +40,6 @@
     <string name="tools_task_details_title_text">Todo: something</string>
     <string name="tools_task_details_description_text">Describe the task</string>
     <string name="tools_task_details_priority_text">Priority: low</string>
-    <string name="tools_task_details_modified_date_text">Finished: 01/01/1999</string>
 
     <string name="content_description_edit_task_label">Edit task</string>
     <string name="content_description_delete_task_label">Delete task</string>
@@ -86,7 +85,6 @@
     <string name="notification_dismiss_action">dismiss</string>
 
     <!-- Location -->
-    <string name="location_pick_a_location">Pick a location</string>
     <string name="need_location_permission_message">You need to enable location permissions first</string>
     <string name="enable_geofences">Enable Geofences</string>
 

@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.shoji.dailytask.R;
 import com.example.shoji.dailytask.provider.TaskContract;
 
 import timber.log.Timber;

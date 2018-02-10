@@ -3,7 +3,6 @@ package com.example.shoji.dailytask.adapter;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.support.v7.view.menu.MenuView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
