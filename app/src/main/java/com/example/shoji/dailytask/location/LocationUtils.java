@@ -15,7 +15,7 @@ public class LocationUtils {
     public static void setPickedPlace(Context context, String placeId, String placeAddress) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         String placeIdKey = context.getString(R.string.pref_picked_place_id_key);
-        String placeAddressKey = context.getString(R.string.pref_picked_place_adress_key);
+        String placeAddressKey = context.getString(R.string.pref_picked_place_address_key);
 
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
@@ -32,10 +32,10 @@ public class LocationUtils {
     public static Pair<String, String> getPickedPlace(Context context) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         String placeIdKey = context.getString(R.string.pref_picked_place_id_key);
-        String placeId = sharedPreferences.getString(placeIdKey, context.getString(R.string.empty_string));
+        String placeId = sharedPreferences.getString(placeIdKey, context.getString(R.string.pref_picked_place_id_default_value));
 
-        String placeAddressKey = context.getString(R.string.pref_picked_place_adress_key);
-        String placeAddress = sharedPreferences.getString(placeAddressKey, context.getString(R.string.empty_string));
+        String placeAddressKey = context.getString(R.string.pref_picked_place_address_key);
+        String placeAddress = sharedPreferences.getString(placeAddressKey, context.getString(R.string.pref_picked_place_address_default_value));
 
         Timber.d("getPickedPlace - id: %s, address: %s", placeId, placeAddress);
         return new Pair<>(placeId, placeAddress);

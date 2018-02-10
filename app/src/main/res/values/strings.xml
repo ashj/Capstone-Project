@@ -92,7 +92,11 @@
     <string name="enable_geofences">Enable Geofences</string>
 
     <string name="pref_picked_place_id_key">pref-picked-place-id</string>
-    <string name="pref_picked_place_adress_key">pref-picked-place-address</string>
+    <string name="pref_picked_place_id_default_value">ChIJI6rdYPi5j4ARPRVRyDdc598</string>
+
+    <string name="pref_picked_place_address_key">pref-picked-place-address</string>
+    <string name="pref_picked_place_address_default_value">1600 Amphitheatre Parkway in Mountain View, California, United States</string>
+
 
     <!-- Widget -->
     <string name="appwidget_text">EXAMPLE</string>
