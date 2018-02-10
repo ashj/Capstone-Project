@@ -8,6 +8,8 @@ import com.example.shoji.dailytask.intentservice.TaskIntentServiceTasks;
 import com.firebase.jobdispatcher.JobParameters;
 import com.firebase.jobdispatcher.JobService;
 
+import timber.log.Timber;
+
 public class TaskReminderFirebaseJobService extends JobService {
 
     private AsyncTask mBackgroundTask;
@@ -15,10 +17,12 @@ public class TaskReminderFirebaseJobService extends JobService {
 
     @Override
     public boolean onStartJob(final JobParameters jobParameters) {
+        Timber.d("onStartJob");
         final Context context = this;
         mBackgroundTask = new AsyncTask() {
             @Override
             protected Object doInBackground(Object[] params) {
+                Timber.d("onStartJob - doInBackground");
                 Intent intent = new Intent();
                 intent.setAction(TaskIntentServiceTasks.ACTION_TASK_REMINDER);
                 TaskIntentServiceTasks.executeTask(context, intent);
@@ -37,6 +41,7 @@ public class TaskReminderFirebaseJobService extends JobService {
 
     @Override
     public boolean onStopJob(JobParameters jobParameters) {
+        Timber.d("onStopJob");
         if (mBackgroundTask != null) mBackgroundTask.cancel(true);
         return true;
     }

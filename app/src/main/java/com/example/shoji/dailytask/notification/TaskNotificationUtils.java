@@ -82,6 +82,7 @@ public class TaskNotificationUtils {
     // [END] Notify about today's task
 
     private static void notifyTodaysTask(Context context, long taskId, String taskTitle) {
+        Timber.d("notifyTodaysTask");
         NotificationManager notificationManager = (NotificationManager)
                 context.getSystemService(Context.NOTIFICATION_SERVICE);
 

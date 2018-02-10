@@ -6,9 +6,11 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 
+import com.example.shoji.dailytask.BuildConfig;
 import com.example.shoji.dailytask.R;
 import com.example.shoji.dailytask.notification.TaskReminderUtilities;
 import com.example.shoji.dailytask.ui.MainActivity;
@@ -50,7 +52,8 @@ public class GeofenceBroadcastReceiver extends BroadcastReceiver {
 
             return;
         }
-        sendNotification(context, geofenceTransition);
+        if(BuildConfig.DEBUG)
+            sendNotification(context, geofenceTransition);
     }
 
     private void sendNotification(Context context, int transitionType) {
