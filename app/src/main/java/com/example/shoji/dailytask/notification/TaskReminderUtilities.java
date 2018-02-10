@@ -1,8 +1,10 @@
 package com.example.shoji.dailytask.notification;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 
+import com.example.shoji.dailytask.R;
 import com.firebase.jobdispatcher.Driver;
 import com.firebase.jobdispatcher.FirebaseJobDispatcher;
 import com.firebase.jobdispatcher.GooglePlayDriver;
@@ -67,4 +69,25 @@ public class TaskReminderUtilities {
         sInitialized = false;
     }
 
+    // [START] shared preference onChange listener
+    public static void setupTaskReminderNotification(Context context, SharedPreferences sharedPreferences) {
+        String key = context.getString(R.string.pref_daily_notification_key);
+        boolean defValue = context.getResources().getBoolean(R.bool.pref_daily_notification_default_value);
+        boolean enabled = sharedPreferences.getBoolean(key, defValue);
+
+        if(enabled) {
+            // [START] Start today's day notification reminder
+            Timber.d("Notifications are enabled, so run service to show them");
+            TaskReminderUtilities.scheduleTaskNotificationReminder(context);
+            // [END] Start today's day notification reminder
+        }
+        else {
+            // [START] Stop today's day notification reminder
+            Timber.d("Notifications are disabled, so cancel the service that show them");
+            TaskReminderUtilities.unscheduleTaskNotificationReminder(context);
+            // [END] Stop today's day notification reminder
+        }
+
+    }
+    // [END] shared preference onChange listener
 }

@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivityEx
     // [END] get tasks
 
     // [START] shared preference onChange listener
+    private Context mContext;
     OnSharedPreferenceChangeListener mOnSharedPreferenceChangeListener;
     // [END]  shared preference onChange listener
 
@@ -139,8 +140,9 @@ public class MainActivity extends AppCompatActivityEx
         // [END] ContentObserver
 
         // [START] Start today's day notification reminder
+        mContext = this;
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        setupTaskReminderNotification(sharedPreferences);
+        TaskReminderUtilities.setupTaskReminderNotification(mContext, sharedPreferences);
         // [END] Start today's day notification reminder
 
         // [START] shared preference onChange listener
@@ -293,34 +295,13 @@ public class MainActivity extends AppCompatActivityEx
 
 
     // [START] shared preference onChange listener
-    private void setupTaskReminderNotification(SharedPreferences sharedPreferences) {
-        Context context = this;
-        String key = getString(R.string.pref_daily_notification_key);
-        boolean defValue = getResources().getBoolean(R.bool.pref_daily_notification_default_value);
-        boolean enabled = sharedPreferences.getBoolean(key, defValue);
-
-        if(enabled) {
-            // [START] Start today's day notification reminder
-            Timber.d("Notifications are enabled, so run service to show them");
-            TaskReminderUtilities.scheduleTaskNotificationReminder(context);
-            // [END] Start today's day notification reminder
-        }
-        else {
-            // [START] Stop today's day notification reminder
-            Timber.d("Notifications are disabled, so cancel the service that show them");
-            TaskReminderUtilities.unscheduleTaskNotificationReminder(context);
-            // [END] Stop today's day notification reminder
-        }
-
-    }
-
     private class OnSharedPreferenceChangeListener
             implements SharedPreferences.OnSharedPreferenceChangeListener {
 
         @Override
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
             if(TextUtils.equals(key, getString(R.string.pref_daily_notification_key))) {
-                setupTaskReminderNotification(sharedPreferences);
+                TaskReminderUtilities.setupTaskReminderNotification(mContext, sharedPreferences);
             }
 
         }
