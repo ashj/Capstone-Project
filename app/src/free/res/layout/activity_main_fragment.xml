@@ -45,8 +45,6 @@
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
-
-
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -56,18 +54,43 @@
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingBottom="@dimen/activity_main__padding_bottom">
+            android:paddingBottom="@dimen/activity_main_vertical_padding">
+
+            <com.google.android.gms.ads.AdView
+                xmlns:ads="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/adView"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                ads:adSize="BANNER"
+                ads:adUnitId="@string/banner_ad_unit_id"
+                android:layout_marginTop="@dimen/activity_main_vertical_padding"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/separator_view"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:layout_marginTop="@dimen/activity_main_vertical_padding"
+                android:layout_marginStart="@dimen/activity_main_horizontal_padding"
+                android:layout_marginEnd="@dimen/activity_main_horizontal_padding"
+                app:layout_constraintTop_toBottomOf="@id/adView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
             <TextView
                 android:id="@+id/text_view"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/separator_view"
                 android:paddingTop="@dimen/activity_main_vertical_padding"
                 android:textSize="@dimen/text_size_task_list"
-                android:visibility="invisible"
                 android:text="@string/main_activity_empty_task_list" />
 
             <ProgressBar
@@ -84,38 +107,10 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler_view"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:minHeight="@dimen/activity_main__padding_bottom_large"
-                android:paddingBottom="@dimen/activity_main_vertical_padding"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toTopOf="@+id/adView"/>
-
-            <com.google.android.gms.ads.AdView
-                xmlns:ads="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/adView"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                ads:adSize="BANNER"
-                ads:adUnitId="@string/banner_ad_unit_id"
-
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toTopOf="@+id/bottom_view" />
-
-            <View
-                android:id="@+id/bottom_view"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/activity_main__padding_bottom_large"
-                android:visibility="invisible"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                />
-
+                app:layout_constraintTop_toBottomOf="@id/separator_view" />
         </android.support.constraint.ConstraintLayout>
     </android.support.v4.widget.NestedScrollView>
 

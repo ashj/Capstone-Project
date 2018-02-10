@@ -45,8 +45,6 @@
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
-
-
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -56,18 +54,17 @@
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingBottom="@dimen/activity_main__padding_bottom">
+            android:paddingBottom="@dimen/activity_main_vertical_padding">
 
             <TextView
                 android:id="@+id/text_view"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:paddingTop="@dimen/activity_main_vertical_padding"
                 android:textSize="@dimen/text_size_task_list"
-                android:visibility="invisible"
                 android:text="@string/main_activity_empty_task_list" />
 
             <ProgressBar
@@ -84,8 +81,7 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler_view"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:minHeight="@dimen/activity_main__padding_bottom_large"
+                android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
