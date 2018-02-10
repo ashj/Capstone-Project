@@ -72,9 +72,21 @@ public class SettingsLocationActivity extends AppCompatActivityEx
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putBoolean(getString(R.string.pref_location_service_key), isChecked);
                 mIsEnabled = isChecked;
-                editor.commit();
-                if (isChecked) mGeofencing.registerAllGeofences();
-                else mGeofencing.unRegisterAllGeofences();
+                editor.apply();
+                // [START] check notification setting
+                String keyNotification = getString(R.string.pref_daily_notification_key);
+                boolean defValueNotification = getResources().getBoolean(R.bool.pref_daily_notification_default_value);
+                boolean enabledNotification = sharedPreferences.getBoolean(keyNotification, defValueNotification);
+                // [END] check notification setting
+
+                if (isChecked && enabledNotification) {
+                    Timber.d("setupTaskReminderNotification II: Situation #1: noti:ON, locServ:ON");
+                    mGeofencing.registerAllGeofences();
+                }
+                else {
+                    Timber.d("setupTaskReminderNotification II: Situation #2/#3");
+                    mGeofencing.unRegisterAllGeofences();
+                }
             }
 
         });
