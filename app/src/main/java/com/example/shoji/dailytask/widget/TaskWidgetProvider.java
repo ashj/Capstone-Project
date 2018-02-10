@@ -6,12 +6,15 @@ import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.RemoteViews;
 
 import com.example.shoji.dailytask.R;
 import com.example.shoji.dailytask.background.LoaderTaskGetTasks;
-import com.example.shoji.dailytask.notification.TaskNotification;
+import com.example.shoji.dailytask.intentservice.TaskPendingIntentUtils;
+import com.example.shoji.dailytask.notification.TaskNotificationUtils;
 import com.example.shoji.dailytask.provider.TaskContract;
+import com.example.shoji.dailytask.utils.TimeUtils;
 
 /**
  * Implementation of App Widget functionality.
@@ -23,17 +26,26 @@ public class TaskWidgetProvider extends AppWidgetProvider {
 
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.task_widget_provider);
+        views.setTextViewText(R.id.widget_text_view, context.getString(R.string.widget_todays_task));
+        views.setViewVisibility(R.id.button, View.VISIBLE);
 
         CharSequence widgetText = null;
         if(taskId != TaskContract.INVALID_ID) {
-            // [START] Pending intent to mark task as done
-            PendingIntent markTaskAsDonePendingIntent = TaskNotification.getMarkTaskAsDonePendingIntent(context, taskId);
-            views.setOnClickPendingIntent(R.id.button, markTaskAsDonePendingIntent);
-            views.setTextViewText(R.id.button, context.getString(R.string.button_task_conclude));
-            // [END] Pending intent to mark task as done
-
+            // [START] last task completed timestamp
+            if(TimeUtils.isTaskUnderCooldown(context)) {
+                views.setTextViewText(R.id.widget_text_view, context.getString(R.string.widget_tomorrows_task));
+                views.setViewVisibility(R.id.button, View.GONE);
+            }
+            // [END] last task completed timestamp
+            else {
+                // [START] Pending intent to mark task as done
+                PendingIntent markTaskAsDonePendingIntent = TaskPendingIntentUtils.getMarkTaskAsDonePendingIntent(context, taskId);
+                views.setOnClickPendingIntent(R.id.button, markTaskAsDonePendingIntent);
+                views.setTextViewText(R.id.button, context.getString(R.string.button_task_conclude));
+                // [END] Pending intent to mark task as done
+            }
             // [START] Pending intent to open task
-            PendingIntent showTaskById = TaskNotification.getPendingIntentShowTaskById(context, taskId);
+            PendingIntent showTaskById = TaskPendingIntentUtils.getPendingIntentShowTaskById(context, taskId);
             widgetText = taskTitle;
             views.setOnClickPendingIntent(R.id.task_title, showTaskById);
             // [END] Pending intent to open task
@@ -41,14 +53,14 @@ public class TaskWidgetProvider extends AppWidgetProvider {
 
         else {
             // [START] Pending intent to add a new task
-            PendingIntent addTaskPendingIntent = TaskNotification.getPendingIntentAddTasks(context);
+            PendingIntent addTaskPendingIntent = TaskPendingIntentUtils.getPendingIntentAddTasks(context);
             views.setOnClickPendingIntent(R.id.button, addTaskPendingIntent);
             views.setTextViewText(R.id.button, context.getString(R.string.button_task_add));
             // [END] Pending intent to add a new task
 
             // [START] Pending intent to show tasks
             widgetText = context.getString(R.string.widget_empty_task_list);
-            PendingIntent showTasks = TaskNotification.getPendingIntentShowTasks(context);
+            PendingIntent showTasks = TaskPendingIntentUtils.getPendingIntentShowTasks(context);
             views.setOnClickPendingIntent(R.id.task_title, showTasks);
             // [END] Pending intent to show tasks
         }

@@ -359,6 +359,8 @@ public class SettingsFragment extends PreferenceFragmentCompat
             public void onResult(@NonNull PlaceBuffer places) {
                 mGeofencing.updateGeofencesList(places);
                 if (isLocationServiceEnabled()) mGeofencing.registerAllGeofences();
+
+                places.release();
             }
         });
     }

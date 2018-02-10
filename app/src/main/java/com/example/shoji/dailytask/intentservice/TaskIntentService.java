@@ -1,4 +1,4 @@
-package com.example.shoji.dailytask.notification;
+package com.example.shoji.dailytask.intentservice;
 
 
 import android.app.IntentService;
@@ -14,6 +14,6 @@ public class TaskIntentService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        IntentServiceTasks.executeTask(this, intent);
+        TaskIntentServiceTasks.executeTask(this, intent);
     }
 }

@@ -19,9 +19,9 @@ import android.widget.RadioGroup;
 import com.example.shoji.dailytask.R;
 import com.example.shoji.dailytask.background.LoaderIds;
 import com.example.shoji.dailytask.background.LoaderTaskGetById;
-import com.example.shoji.dailytask.notification.IntentServiceTasks;
 import com.example.shoji.dailytask.provider.TaskContract;
 import com.example.shoji.dailytask.provider.TaskProvider;
+import com.example.shoji.dailytask.widget.WidgetUtils;
 
 import java.util.ArrayList;
 
@@ -215,7 +215,7 @@ public class TaskEditorActivity extends AppCompatActivityEx
 
                 //[START] update the widget
                 if(uri != null)
-                    IntentServiceTasks.startTaskWidgetUpdate(mContext);
+                    WidgetUtils.startTaskWidgetUpdate(mContext);
                 //[END] update the widget
             }
             else {
@@ -225,7 +225,7 @@ public class TaskEditorActivity extends AppCompatActivityEx
 
                 //[START] update the widget
                 if(rows > 0)
-                    IntentServiceTasks.startTaskWidgetUpdate(mContext);
+                    WidgetUtils.startTaskWidgetUpdate(mContext);
                 //[END] update the widget
 
                 integer = Integer.valueOf(rows);

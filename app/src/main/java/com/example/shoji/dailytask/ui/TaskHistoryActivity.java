@@ -14,8 +14,11 @@ import com.example.shoji.dailytask.adapter.TaskHistoryAdapter;
 import com.example.shoji.dailytask.background.LoaderCallBacksListenersInterface;
 import com.example.shoji.dailytask.background.LoaderIds;
 import com.example.shoji.dailytask.background.LoaderTaskGetTasks;
+import com.example.shoji.dailytask.notification.TaskReminderUtilities;
 import com.example.shoji.dailytask.provider.TaskContentObserver;
+import com.example.shoji.dailytask.provider.TaskContract;
 import com.example.shoji.dailytask.provider.TaskProvider;
+import com.example.shoji.dailytask.utils.TimeUtils;
 
 public class TaskHistoryActivity extends AppCompatActivityEx
                                  implements LoaderCallBacksListenersInterface<Cursor>,
@@ -92,6 +95,14 @@ public class TaskHistoryActivity extends AppCompatActivityEx
         mProgressBar.setVisibility(View.INVISIBLE);
         mCursor = cursor;
         mTaskAdapter.swapCursor(mCursor);
+        // [START] last task completed timestamp
+        if(mCursor != null && mCursor.getCount() > 0) {
+            mCursor.moveToFirst();
+            int index = mCursor.getColumnIndex(TaskContract.COLUMN_CONCLUDED_DATE);
+            long time = mCursor.getLong(index);
+            TimeUtils.setLatestTaskCompletedTimestamp(this, time);
+        }
+        // [END] last task completed timestamp
     }
     // [END] implements LoaderCallBacksListenersInterface<Cursor>
 

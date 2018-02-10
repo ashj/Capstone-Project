@@ -4,9 +4,9 @@ package com.example.shoji.dailytask.background;
 import android.content.Context;
 import android.os.Bundle;
 
-import com.example.shoji.dailytask.notification.IntentServiceTasks;
 import com.example.shoji.dailytask.provider.TaskContract;
 import com.example.shoji.dailytask.provider.TaskProvider;
+import com.example.shoji.dailytask.widget.WidgetUtils;
 
 public class LoaderTaskDeleteById implements LoaderCallBacksListenersInterface<Integer> {
     public static final String EXTRA_TASK_ID = "extra-task-id";
@@ -36,7 +36,7 @@ public class LoaderTaskDeleteById implements LoaderCallBacksListenersInterface<I
 
             //[START] update the widget
             if(rows > 0)
-                IntentServiceTasks.startTaskWidgetUpdate(context);
+                WidgetUtils.startTaskWidgetUpdate(context);
             //[END] update the widget
 
             integer = Integer.valueOf(rows);

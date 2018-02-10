@@ -1,6 +1,7 @@
 package com.example.shoji.dailytask.adapter;
 
 
+import android.app.Notification;
 import android.content.Context;
 import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
@@ -9,7 +10,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.shoji.dailytask.R;
+import com.example.shoji.dailytask.notification.TaskReminderUtilities;
 import com.example.shoji.dailytask.provider.TaskContract;
+import com.example.shoji.dailytask.utils.TimeUtils;
 
 import timber.log.Timber;
 
@@ -59,6 +62,14 @@ public class TaskFirstViewHolder extends RecyclerView.ViewHolder
 
         String text = title + " (id:"+id+"//P"+priority+")";
         mTitleTextView.setText(text);
+        // [START] last task completed timestamp
+        if(TimeUtils.isTaskUnderCooldown(mContext)) {
+            mButton.setVisibility(View.GONE);
+        }
+        // [END] last task completed timestamp
+        else {
+            mButton.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
