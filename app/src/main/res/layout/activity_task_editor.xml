@@ -86,6 +86,7 @@
                     android:background="@color/priority_high"
                     android:text="@string/priority_label_high"
                     android:textAllCaps="false"
+                    android:elevation="@dimen/button_elevation"
                     android:layout_weight="1" />
 
                 <Button
@@ -97,6 +98,7 @@
                     android:background="@color/priority_normal"
                     android:text="@string/priority_label_normal"
                     android:textAllCaps="false"
+                    android:elevation="@dimen/button_elevation"
                     android:layout_weight="1" />
 
                 <Button
@@ -108,6 +110,7 @@
                     android:background="@color/priority_low"
                     android:text="@string/priority_label_low"
                     android:textAllCaps="false"
+                    android:elevation="@dimen/button_elevation"
                     android:layout_weight="1" />
 
             </LinearLayout>

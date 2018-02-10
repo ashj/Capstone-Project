@@ -309,6 +309,7 @@ public class TaskDetailActivity extends AppCompatActivityEx
     private void bindDetailButtons() {
         if(mDetailFrom == DETAIL_FROM_MAIN) {
             mMarkAsDoneButton.setVisibility(View.VISIBLE);
+            mUnmarkAsDoneButton.setVisibility(View.GONE);
             mMarkAsDoneButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -333,6 +334,7 @@ public class TaskDetailActivity extends AppCompatActivityEx
         }
 
         else if(mDetailFrom == DETAIL_FROM_HISTORY) {
+            mMarkAsDoneButton.setVisibility(View.GONE);
             mUnmarkAsDoneButton.setVisibility(View.VISIBLE);
             mUnmarkAsDoneButton.setOnClickListener(new View.OnClickListener() {
                 @Override

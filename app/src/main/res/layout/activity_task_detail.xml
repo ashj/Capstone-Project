@@ -77,6 +77,7 @@
                         android:background="@color/materialRed"
                         android:text="@string/priority_label_normal"
                         android:textAllCaps="false"
+                        android:elevation="@dimen/button_elevation"
                         android:layout_weight="1" />
                 </LinearLayout>
                 <RadioGroup
@@ -110,7 +111,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/button_task_conclude"
-                android:visibility="gone"
+                android:visibility="visible"
+                android:drawableStart="@drawable/ic_task_check"
+                android:elevation="@dimen/button_elevation"
                 style="@style/ButtonThemeSmall" />
 
             <Button
@@ -118,7 +121,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/button_task_restore"
-                android:visibility="gone"
+                android:visibility="visible"
+                android:drawableStart="@drawable/ic_task_uncheck"
+                android:elevation="@dimen/button_elevation"
                 style="@style/ButtonThemeSmall" />
         </LinearLayout>
     </ScrollView>

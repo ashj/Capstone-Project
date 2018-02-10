@@ -28,6 +28,8 @@
         app:layout_constraintBottom_toTopOf="@+id/separator_view"
         app:layout_constraintStart_toStartOf="parent"
         style="@style/ButtonThemeSmall"
+        android:drawableStart="@drawable/ic_task_check"
+        android:elevation="@dimen/button_elevation"
         android:layout_marginBottom="@dimen/activity_main_vertical_padding" />
 
     <View
