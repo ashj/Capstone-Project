@@ -52,11 +52,11 @@ public class TaskNotification {
             notificationManager.createNotificationChannel(mChannel);
         }
 
-        int resIdSmallIcon = R.drawable.ic_task_notification;
+        int resIdSmallIcon = android.R.drawable.checkbox_off_background;
         Bitmap largeIcon = largeIcon(context, resIdSmallIcon);
 
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context,TASK_DAILY_NOTIFICATION_CHANNEL_ID)
-                .setColor(ContextCompat.getColor(context, R.color.colorPrimary))
+                //.setColor(ContextCompat.getColor(context, R.color.colorPrimary))
                 .setSmallIcon(resIdSmallIcon)
                 .setLargeIcon(largeIcon)
                 .setContentTitle(context.getString(R.string.notification_todays_task))
@@ -136,7 +136,7 @@ public class TaskNotification {
     private static NotificationCompat.Action clearAllNotificationsAction(Context context) {
         PendingIntent pendingIntent = getDismissNotificationsPendingIntent(context);
 
-        int resIdIcon = android.R.drawable.ic_menu_close_clear_cancel;
+        int resIdIcon = R.drawable.ic_task_close;
         String title = context.getString(R.string.notification_dismiss_action);
 
         NotificationCompat.Action markTaskAsDoneAction =
@@ -172,7 +172,7 @@ public class TaskNotification {
     private static NotificationCompat.Action markTaskAsDoneAction(Context context, long taskId) {
         PendingIntent markTaskAsDonePendingIntent = getMarkTaskAsDonePendingIntent(context, taskId);
 
-        int resIdIcon = android.R.drawable.checkbox_on_background;
+        int resIdIcon = R.drawable.ic_task_check;
         String title = context.getString(R.string.notification_mark_task_as_done_action);
 
         NotificationCompat.Action markTaskAsDoneAction =

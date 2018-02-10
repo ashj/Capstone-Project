@@ -69,14 +69,14 @@ public class GeofenceBroadcastReceiver extends BroadcastReceiver {
 
         // Check the transition type to display the relevant icon image
         if (transitionType == Geofence.GEOFENCE_TRANSITION_ENTER) {
-            builder.setSmallIcon(R.drawable.ic_task_notification)
+            builder.setSmallIcon(R.drawable.ic_task_check)
                     .setLargeIcon(BitmapFactory.decodeResource(context.getResources(),
-                            R.drawable.ic_task_notification))
+                            R.drawable.ic_task_check))
                     .setContentTitle("Teste: TRANSITION_ENTER");
         } else if (transitionType == Geofence.GEOFENCE_TRANSITION_EXIT) {
-            builder.setSmallIcon(R.drawable.ic_task_notification)
+            builder.setSmallIcon(R.drawable.ic_task_check)
                     .setLargeIcon(BitmapFactory.decodeResource(context.getResources(),
-                            R.drawable.ic_task_notification))
+                            R.drawable.ic_task_check))
                     .setContentTitle("Teste: TRANSITION_EXIT");
         }
 
