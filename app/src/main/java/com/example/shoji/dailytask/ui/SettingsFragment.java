@@ -14,6 +14,7 @@ import android.text.TextUtils;
 
 import com.example.shoji.dailytask.R;
 import com.example.shoji.dailytask.location.LocationUtils;
+import com.example.shoji.dailytask.notification.TaskReminderUtilities;
 
 
 public class SettingsFragment extends PreferenceFragmentCompat
@@ -98,6 +99,7 @@ public class SettingsFragment extends PreferenceFragmentCompat
         // [START] enable or disable location selection screen
         if(TextUtils.equals(key, getString(R.string.pref_location_service_key))) {
             bindLocationPicker();
+            TaskReminderUtilities.setupTaskReminderNotification(getContext(), sharedPreferences);
         }
         // [END] enable or disable location selection screen
         else {
@@ -108,8 +110,10 @@ public class SettingsFragment extends PreferenceFragmentCompat
                             getString(R.string.empty_string));
                     setPreferenceSummary(preference, value);
                 }
+                TaskReminderUtilities.setupTaskReminderNotification(getContext(), sharedPreferences);
             }
         }
+
     }
     // [END] update summary
 

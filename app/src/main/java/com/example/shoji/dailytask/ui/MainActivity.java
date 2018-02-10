@@ -59,10 +59,6 @@ public class MainActivity extends AppCompatActivityEx
     LoaderTaskGetTasks mLoaderTaskGetTasks;
     // [END] get tasks
 
-    // [START] shared preference onChange listener
-    private Context mContext;
-    OnSharedPreferenceChangeListener mOnSharedPreferenceChangeListener;
-    // [END]  shared preference onChange listener
 
     private static final int NAV_TO_TASK_EDITOR = 350;
     private static final int NAV_TO_TASK_DETAIL = 351;
@@ -139,16 +135,10 @@ public class MainActivity extends AppCompatActivityEx
         sTaskContentObserver = new TaskContentObserver(getContentResolver(), onChangeListener);
         // [END] ContentObserver
 
-        // [START] Start today's day notification reminder
-        mContext = this;
+        // [START] Start today's day notification reminder - first time run
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        TaskReminderUtilities.setupTaskReminderNotification(mContext, sharedPreferences);
-        // [END] Start today's day notification reminder
-
-        // [START] shared preference onChange listener
-        mOnSharedPreferenceChangeListener = new OnSharedPreferenceChangeListener();
-        sharedPreferences.registerOnSharedPreferenceChangeListener(mOnSharedPreferenceChangeListener);
-        // [END] shared preference onChange listener
+        TaskReminderUtilities.setupTaskReminderNotification(context, sharedPreferences);
+        // [END] Start today's day notification reminder - first time run
 
         // TODO, remove later - to test the broadcast receiver
 //        GeofenceBroadcastReceiver br = new GeofenceBroadcastReceiver();
@@ -261,12 +251,6 @@ public class MainActivity extends AppCompatActivityEx
         if(sTaskContentObserver != null) {
             sTaskContentObserver.unregister();
         }
-
-        // [START] shared preference onChange listener
-        mOnSharedPreferenceChangeListener = new OnSharedPreferenceChangeListener();
-        PreferenceManager.getDefaultSharedPreferences(this)
-                .registerOnSharedPreferenceChangeListener(mOnSharedPreferenceChangeListener);
-        // [END] shared preference onChange listener
     }
 
     @Override
@@ -294,19 +278,6 @@ public class MainActivity extends AppCompatActivityEx
     // [END] ContentObserver
 
 
-    // [START] shared preference onChange listener
-    private class OnSharedPreferenceChangeListener
-            implements SharedPreferences.OnSharedPreferenceChangeListener {
-
-        @Override
-        public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-            if(TextUtils.equals(key, getString(R.string.pref_daily_notification_key))) {
-                TaskReminderUtilities.setupTaskReminderNotification(mContext, sharedPreferences);
-            }
-
-        }
-    }
-    // [END] shared preference onChange listener
 
     // [START] Save instance state
     @Override

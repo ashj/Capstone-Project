@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 
 import com.example.shoji.dailytask.R;
+import com.example.shoji.dailytask.location.Geofencing;
+import com.example.shoji.dailytask.location.LocationUtils;
 import com.firebase.jobdispatcher.Driver;
 import com.firebase.jobdispatcher.FirebaseJobDispatcher;
 import com.firebase.jobdispatcher.GooglePlayDriver;
@@ -71,19 +73,35 @@ public class TaskReminderUtilities {
 
     // [START] shared preference onChange listener
     public static void setupTaskReminderNotification(Context context, SharedPreferences sharedPreferences) {
-        String key = context.getString(R.string.pref_daily_notification_key);
-        boolean defValue = context.getResources().getBoolean(R.bool.pref_daily_notification_default_value);
-        boolean enabled = sharedPreferences.getBoolean(key, defValue);
+        String keyNotification = context.getString(R.string.pref_daily_notification_key);
+        boolean defValueNotification = context.getResources().getBoolean(R.bool.pref_daily_notification_default_value);
+        boolean enabledNotification = sharedPreferences.getBoolean(keyNotification, defValueNotification);
 
-        if(enabled) {
-            // [START] Start today's day notification reminder
-            Timber.d("Notifications are enabled, so run service to show them");
-            TaskReminderUtilities.scheduleTaskNotificationReminder(context);
-            // [END] Start today's day notification reminder
+        // [START] consider location service settings as well
+        String keyLocationService = context.getString(R.string.pref_location_service_key);
+        boolean defValueLocationService = context.getResources().getBoolean(R.bool.pref_location_service_default_value);
+        boolean enabledLocationService = sharedPreferences.getBoolean(keyLocationService, defValueLocationService);
+        // [END] consider location service settings as well
+
+        if(enabledNotification) {
+            // [START] consider location service settings as well
+            if(enabledLocationService) {
+                Timber.d("setupTaskReminderNotification: Situation #1: noti:ON, locServ:ON");
+                TaskReminderUtilities.unscheduleTaskNotificationReminder(context);
+                // TODO - register geofence, let it dispatch the notification
+            }
+            // [END] consider location service settings as well
+            else {
+                // [START] Start today's day notification reminder
+                Timber.d("setupTaskReminderNotification: Situation #2: noti:ON, locServ:OFF");
+                TaskReminderUtilities.scheduleTaskNotificationReminder(context);
+                // TODO - unregister geofence.
+                // [END] Start today's day notification reminder
+            }
         }
         else {
             // [START] Stop today's day notification reminder
-            Timber.d("Notifications are disabled, so cancel the service that show them");
+            Timber.d("setupTaskReminderNotification: Situation #3: noti:OFF, locServ:ON/OFF");
             TaskReminderUtilities.unscheduleTaskNotificationReminder(context);
             // [END] Stop today's day notification reminder
         }
