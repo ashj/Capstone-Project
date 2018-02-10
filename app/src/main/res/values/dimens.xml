@@ -30,7 +30,7 @@
     <dimen name="activity_main__padding_bottom_large">64dp</dimen>
 
     <!-- Style -->
-    <dimen name="style_text_view_textsize">16sp</dimen>
+    <dimen name="style_text_view_textsize">18sp</dimen>
     <dimen name="style_button_padding">16dp</dimen>
     <dimen name="style_button_padding_small">8dp</dimen>
 

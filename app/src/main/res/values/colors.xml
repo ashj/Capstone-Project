@@ -14,4 +14,9 @@
     <color name="list_light_selector_activated">@color/colorPrimaryLight</color>
     <color name="list_light_selector_selected">@color/colorPrimaryLight</color>
     <color name="list_light_selector_default">@android:color/transparent</color>
+
+    <!-- Editor -->
+    <color name="priority_high">@color/materialRed</color>
+    <color name="priority_normal">@color/materialOrange</color>
+    <color name="priority_low">@color/materialYellow</color>
 </resources>

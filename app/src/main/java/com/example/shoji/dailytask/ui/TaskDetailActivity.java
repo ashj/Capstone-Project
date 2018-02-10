@@ -3,6 +3,7 @@ package com.example.shoji.dailytask.ui;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -13,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.example.shoji.dailytask.R;
@@ -46,7 +48,6 @@ public class TaskDetailActivity extends AppCompatActivityEx
     private ProgressBar mProgressBar;
     private TextView mTaskTitleTextView;
     private TextView mTaskDescriptionTextView;
-    private TextView mTaskPriorityTextView;
     private TextView mTaskModifiedDateTextView;
     private FloatingActionButton mFabEdit;
 
@@ -64,6 +65,10 @@ public class TaskDetailActivity extends AppCompatActivityEx
     private Button mUnmarkAsDoneButton;
     // [END] Detail screen buttons
 
+    // [START] show pretty priority field
+    private Button mPriorityButton;
+    // [END] show pretty priority field
+
     private static final int NAV_TO_TASK_EDITOR = 450;
 
     @Override
@@ -79,7 +84,6 @@ public class TaskDetailActivity extends AppCompatActivityEx
         mProgressBar = findViewById(R.id.progressbar);
         mTaskTitleTextView = findViewById(R.id.task_title_text_view);
         mTaskDescriptionTextView = findViewById(R.id.task_description_text_view);
-        mTaskPriorityTextView = findViewById(R.id.task_priority_text_view);
         mTaskModifiedDateTextView = findViewById(R.id.task_modified_date_text_view);
 
         // [START] need valid intent to proceed
@@ -118,6 +122,10 @@ public class TaskDetailActivity extends AppCompatActivityEx
         mMarkAsDoneButton = findViewById(R.id.mark_as_done_button);
         mUnmarkAsDoneButton = findViewById(R.id.unmark_as_done_button);
         // [END] Detail screen buttons
+
+        // [START] show pretty priority field
+        mPriorityButton = findViewById(R.id.priorityButton);
+        // [END] show pretty priority field
     }
 
     // [START] need valid intent to proceed
@@ -210,8 +218,8 @@ public class TaskDetailActivity extends AppCompatActivityEx
 
 
         // [START] Check from which screen we came from
-        int index = mCursor.getColumnIndex(TaskContract.COLUMN_IS_CONCLUDED);
-        long concluded = mCursor.getLong(index);
+        int columnIndex = mCursor.getColumnIndex(TaskContract.COLUMN_IS_CONCLUDED);
+        long concluded = mCursor.getLong(columnIndex);
 
         if(concluded == TaskContract.NOT_CONCLUDED) {
             mDetailFrom = DETAIL_FROM_MAIN;
@@ -222,29 +230,42 @@ public class TaskDetailActivity extends AppCompatActivityEx
         // [END] Check from which screen we came from
 
         // [START] fill the view with data from cursor
-        index = mCursor.getColumnIndex(TaskContract.COLUMN_TITLE);
-        String title = mCursor.getString(index);
+        columnIndex = mCursor.getColumnIndex(TaskContract.COLUMN_TITLE);
+        String title = mCursor.getString(columnIndex);
 
-        index = mCursor.getColumnIndex(TaskContract.COLUMN_DESCRIPTION);
-        String description = mCursor.getString(index);
+        columnIndex = mCursor.getColumnIndex(TaskContract.COLUMN_DESCRIPTION);
+        String description = mCursor.getString(columnIndex);
 
-        index = mCursor.getColumnIndex(TaskContract.COLUMN_PRIORITY);
+        columnIndex = mCursor.getColumnIndex(TaskContract.COLUMN_PRIORITY);
+
         // [START] priority: from value to label
-        int priorityInt = mCursor.getInt(index);
-        String[] labels = getResources().getStringArray(R.array.priority_label_array);
+        int priorityInt = mCursor.getInt(columnIndex);
+        Resources resources = getResources();
         String priority = getString(R.string.empty_string);
-        int[] values = getResources().getIntArray(R.array.priority_value_array);
+        int index = -1;
+
+        int[] values = resources.getIntArray(R.array.priority_value_array);
         for(int i= 0; i < values.length; ++i) {
             if(values[i] == priorityInt) {
-                priority = labels[i];
+                // [START] show pretty priority field
+                index = i;
+                // [END] show pretty priority field
                 break;
             }
         }
+        // [START] show pretty priority field
+        if(index != -1) {
+            int[] colors = resources.getIntArray(R.array.priority_color_array);
+            String[] labels = resources.getStringArray(R.array.priority_label_array);
+
+            mPriorityButton.setBackgroundColor(colors[index]);
+            mPriorityButton.setText(labels[index]);
+        }
+        // [END] show pretty priority field
         // [END] priority: from value to label
 
         mTaskTitleTextView.setText(title);
         mTaskDescriptionTextView.setText(description);
-        mTaskPriorityTextView.setText(getString(R.string.task_details_priority_text, priority));
 
         // [START} convert time in millis to local time
         if(mDetailFrom == DETAIL_FROM_HISTORY) {

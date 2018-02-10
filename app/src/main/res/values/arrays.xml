@@ -12,4 +12,10 @@
         <item>@integer/priority_value_normal</item>
         <item>@integer/priority_value_high</item>
     </integer-array>
+
+    <array name="priority_color_array">
+        <item>@color/priority_low</item>
+        <item>@color/priority_normal</item>
+        <item>@color/priority_high</item>
+    </array>
 </resources>

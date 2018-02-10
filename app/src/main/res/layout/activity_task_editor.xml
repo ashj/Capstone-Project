@@ -83,7 +83,7 @@
                     android:id="@+id/buttonHigh"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/materialRed"
+                    android:background="@color/priority_high"
                     android:text="@string/priority_label_high"
                     android:textAllCaps="false"
                     android:layout_weight="1" />
@@ -94,7 +94,7 @@
                     android:id="@+id/buttonNormal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/materialOrange"
+                    android:background="@color/priority_normal"
                     android:text="@string/priority_label_normal"
                     android:textAllCaps="false"
                     android:layout_weight="1" />
@@ -105,7 +105,7 @@
                     android:id="@+id/buttonLow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/materialYellow"
+                    android:background="@color/priority_low"
                     android:text="@string/priority_label_low"
                     android:textAllCaps="false"
                     android:layout_weight="1" />

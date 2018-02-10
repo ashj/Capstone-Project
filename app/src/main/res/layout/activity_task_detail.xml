@@ -4,7 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="@dimen/activity_task_history_vertical_padding"
+    android:paddingTop="@dimen/activity_task_detail_vertical_padding"
+    android:paddingBottom="@dimen/activity_task_detail_vertical_padding"
+    android:paddingStart="@dimen/activity_task_detail_horizontal_padding"
+    android:paddingEnd="@dimen/activity_task_editor_layout_padding"
     tools:context="com.example.shoji.dailytask.ui.TaskDetailActivity">
 
     <ProgressBar
@@ -44,18 +47,62 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/task_title_text_view" />
 
-    <TextView
-        android:id="@+id/task_priority_text_view"
+    <LinearLayout
+        android:id="@+id/task_priority_frame"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:text="@string/tools_task_details_priority_text"
-        android:textSize="@dimen/text_size_task_list"
-        android:paddingStart="@dimen/activity_task_detail_horizontal_padding"
-        android:paddingEnd="@dimen/activity_task_detail_horizontal_padding"
-        android:paddingBottom="@dimen/activity_task_editor_layout_padding"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/task_description_text_view" />
+        app:layout_constraintTop_toBottomOf="@id/task_description_text_view"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/task_details_priority_label"
+            android:textSize="@dimen/style_text_view_textsize" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/activity_vertical_margin" >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center"
+                android:weightSum="3">
+
+                <Button
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:textColor="@android:color/primary_text_light"
+                    android:id="@+id/priorityButton"
+                    android:layout_width="0dp"
+                    android:clickable="false"
+                    android:layout_height="wrap_content"
+                    android:background="@color/materialRed"
+                    android:text="@string/priority_label_normal"
+                    android:textAllCaps="false"
+                    android:layout_weight="1" />
+            </LinearLayout>
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center"
+                android:weightSum="3">
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:checked="true"
+                    android:clickable="false"
+                    android:nextFocusRight="@+id/radioButtonNormal"
+                    android:theme="@style/WhiteRadioButton"/>
+            </RadioGroup>
+
+        </FrameLayout>
+    </LinearLayout>
 
     <TextView
         android:id="@+id/task_modified_date_text_view"
@@ -69,7 +116,7 @@
         android:paddingBottom="@dimen/activity_task_editor_layout_padding"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/task_priority_text_view" />
+        app:layout_constraintTop_toBottomOf="@id/task_priority_frame" />
 
     <Button
         android:id="@+id/mark_as_done_button"

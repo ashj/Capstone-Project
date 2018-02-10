@@ -54,6 +54,9 @@
 
     <string name="task_details_priority_text">Priority: <xliff:g>%1$s</xliff:g></string>
     <string name="task_details_modified_date_text">Finished: <xliff:g>%1$s</xliff:g></string>
+
+    <string name="task_details_priority_label">@string/priority_label</string>
+
     <!-- History -->
     <string name="history_activity_title">History</string>
 
