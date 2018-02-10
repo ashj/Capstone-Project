@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <CheckBoxPreference
+        android:id="@+id/pref_daily_notification"
         android:defaultValue="@bool/pref_daily_notification_default_value"
         android:key="@string/pref_daily_notification_key"
         android:summaryOff="@string/pref_daily_notification_summaryOff"
@@ -8,6 +9,7 @@
         android:title="@string/pref_daily_notification_title" />
 
     <CheckBoxPreference
+        android:id="@+id/pref_location_service"
         android:defaultValue="@bool/pref_location_service_default_value"
         android:key="@string/pref_location_service_key"
         android:summaryOff="@string/pref_location_service_summaryOff"

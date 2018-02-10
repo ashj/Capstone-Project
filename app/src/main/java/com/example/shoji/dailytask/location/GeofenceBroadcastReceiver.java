@@ -5,12 +5,15 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
+import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
 
 import com.example.shoji.dailytask.R;
+import com.example.shoji.dailytask.notification.TaskReminderUtilities;
 import com.example.shoji.dailytask.ui.MainActivity;
 import com.google.android.gms.location.Geofence;
 import com.google.android.gms.location.GeofencingEvent;
@@ -37,8 +40,14 @@ public class GeofenceBroadcastReceiver extends BroadcastReceiver {
 
         if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_ENTER) {
             Timber.d("GEOFENCE_TRANSITION_ENTER");
+            // [START] start notifications
+            TaskReminderUtilities.scheduleTaskNotificationReminder(context);
+            // [END] start notifications
         } else if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_EXIT) {
             Timber.d("GEOFENCE_TRANSITION_EXIT");
+            // [START] stop notifications
+            TaskReminderUtilities.unscheduleTaskNotificationReminder(context);
+            // [END] stop notifications
         } else {
             Timber.e("Unknown transition : %d", geofenceTransition);
 
