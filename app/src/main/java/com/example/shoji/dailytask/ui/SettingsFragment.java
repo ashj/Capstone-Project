@@ -51,7 +51,10 @@ public class SettingsFragment extends PreferenceFragmentCompat
 
     private GoogleApiClient mClient;
     private Geofencing mGeofencing;
-    private boolean mIsEnabled;
+
+    private SharedPreferences mSharedPreferences;
+    private CheckBoxPreference mNotificationCheckBox;
+    private CheckBoxPreference mLocationCheckBox;
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
@@ -64,9 +67,7 @@ public class SettingsFragment extends PreferenceFragmentCompat
         mClient = buildGoogleApiClient();
         mGeofencing = new Geofencing(mContext, mClient);
 
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
-        mIsEnabled = sharedPreferences.getBoolean(getString(R.string.pref_location_service_key),
-                getResources().getBoolean(R.bool.pref_location_service_default_value));
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
         // [END] Google API and Geofencing
 
         // [START] update summary
@@ -77,11 +78,25 @@ public class SettingsFragment extends PreferenceFragmentCompat
         // [START] notification by location
         bindLocationPicker();
         // [END] notification by location
+
+        // [START} enable / disable location service
+        mNotificationCheckBox = (CheckBoxPreference) findPreference(getString(R.string.pref_daily_notification_key));
+
+        bindLocationCheckBox();
+        mNotificationCheckBox.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                bindLocationCheckBox();
+                bindLocationPicker();
+                return true;
+            }
+        });
+        // [END} enable / disable location service
     }
 
     // [START] setup geofencing based on notification setting
     private void configureGeofencing() {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
+        SharedPreferences sharedPreferences = mSharedPreferences;
         // [START] check notification setting
         String keyNotification = getString(R.string.pref_daily_notification_key);
         boolean enabledNotification = sharedPreferences.getBoolean(keyNotification,
@@ -104,7 +119,7 @@ public class SettingsFragment extends PreferenceFragmentCompat
 
     // [START] update summary
     private void updateSummary() {
-        SharedPreferences sharedPreferences = getPreferenceScreen().getSharedPreferences();
+        SharedPreferences sharedPreferences = mSharedPreferences;
         PreferenceScreen prefScreen = getPreferenceScreen();
         int count = prefScreen.getPreferenceCount();
 
@@ -112,30 +127,41 @@ public class SettingsFragment extends PreferenceFragmentCompat
             android.support.v7.preference.Preference p = prefScreen.getPreference(i);
 
             if (!(p instanceof CheckBoxPreference)) {
-                String value = sharedPreferences.getString(p.getKey(), "");
+                String value = sharedPreferences.getString(p.getKey(),
+                        getString(R.string.empty_string));
                 setPreferenceSummary(p, value);
             }
         }
     }
     // [END] update summary
 
+    // [START] location service
+    private boolean isNotificationEnabled() {
+        return mSharedPreferences.getBoolean(getString(R.string.pref_daily_notification_key),
+                getResources().getBoolean(R.bool.pref_daily_notification_default_value));
+    }
+    // [END] loscation service
+    // [START] location service
+    private boolean isLocationServiceEnabled() {
+        return mSharedPreferences.getBoolean(getString(R.string.pref_location_service_key),
+                getResources().getBoolean(R.bool.pref_location_service_default_value));
+    }
+    // [END] loscation service
+
     // [START] notification by location
     private void bindLocationPicker() {
-        SharedPreferences sharedPreferences = getPreferenceScreen().getSharedPreferences();
         Preference preference = findPreference(getString(R.string.pref_location_open_and_set_place_key));
 
         // [START] enable or disable location selection screen
-        String key = getString(R.string.pref_location_service_key);
-        boolean defValue = getResources().getBoolean(R.bool.pref_location_service_default_value);
-        boolean showNotification = sharedPreferences.getBoolean(key, defValue);
-
-        if(!showNotification) {
+        if(!isNotificationEnabled() || !isLocationServiceEnabled()) {
             preference.setSelectable(false);
+            preference.setEnabled(false);
             preference.setSummary(R.string.pref_location_open_and_set_place_summaryOff);
         }
 
         else {
             preference.setSelectable(true);
+            preference.setEnabled(true);
             final Context context = mContext;
             // [START] Retrieve picked place into shared preference
             Pair<String, String> pair = LocationUtils.getPickedPlace(context);
@@ -153,6 +179,20 @@ public class SettingsFragment extends PreferenceFragmentCompat
         // [END] enable or disable location selection screen
     }
     // [END] notification by location
+
+
+
+
+    // [START} enable / disable location service
+    private void bindLocationCheckBox() {
+        boolean isLocationEnabled = mSharedPreferences.getBoolean(getString(R.string.pref_daily_notification_key),
+                getResources().getBoolean(R.bool.pref_daily_notification_default_value));
+
+        mLocationCheckBox = (CheckBoxPreference) findPreference(getString(R.string.pref_location_service_key));
+        mLocationCheckBox.setSelectable(isLocationEnabled);
+        mLocationCheckBox.setEnabled(isLocationEnabled);
+    }
+    // [END} enable / disable location service
 
 
 
@@ -318,7 +358,7 @@ public class SettingsFragment extends PreferenceFragmentCompat
             @Override
             public void onResult(@NonNull PlaceBuffer places) {
                 mGeofencing.updateGeofencesList(places);
-                if (mIsEnabled) mGeofencing.registerAllGeofences();
+                if (isLocationServiceEnabled()) mGeofencing.registerAllGeofences();
             }
         });
     }
