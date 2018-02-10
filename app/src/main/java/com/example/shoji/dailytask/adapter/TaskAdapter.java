@@ -100,9 +100,9 @@ public class TaskAdapter
     // [END] Item view type
     // [END] Override Adapter methods
 
-    public Cursor swapCursor(Cursor cursor) {
+    public void swapCursor(Cursor cursor) {
         if (mCursor == cursor) {
-            return null;
+            return;
         }
         Cursor old = mCursor;
         mCursor = cursor;
@@ -110,7 +110,8 @@ public class TaskAdapter
         if (cursor != null) {
             this.notifyDataSetChanged();
         }
-        return old;
+        if(old != null)
+            old.close();
     }
 
     // [START] OnClickListener

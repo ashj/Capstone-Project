@@ -210,6 +210,7 @@ public class TaskNotification {
             index = cursor.getColumnIndex(TaskContract._ID);
             long id = cursor.getLong(index);
 
+            cursor.close();
             TaskNotification.notifyTodaysTask(context, id, title);
         }
         // [END] Query today's task

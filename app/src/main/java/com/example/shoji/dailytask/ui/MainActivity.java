@@ -248,6 +248,10 @@ public class MainActivity extends AppCompatActivityEx
         if(sTaskContentObserver != null) {
             sTaskContentObserver.unregister();
         }
+
+        if(mCursor != null) {
+            mCursor.close();
+        }
     }
 
     @Override
