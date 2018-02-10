@@ -8,6 +8,8 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.util.Pair;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,8 +30,7 @@ import timber.log.Timber;
 
 
 public class TaskEditorActivity extends AppCompatActivityEx
-    implements View.OnClickListener,
-               LoaderTaskGetById.OnTaskGetByIdListener{
+    implements LoaderTaskGetById.OnTaskGetByIdListener{
     public static final String EXTRA_TASK_ID = "extra-task-id";
 
     private long mTaskId;
@@ -46,7 +47,6 @@ public class TaskEditorActivity extends AppCompatActivityEx
     private EditText mDescriptionEditTask;
     private RadioGroup mRadioGroup;
     private ArrayList<RadioButton> mRadioButtons;
-    private Button mButton;
 
     private int mEditorMode;
     private int mEditorFrom;
@@ -80,24 +80,20 @@ public class TaskEditorActivity extends AppCompatActivityEx
         mTitleEditText = findViewById(R.id.task_title_edit_text);
         mDescriptionEditTask = findViewById(R.id.task_description_edit_text);
         mRadioGroup = findViewById(R.id.radio_group);
-        mButton = findViewById(R.id.button);
 
         mContext = this;
 
         createRadioGroup();
 
-        mButton.setOnClickListener(this);
 
         // [START] Check if it is a task to edit or a new one
         if(mEditorMode == EDITOR_MODE_ADD) {
             // Set title in action bar
             getSupportActionBar().setTitle(getString(R.string.task_editor_activity_title_add));
-            mButton.setText(R.string.button_task_add);
         }
         else if (mEditorMode == EDITOR_MODE_EDIT){
             // Set title in action bar
             getSupportActionBar().setTitle(getString(R.string.task_editor_activity_title_edit));
-            mButton.setText(R.string.button_task_edit);
 
             // [START] get task by id
             mBundle = new Bundle();
@@ -135,20 +131,34 @@ public class TaskEditorActivity extends AppCompatActivityEx
 
 
     // [START] Clicked to save or update task
+    // [START] Toolbar - inflate and item selected
     @Override
-    public void onClick(View view) {
-        int validation = validateForm();
-        if(validation == FORM_ERROR_NO_ERROR) {
-            view.setClickable(false);
-            performActionIntoDatabase();
-        }
-        else if(validation == FORM_ERROR_INVALID_TITLE) {
-            showSnackBar(mTitleEditText, R.string.validate_task_error_title);
-        }
-        else if(validation == FORM_ERROR_INVALID_TITLE) {
-            showSnackBar(mTitleEditText, R.string.validate_task_error_description);
-        }
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_task_editor, menu);
+        return true;
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if(id == R.id.action_save) {
+            int validation = validateForm();
+            if(validation == FORM_ERROR_NO_ERROR) {
+                item.setEnabled(false);
+                performActionIntoDatabase();
+            }
+            else if(validation == FORM_ERROR_INVALID_TITLE) {
+                showSnackBar(mTitleEditText, R.string.validate_task_error_title);
+            }
+            else if(validation == FORM_ERROR_INVALID_DESCRIPTION) {
+                showSnackBar(mTitleEditText, R.string.validate_task_error_description);
+            }
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+    // [END] Toolbar - inflate and item selected
 
     private int validateForm() {
         int retValue = FORM_ERROR_NO_ERROR;
@@ -280,7 +290,6 @@ public class TaskEditorActivity extends AppCompatActivityEx
     @Override
     public void onLoadFinished(Cursor cursor) {
         mProgressBar.setVisibility(View.INVISIBLE);
-        mButton.setClickable(true);
 
         if(cursor == null || cursor.getCount() != 1)
             return;

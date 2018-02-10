@@ -148,14 +148,5 @@
             </RadioGroup>
 
         </FrameLayout>
-
-        <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/ButtonThemeSmall"
-            android:layout_marginTop="@dimen/activity_task_editor_layout_padding"
-            tools:text="@string/button_task_add"/>
-
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

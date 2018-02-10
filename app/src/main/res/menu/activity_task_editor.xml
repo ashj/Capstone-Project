@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.TaskEditorActivity" >
+    <item
+        android:id="@+id/action_save"
+        android:icon="@drawable/ic_task_save"
+        android:iconTint="@android:color/white"
+        android:orderInCategory="1"
+        android:title="@string/task_editor_menu_save"
+        app:showAsAction="always" />
+
+</menu>
