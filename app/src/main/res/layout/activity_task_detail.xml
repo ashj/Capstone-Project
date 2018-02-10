@@ -5,8 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingTop="@dimen/activity_task_history_vertical_padding"
-    android:paddingStart="@dimen/activity_task_detail_horizontal_padding"
-    android:paddingEnd="@dimen/activity_task_detail_horizontal_padding"
     tools:context="com.example.shoji.dailytask.ui.TaskDetailActivity">
 
     <ProgressBar
@@ -26,6 +24,8 @@
         android:layout_height="wrap_content"
         tools:text="@string/tools_task_details_title_text"
         android:textSize="@dimen/text_size_large"
+        android:paddingStart="@dimen/activity_task_detail_horizontal_padding"
+        android:paddingEnd="@dimen/activity_task_detail_horizontal_padding"
         android:paddingBottom="@dimen/activity_task_editor_layout_padding"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -37,6 +37,8 @@
         android:layout_height="wrap_content"
         tools:text="@string/tools_task_details_description_text"
         android:textSize="@dimen/text_size_task_list"
+        android:paddingStart="@dimen/activity_task_detail_horizontal_padding"
+        android:paddingEnd="@dimen/activity_task_detail_horizontal_padding"
         android:paddingBottom="@dimen/activity_task_editor_layout_padding"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -48,6 +50,8 @@
         android:layout_height="wrap_content"
         tools:text="@string/tools_task_details_priority_text"
         android:textSize="@dimen/text_size_task_list"
+        android:paddingStart="@dimen/activity_task_detail_horizontal_padding"
+        android:paddingEnd="@dimen/activity_task_detail_horizontal_padding"
         android:paddingBottom="@dimen/activity_task_editor_layout_padding"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -60,6 +64,8 @@
         android:visibility="invisible"
         tools:text="@string/tools_task_details_title_text"
         android:textSize="@dimen/text_size_task_list"
+        android:paddingStart="@dimen/activity_task_detail_horizontal_padding"
+        android:paddingEnd="@dimen/activity_task_detail_horizontal_padding"
         android:paddingBottom="@dimen/activity_task_editor_layout_padding"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -71,6 +77,8 @@
         android:layout_height="wrap_content"
         android:text="@string/button_task_conclude"
         android:visibility="gone"
+        android:layout_marginStart="@dimen/activity_task_detail_horizontal_padding"
+        android:layout_marginEnd="@dimen/activity_task_detail_horizontal_padding"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/task_modified_date_text_view"
         style="@style/ButtonThemeSmall" />
@@ -80,6 +88,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/button_task_restore"
+        android:layout_marginStart="@dimen/activity_task_detail_horizontal_padding"
+        android:layout_marginEnd="@dimen/activity_task_detail_horizontal_padding"
         android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/task_modified_date_text_view"
@@ -96,17 +106,5 @@
         android:contentDescription="@string/content_description_edit_task_label"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_delete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_menu_delete"
-        android:tint="@android:color/white"
-        android:contentDescription="@string/content_description_delete_task_label"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/fab_edit" />
 
 </android.support.constraint.ConstraintLayout>

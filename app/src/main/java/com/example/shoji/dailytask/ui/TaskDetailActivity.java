@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.text.format.DateUtils;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -47,7 +49,6 @@ public class TaskDetailActivity extends AppCompatActivityEx
     private TextView mTaskPriorityTextView;
     private TextView mTaskModifiedDateTextView;
     private FloatingActionButton mFabEdit;
-    private FloatingActionButton mFabDelete;
 
     private Cursor mCursor;
     private static TaskContentObserver sTaskContentObserver;
@@ -100,16 +101,6 @@ public class TaskDetailActivity extends AppCompatActivityEx
         });
         // [END] use FAB to open the task to edit
 
-        // [START] use FAB to delete the task
-        mFabDelete = findViewById(R.id.fab_delete);
-        mFabDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDeleteDialog();
-            }
-        });
-        // [END] use FAB to delete the task
-
         // [START] get task by id
         mBundle = new Bundle();
         mBundle.putLong(LoaderTaskGetById.EXTRA_TASK_ID, mTaskId);
@@ -142,9 +133,27 @@ public class TaskDetailActivity extends AppCompatActivityEx
     // [END] need valid intent to proceed
 
 
+    // [START] Toolbar - inflate and item selected
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_task_detail, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if(id == R.id.action_delete) {
+            showDeleteDialog(item);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+    // [END] Toolbar - inflate and item selected
 
     // [START] use FAB to delete the task
-    private void showDeleteDialog() {
+    private void showDeleteDialog(final MenuItem item) {
         final LoaderTaskDeleteById.OnTaskDeletedListener listener = this;
         final LoaderTaskDeleteById loaderTaskDeleteById = new LoaderTaskDeleteById(listener);
 
@@ -154,6 +163,7 @@ public class TaskDetailActivity extends AppCompatActivityEx
                 switch (which){
                     case DialogInterface.BUTTON_POSITIVE:
                         //Yes button clicked
+                        item.setEnabled(false);
                         // [START] Delete this task in a Loader
                         Bundle args = new Bundle();
                         args.putLong(LoaderTaskDeleteById.EXTRA_TASK_ID, mTaskId);
