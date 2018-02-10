@@ -22,7 +22,7 @@ public class LocationUtils {
         editor.putString(placeIdKey, placeId);
         editor.putString(placeAddressKey, placeAddress);
 
-        editor.commit();
+        editor.apply();
         Timber.d("setPickedPlace - id: %s, address: %s", placeId, placeAddress);
 
     }

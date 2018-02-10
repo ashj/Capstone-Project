@@ -6,8 +6,12 @@ import android.content.Context;
 import android.os.Bundle;
 
 import com.example.shoji.dailytask.notification.IntentServiceTasks;
+import com.example.shoji.dailytask.notification.TaskReminderUtilities;
 import com.example.shoji.dailytask.provider.TaskContract;
 import com.example.shoji.dailytask.provider.TaskProvider;
+import com.example.shoji.dailytask.utils.TimeUtils;
+
+import timber.log.Timber;
 
 public class LoaderTaskSetConcludedById implements LoaderCallBacksListenersInterface<Integer> {
     public static final String EXTRA_TASK_ID = "extra-task-id";
@@ -66,7 +70,17 @@ public class LoaderTaskSetConcludedById implements LoaderCallBacksListenersInter
         cv.put(TaskContract.COLUMN_CONCLUDED_DATE, modificationDate);
         // [END] Set task conclusion tate and date
 
-        return context.getContentResolver().update(TaskProvider.Tasks.CONTENT_URI, cv, selection, null);
+        int rows = context.getContentResolver().update(TaskProvider.Tasks.CONTENT_URI, cv, selection, null);
+
+        // [START] last task completed timestamp
+        if(rows == 1 && state == TaskContract.CONCLUDED) {
+            Timber.d("LatestTaskCompletedTimestamp: %d", state);
+            TimeUtils.setLatestTaskCompletedTimestamp(context, modificationDate);
+        }
+        // [END] last task completed timestamp
+
+
+        return rows;
     }
     // [END] update task state
 }

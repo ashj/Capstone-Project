@@ -239,6 +239,8 @@ public class MainActivity extends AppCompatActivityEx
         if(sTaskContentObserver != null) {
             sTaskContentObserver.register();
         }
+
+        IntentServiceTasks.startTaskWidgetUpdate(this);
     }
 
     @Override

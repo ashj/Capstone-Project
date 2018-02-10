@@ -87,6 +87,8 @@
     <string name="notification_mark_task_as_done_action">mark task as done</string>
     <string name="notification_dismiss_action">dismiss</string>
 
+    <string name="pref_latest_task_completed_timestamp_key">pref-latest-task-completed-timestamp</string>
+
     <!-- Location -->
     <string name="need_location_permission_message">You need to enable location permissions first</string>
     <string name="enable_geofences">Enable Geofences</string>
@@ -104,4 +106,5 @@
     <string name="add_widget">Add widget</string>
     <string name="widget_empty_task_list">no tasks for today</string>
     <string name="widget_todays_task">Today\'s task</string>
+    <string name="widget_tomorrows_task">Tomorrow\'s task</string>
 </resources>

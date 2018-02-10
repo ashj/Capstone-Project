@@ -25,6 +25,7 @@ import com.example.shoji.dailytask.provider.TaskContract;
 import com.example.shoji.dailytask.ui.MainActivity;
 import com.example.shoji.dailytask.ui.TaskDetailActivity;
 import com.example.shoji.dailytask.ui.TaskEditorActivity;
+import com.example.shoji.dailytask.utils.TimeUtils;
 
 import timber.log.Timber;
 
@@ -195,6 +196,11 @@ public class TaskNotification {
             return;
         }
         // [END] Check shared preference for notification
+
+        // [START] last task completed timestamp
+        if(TimeUtils.isTaskUnderCooldown(context))
+            return;
+        // [END] last task completed timestamp
 
         // [START] Query today's task
         Bundle bundle = new Bundle();
