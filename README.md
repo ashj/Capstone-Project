@@ -20,5 +20,5 @@ or/and:
 # Credits
 * https://jgilfelt.github.io/AndroidAssetStudio/icons-launcher.html
 * * Launcher icons
-* https://jgilfelt.github.io/AndroidAssetStudio/icons-notification.html
+* https://material.io/icons & Android Studio Clipart gallery
 * * Notification icons

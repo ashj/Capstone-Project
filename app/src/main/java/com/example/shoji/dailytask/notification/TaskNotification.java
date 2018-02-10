@@ -52,11 +52,11 @@ public class TaskNotification {
             notificationManager.createNotificationChannel(mChannel);
         }
 
-        int resIdSmallIcon = android.R.drawable.checkbox_off_background;
-        Bitmap largeIcon = largeIcon(context, resIdSmallIcon);
+        int resIdSmallIcon = R.drawable.ic_task_done_all;
+        Bitmap largeIcon = largeIcon(context, R.drawable.ic_done_all_black_48dp);
 
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context,TASK_DAILY_NOTIFICATION_CHANNEL_ID)
-                //.setColor(ContextCompat.getColor(context, R.color.colorPrimary))
+                .setColor(ContextCompat.getColor(context, android.R.color.white))
                 .setSmallIcon(resIdSmallIcon)
                 .setLargeIcon(largeIcon)
                 .setContentTitle(context.getString(R.string.notification_todays_task))
