@@ -223,10 +223,14 @@ public class SettingsFragment extends PreferenceFragmentCompat
                 String period;
                 if(hours < 12) {
                     period = getString(R.string.settings_activity_time_picker_am);
+                    if(hours == 0)
+                        hours = 12;
                 }
                 else {
                     period = getString(R.string.settings_activity_time_picker_pm);
                     hours -= 12;
+                    if(hours == 0)
+                        hours = 12;
                 }
                 preference.setSummary(getString(R.string.settings_activity_time_picker_12hour_summary, hours, minutes, period));
             }
