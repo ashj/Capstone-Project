@@ -22,3 +22,5 @@ or/and:
 * * Launcher icons
 * https://material.io/icons & Android Studio Clipart gallery
 * * Notification icons
+* https://medium.com/@JakobUlbrich/building-a-settings-screen-for-android-part-3-ae9793fd31ec
+* * Custom time picker

@@ -9,6 +9,7 @@ import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.util.Pair;
 import android.support.v7.preference.CheckBoxPreference;
@@ -20,6 +21,8 @@ import android.support.v7.preference.PreferenceScreen;
 import android.text.TextUtils;
 
 import com.example.shoji.dailytask.R;
+import com.example.shoji.dailytask.dialog.TimePreference;
+import com.example.shoji.dailytask.dialog.TimePreferenceDialogFragmentCompat;
 import com.example.shoji.dailytask.location.Geofencing;
 import com.example.shoji.dailytask.location.LocationUtils;
 import com.example.shoji.dailytask.notification.TaskReminderUtilities;
@@ -126,7 +129,8 @@ public class SettingsFragment extends PreferenceFragmentCompat
         for (int i = 0; i < count; i++) {
             android.support.v7.preference.Preference p = prefScreen.getPreference(i);
 
-            if (!(p instanceof CheckBoxPreference)) {
+            if (!(p instanceof CheckBoxPreference)
+                    && !(p instanceof com.example.shoji.dailytask.dialog.TimePreference)) {
                 String value = sharedPreferences.getString(p.getKey(),
                         getString(R.string.empty_string));
                 setPreferenceSummary(p, value);
@@ -224,7 +228,8 @@ public class SettingsFragment extends PreferenceFragmentCompat
         else {
             Preference preference = findPreference(key);
             if (null != preference) {
-                if (!(preference instanceof CheckBoxPreference)) {
+                if (!(preference instanceof CheckBoxPreference)
+                        && !(preference instanceof com.example.shoji.dailytask.dialog.TimePreference)) {
                     String value = sharedPreferences.getString(preference.getKey(),
                             getString(R.string.empty_string));
                     setPreferenceSummary(preference, value);
@@ -389,4 +394,24 @@ public class SettingsFragment extends PreferenceFragmentCompat
     }
     // [END} GoogleApiClient.OnConnectionFailedListener
 
+
+    // [START] custom time picker
+    @Override
+    public void onDisplayPreferenceDialog(Preference preference) {
+        DialogFragment dialogFragment = null;
+        if (preference instanceof TimePreference) {
+            // Create a new instance of TimePreferenceDialogFragment with the key of the related
+            // Preference
+            dialogFragment = TimePreferenceDialogFragmentCompat.newInstance(preference.getKey());
+        }
+
+        if (dialogFragment != null) {
+            dialogFragment.setTargetFragment(this, 0);
+            dialogFragment.show(this.getFragmentManager(), "android.support.v7.preference" +
+                    ".PreferenceFragment.DIALOG");
+        } else {
+            super.onDisplayPreferenceDialog(preference);
+        }
+    }
+    // [END] custom time picker
 }

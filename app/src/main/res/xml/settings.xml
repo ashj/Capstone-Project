@@ -8,6 +8,20 @@
         android:summaryOn="@string/pref_daily_notification_summaryOn"
         android:title="@string/pref_daily_notification_title" />
 
+    <!--
+    <Preference
+        android:key="@string/pref_time_picker_key"
+        android:defaultValue="@string/empty_string"
+        android:persistent="false"
+        android:summary="@string/empty_string"
+        android:title="@string/pref_time_picker_title" /> -->
+    <com.example.shoji.dailytask.dialog.TimePreference
+        android:key="@string/pref_time_picker_minutes_key"
+        android:title="@string/pref_time_picker_title"
+        android:summary="@string/empty_string"
+        android:defaultValue="@integer/pref_time_picker_minutes_default_value"
+        style="@style/AppPreference.DialogPreference" />
+
     <CheckBoxPreference
         android:id="@+id/pref_location_service"
         android:defaultValue="@bool/pref_location_service_default_value"
