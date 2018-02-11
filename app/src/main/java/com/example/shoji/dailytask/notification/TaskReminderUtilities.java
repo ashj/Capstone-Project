@@ -28,7 +28,7 @@ public class TaskReminderUtilities {
 
     private static final int SYNC_FLEXTIME_SECONDS = 30;
     // TODO - set recurrence to REMINDER_INTERVAL_DAILY
-    private static final int REMINDER_RECURRENCE_INTERVAL_SECONDS = REMINDER_INTERVAL_SECONDS;
+    private static final int REMINDER_RECURRENCE_INTERVAL_SECONDS = REMINDER_INTERVAL_DAILY;
 
 
 
@@ -37,13 +37,26 @@ public class TaskReminderUtilities {
     private static boolean sInitialized;
 
 
-    private static Calendar getNextNotificationStartInterval() {
+    private static Calendar getNextNotificationStartInterval(Context context) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
 
-        // todo pick correct time
-        calendar.set(Calendar.HOUR_OF_DAY, 7);
-        calendar.set(Calendar.MINUTE, 00);
+        // [START] retrive stored time from picker
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        int defaultValue = context.getResources().getInteger(R.integer.pref_time_picker_minutes_default_value);
+        int storedTimeMinutes = sharedPreferences.getInt(context.getString(R.string.pref_time_picker_minutes_key),
+                defaultValue);
+
+        Timber.d("[SCHEDULE]cooldown - Stored time: %d minutes", storedTimeMinutes);
+
+        int minutes = (storedTimeMinutes % 60);
+        int hours = (storedTimeMinutes / 60);
+
+        Timber.d("[SCHEDULE]cooldown - Stored time: %02dh%02dm", hours, minutes);
+
+        calendar.set(Calendar.HOUR_OF_DAY, hours);
+        calendar.set(Calendar.MINUTE, minutes);
+        // [END] retrive stored time from picker
 
         return calendar;
     }
@@ -59,7 +72,7 @@ public class TaskReminderUtilities {
         int flexTime = SYNC_FLEXTIME_SECONDS;
 
         // [START] use calendar to calculate startInterval
-        Calendar calendar = getNextNotificationStartInterval();
+        Calendar calendar = getNextNotificationStartInterval(context);
 
         long currentTime = System.currentTimeMillis();
         long startIntervalMillis = (calendar.getTimeInMillis() - currentTime);
@@ -151,7 +164,7 @@ public class TaskReminderUtilities {
             else {
                 // [START] Start today's day notification reminder
                 Timber.d("setupTaskReminderNotification: Situation #2: noti:ON, locServ:OFF");
-                TaskReminderUtilities.scheduleTaskNotificationReminder(context);
+                TaskReminderUtilities.rescheduleTaskNotificationReminder(context);
                 // [END] Start today's day notification reminder
             }
         }

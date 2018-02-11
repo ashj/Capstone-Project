@@ -10,6 +10,8 @@ import android.widget.TimePicker;
 
 import com.example.shoji.dailytask.R;
 
+import timber.log.Timber;
+
 public class TimePreferenceDialogFragmentCompat extends PreferenceDialogFragmentCompat {
 
     private TimePicker mTimePicker;
@@ -51,6 +53,8 @@ public class TimePreferenceDialogFragmentCompat extends PreferenceDialogFragment
             mTimePicker.setIs24HourView(is24hour);
             mTimePicker.setCurrentHour(hours);
             mTimePicker.setCurrentMinute(minutes);
+
+            Timber.d("[SCHEDULE] onBindDialogView: %02dh%02dm, 24h?: %b", hours, minutes, is24hour);
         }
     }
 
@@ -70,6 +74,7 @@ public class TimePreferenceDialogFragmentCompat extends PreferenceDialogFragment
 
             // Generate value to save
             int minutesAfterMidnight = (hours * 60) + minutes;
+            Timber.d("[SCHEDULE] onDialogClosed - minutesAfterMidnight: %d ", minutesAfterMidnight);
 
             // Save the value
             DialogPreference preference = getPreference();

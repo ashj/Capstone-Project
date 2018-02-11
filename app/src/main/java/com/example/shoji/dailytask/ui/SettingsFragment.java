@@ -219,7 +219,8 @@ public class SettingsFragment extends PreferenceFragmentCompat
         // [START] enable or disable location selection screen
         if(TextUtils.equals(key, getString(R.string.pref_location_service_key))
                 || TextUtils.equals(key, getString(R.string.pref_picked_place_address_key))
-                || TextUtils.equals(key, getString(R.string.pref_daily_notification_key))) {
+                || TextUtils.equals(key, getString(R.string.pref_daily_notification_key))
+                || TextUtils.equals(key, getString(R.string.pref_time_picker_minutes_key)) ) {
             bindLocationPicker();
             configureGeofencing();
             TaskReminderUtilities.setupTaskReminderNotification(mContext, sharedPreferences);
