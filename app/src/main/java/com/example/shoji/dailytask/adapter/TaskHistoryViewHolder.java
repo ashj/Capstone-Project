@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.example.shoji.dailytask.R;
 import com.example.shoji.dailytask.provider.TaskContract;
+import com.example.shoji.dailytask.utils.TimeUtils;
 
 import timber.log.Timber;
 
@@ -46,21 +47,19 @@ public class TaskHistoryViewHolder extends RecyclerView.ViewHolder
         int columnIndex = cursor.getColumnIndex(TaskContract.COLUMN_TITLE);
         String title = cursor.getString(columnIndex);
 
-        columnIndex = cursor.getColumnIndex(TaskContract._ID);
-        String id = cursor.getString(columnIndex);
+        // DBG
+//        columnIndex = cursor.getColumnIndex(TaskContract._ID);
+//        String id = cursor.getString(columnIndex);
+//        columnIndex = cursor.getColumnIndex(TaskContract.COLUMN_PRIORITY);
+//        String priority = cursor.getString(columnIndex);
+//        title = title + " (id:"+id+"//P"+priority+")";
 
-        columnIndex = cursor.getColumnIndex(TaskContract.COLUMN_PRIORITY);
-        String priority = cursor.getString(columnIndex);
-
-        String text = title + " (id:"+id+"//P"+priority+")";
-        mTitleTextView.setText(text);
-
+        mTitleTextView.setText(title);
 
         columnIndex = cursor.getColumnIndex(TaskContract.COLUMN_CONCLUDED_DATE);
         long modification_date = cursor.getLong(columnIndex);
-        int flags = DateUtils.FORMAT_SHOW_DATE
-                | DateUtils.FORMAT_SHOW_TIME;
-        String dateStr = DateUtils.formatDateTime(mContext, modification_date, flags);
+        String dateStr = TimeUtils.timeInMillisToFormattedString(context, modification_date);
+
         mModifiedDate.setText(dateStr);
     }
 

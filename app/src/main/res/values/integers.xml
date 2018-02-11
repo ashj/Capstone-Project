@@ -2,6 +2,7 @@
 <resources>
     <!-- Card View - text view -->
     <integer name="cardview_textview_maxlines">1</integer>
+    <integer name="cardview_description_textview_maxlines">5</integer>
 
     <!-- Task Editor -->
     <integer name="priority_value_high">3</integer>

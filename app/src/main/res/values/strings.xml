@@ -34,6 +34,7 @@
     <string name="main_activity_task_marked_as_done">Completed the task</string>
 
     <string name="tools_main_activity_title_text">Todo: something</string>
+    <string name="tools_main_activity_description_text">Very descriptive to-do</string>
 
     <!-- Task details -->
     <string name="task_details_activity_title">Task details</string>

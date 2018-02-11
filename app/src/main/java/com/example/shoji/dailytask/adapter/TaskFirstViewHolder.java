@@ -22,6 +22,7 @@ public class TaskFirstViewHolder extends RecyclerView.ViewHolder
     private Context mContext;
     private View mItemView;
     private TextView mTitleTextView;
+    private TextView mDescriptionTextView;
     private Button mButton;
 
     private OnClickListener mOnClickListener;
@@ -39,6 +40,7 @@ public class TaskFirstViewHolder extends RecyclerView.ViewHolder
         mItemView.setOnClickListener(onClickListener);
 
         mTitleTextView = mItemView.findViewById(R.id.title_text_view);
+        mDescriptionTextView = mItemView.findViewById(R.id.description_text_view);
 
         mButton = mItemView.findViewById(R.id.mark_button);
         mButton.setOnClickListener(onClickListener);
@@ -54,14 +56,19 @@ public class TaskFirstViewHolder extends RecyclerView.ViewHolder
         int columnIndex = cursor.getColumnIndex(TaskContract.COLUMN_TITLE);
         String title = cursor.getString(columnIndex);
 
-        columnIndex = cursor.getColumnIndex(TaskContract._ID);
-        String id = cursor.getString(columnIndex);
+        columnIndex = cursor.getColumnIndex(TaskContract.COLUMN_DESCRIPTION);
+        String description = cursor.getString(columnIndex);
 
-        columnIndex = cursor.getColumnIndex(TaskContract.COLUMN_PRIORITY);
-        String priority = cursor.getString(columnIndex);
+        // DBG
+//        columnIndex = cursor.getColumnIndex(TaskContract._ID);
+//        String id = cursor.getString(columnIndex);
+//        columnIndex = cursor.getColumnIndex(TaskContract.COLUMN_PRIORITY);
+//        String priority = cursor.getString(columnIndex);
+//        title = title + " (id:"+id+"//P"+priority+")";
 
-        String text = title + " (id:"+id+"//P"+priority+")";
-        mTitleTextView.setText(text);
+        mTitleTextView.setText(title);
+
+        mDescriptionTextView.setText(description);
         // [START] last task completed timestamp
         if(TimeUtils.isTaskUnderCooldown(mContext)) {
             mButton.setVisibility(View.GONE);

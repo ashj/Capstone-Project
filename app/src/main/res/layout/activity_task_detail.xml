@@ -38,7 +38,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:text="@string/tools_task_details_title_text"
-                android:textSize="@dimen/text_size_large"
+                android:textSize="@dimen/text_size_larger"
                 android:textColor="@android:color/black"
                 android:paddingBottom="@dimen/activity_task_detail_vertical_padding" />
 
@@ -113,7 +113,6 @@
                 android:text="@string/button_task_conclude"
                 android:visibility="visible"
                 android:drawableStart="@drawable/ic_task_check"
-                android:elevation="@dimen/button_elevation"
                 style="@style/ButtonThemeSmall" />
 
             <Button
@@ -123,7 +122,6 @@
                 android:text="@string/button_task_restore"
                 android:visibility="visible"
                 android:drawableStart="@drawable/ic_task_uncheck"
-                android:elevation="@dimen/button_elevation"
                 style="@style/ButtonThemeSmall" />
         </LinearLayout>
     </ScrollView>
