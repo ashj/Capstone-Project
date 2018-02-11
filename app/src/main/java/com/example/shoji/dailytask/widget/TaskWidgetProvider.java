@@ -12,7 +12,6 @@ import android.widget.RemoteViews;
 import com.example.shoji.dailytask.R;
 import com.example.shoji.dailytask.background.LoaderTaskGetTasks;
 import com.example.shoji.dailytask.intentservice.TaskPendingIntentUtils;
-import com.example.shoji.dailytask.notification.TaskNotificationUtils;
 import com.example.shoji.dailytask.provider.TaskContract;
 import com.example.shoji.dailytask.utils.TimeUtils;
 

@@ -9,7 +9,6 @@ import android.text.format.DateUtils;
 import com.example.shoji.dailytask.R;
 
 import java.util.Calendar;
-import java.util.concurrent.TimeUnit;
 
 import timber.log.Timber;
 

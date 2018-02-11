@@ -20,14 +20,10 @@ import android.support.v7.preference.PreferenceManager;
 
 import com.example.shoji.dailytask.R;
 import com.example.shoji.dailytask.background.LoaderTaskGetTasks;
-import com.example.shoji.dailytask.background.LoaderTaskSetConcludedById;
-import com.example.shoji.dailytask.intentservice.TaskIntentServiceTasks;
 import com.example.shoji.dailytask.intentservice.TaskIntentService;
+import com.example.shoji.dailytask.intentservice.TaskIntentServiceTasks;
 import com.example.shoji.dailytask.intentservice.TaskPendingIntentUtils;
 import com.example.shoji.dailytask.provider.TaskContract;
-import com.example.shoji.dailytask.ui.MainActivity;
-import com.example.shoji.dailytask.ui.TaskDetailActivity;
-import com.example.shoji.dailytask.ui.TaskEditorActivity;
 import com.example.shoji.dailytask.utils.TimeUtils;
 
 import timber.log.Timber;
