@@ -15,9 +15,9 @@
 
     <dimen name="button_elevation">4dp</dimen>
     <!-- Text size -->
-    <dimen name="text_size_task_list">24sp</dimen>
+    <dimen name="text_size_task_list">16sp</dimen>
     <dimen name="text_size_large">28sp</dimen>
-    <dimen name="text_size_small">16sp</dimen>
+    <dimen name="text_size_small">10sp</dimen>
 
     <dimen name="widget_text_size_normal">16sp</dimen>
     <dimen name="widget_text_size_small">14sp</dimen>
@@ -32,11 +32,11 @@
 
     <!-- Card view style -->
     <dimen name="cardview_vertical_margin">4dp</dimen>
-    <dimen name="cardview_horizontal_margin">16dp</dimen>
+    <dimen name="cardview_horizontal_margin">12dp</dimen>
     <dimen name="cardview_elevation">4dp</dimen>
 
-    <dimen name="cardview_interior_vertical_padding">18dp</dimen>
-    <dimen name="cardview_interior_horizontal_padding">18dp</dimen>
+    <dimen name="cardview_interior_vertical_padding">12dp</dimen>
+    <dimen name="cardview_interior_horizontal_padding">12dp</dimen>
 
     <!-- Style -->
     <dimen name="style_text_view_textsize">18sp</dimen>
@@ -53,7 +53,10 @@
 
     <!-- History -->
     <dimen name="activity_task_history_horizontal_padding">16dp</dimen>
-    <dimen name="activity_task_history_vertical_padding">24dp</dimen>
+    <dimen name="activity_task_history_vertical_padding">20dp</dimen>
+
+    <dimen name="activity_task_history_image_size">32dp</dimen>
+    <dimen name="activity_task_history_cardviewhorizontal_padding">12dp</dimen>
 
     <!--
 Refer to App Widget Documentation for margin information

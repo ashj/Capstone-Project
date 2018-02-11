@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Card View - text view -->
+    <integer name="cardview_textview_maxlines">1</integer>
     <!-- Task Editor -->
     <integer name="priority_value_high">3</integer>
     <integer name="priority_value_normal">2</integer>

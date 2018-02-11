@@ -6,8 +6,9 @@
     android:id="@+id/constraint_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.MainActivity"
-    android:paddingBottom="@dimen/activity_main__padding_bottom">
+    android:paddingTop="@dimen/activity_task_history_vertical_padding"
+    android:paddingBottom="@dimen/activity_task_history_vertical_padding"
+    tools:context=".ui.TaskHistoryActivity" >
 
     <ProgressBar
         android:id="@+id/progressbar"
