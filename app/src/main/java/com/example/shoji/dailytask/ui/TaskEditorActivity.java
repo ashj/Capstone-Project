@@ -11,6 +11,8 @@ import android.support.v4.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
@@ -104,6 +106,11 @@ public class TaskEditorActivity extends AppCompatActivityEx
         }
         // [END] Check if it is a task to edit or a new one
 
+        // [START] ensure that keyboard opens at start
+        mTitleEditText.setFocusableInTouchMode(true);
+        mTitleEditText.requestFocus();
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        // [END] ensure that keyboard opens at start
     }
 
 
