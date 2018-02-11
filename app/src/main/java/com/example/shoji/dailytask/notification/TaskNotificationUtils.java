@@ -56,8 +56,10 @@ public class TaskNotificationUtils {
         // [END] Check shared preference for notification
 
         // [START] last task completed timestamp
-        if(TimeUtils.isTaskUnderCooldown(context))
+        if(TimeUtils.isTaskUnderCooldown(context)) {
+            Timber.d("cooldown - No need to show notification");
             return;
+        }
         // [END] last task completed timestamp
 
         // [START] Query today's task

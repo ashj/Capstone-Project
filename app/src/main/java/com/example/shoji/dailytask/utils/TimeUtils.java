@@ -8,6 +8,9 @@ import android.text.format.DateUtils;
 
 import com.example.shoji.dailytask.R;
 
+import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
+
 import timber.log.Timber;
 
 public class TimeUtils {
@@ -45,11 +48,26 @@ public class TimeUtils {
         long currentTime = System.currentTimeMillis();
         long storedTime = getLatestTaskCompletedTimestamp(context);
 
-        // TODO - set proper cooldown period
-        boolean cooldown = currentTime - storedTime < 60000;
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        //midnight
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
 
-        Timber.d("LatestTaskCompletedTimestamp - cooldown?: %b", cooldown);
-        return cooldown;
+        Timber.d("cooldown - Stored    : %s",
+                timeInMillisToFormattedString(context, storedTime ));
+        Timber.d("cooldown - Current   : %s",
+                timeInMillisToFormattedString(context, currentTime ));
+        Timber.d("cooldown - calendaMid: %s",
+                timeInMillisToFormattedString(context, calendar.getTimeInMillis() ));
+
+        long midnight = calendar.getTimeInMillis();
+        // TODO - use midnight cooldown
+        //boolean inCooldown = storedTime > midnight;
+        boolean inCooldown = currentTime - storedTime < 60000;
+
+        Timber.d("LatestTaskCompletedTimestamp - cooldown?: %b", inCooldown);
+        return inCooldown;
     }
     // [END] last task completed timestamp
 
