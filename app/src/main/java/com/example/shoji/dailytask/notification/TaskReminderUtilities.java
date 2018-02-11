@@ -11,6 +11,7 @@ import com.firebase.jobdispatcher.FirebaseJobDispatcher;
 import com.firebase.jobdispatcher.GooglePlayDriver;
 import com.firebase.jobdispatcher.Job;
 import com.firebase.jobdispatcher.Lifetime;
+import com.firebase.jobdispatcher.RetryStrategy;
 import com.firebase.jobdispatcher.Trigger;
 
 import java.util.Calendar;
@@ -104,6 +105,7 @@ public class TaskReminderUtilities {
                         startInterval,
                         startInterval + flexTime))
                 .setReplaceCurrent(true)
+                .setRetryStrategy(RetryStrategy.DEFAULT_EXPONENTIAL)
                 .build();
 
         dispatcher.schedule(constraintReminderJob);
