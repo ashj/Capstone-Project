@@ -152,10 +152,11 @@ public class TaskEditorActivity extends AppCompatActivityEx
             int validation = validateForm();
             if(validation == FORM_ERROR_NO_ERROR) {
                 item.setEnabled(false);
+                mTitleEditText.setError(null);
                 performActionIntoDatabase();
             }
             else if(validation == FORM_ERROR_INVALID_TITLE) {
-                showSnackBar(mTitleEditText, R.string.validate_task_error_title);
+                mTitleEditText.setError(getString(R.string.validate_task_error_title));
             }
             else if(validation == FORM_ERROR_INVALID_DESCRIPTION) {
                 showSnackBar(mTitleEditText, R.string.validate_task_error_description);

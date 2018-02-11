@@ -53,7 +53,7 @@
     <dimen name="activity_task_detail_vertical_padding">16dp</dimen>
 
     <!-- Editor -->
-    <dimen name="activity_task_editor_layout_padding">16dp</dimen>
+    <dimen name="activity_task_editor_vertical_margin">14dp</dimen>
     <dimen name="activity_task_editor_buttonpadding">4dp</dimen>
 
     <!-- History -->

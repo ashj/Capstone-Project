@@ -80,7 +80,7 @@ public abstract class AppCompatActivityEx extends AppCompatActivity {
     }
     protected void showSnackBar(View view, int resId) {
         Timber.d("showSnackBar #4");
-        showSnackBar(view, resId, Snackbar.LENGTH_SHORT);
+        showSnackBar(view, resId, Snackbar.LENGTH_LONG);
 
     }
     protected void showSnackBar(View view, int resId, int length) {

@@ -5,8 +5,8 @@
     <string name="task_editor_activity_title_add">Add a new task</string>
     <string name="task_editor_activity_title_edit">Edit task</string>
 
-    <string name="new_task_hint_title">Task title</string>
-    <string name="new_task_descr_title">Task description</string>
+    <string name="new_task_hint_title">Short description</string>
+    <string name="new_task_descr_title">Detailed description</string>
 
     <string name="priority_label">Priority</string>
     <string name="priority_label_low">low</string>

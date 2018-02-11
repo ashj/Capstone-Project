@@ -7,13 +7,10 @@
     android:layout_height="wrap_content"
     android:layout_marginStart="@dimen/cardview_horizontal_margin"
     android:layout_marginEnd="@dimen/cardview_horizontal_margin"
-    android:layout_marginTop="@dimen/cardview_vertical_margin"
-    android:layout_marginBottom="@dimen/cardview_vertical_margin"
+    android:layout_marginTop="@dimen/activity_task_editor_vertical_margin"
+    android:layout_marginBottom="@dimen/activity_task_editor_vertical_margin"
     app:cardElevation="@dimen/cardview_default_elevation"
-    app:cardCornerRadius="@dimen/cardview_corner_radius"
-    android:clickable="true"
-    android:focusable="true"
-    android:foreground="?selectableItemBackground" >
+    app:cardCornerRadius="@dimen/cardview_corner_radius" >
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -45,35 +42,50 @@
         android:orientation="vertical"
         tools:context="com.example.shoji.dailytask.ui.TaskEditorActivity">
 
-        <EditText
-            android:id="@+id/task_title_edit_text"
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/task_title_text_input_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/new_task_hint_title"
-            android:inputType="text"
+            app:counterEnabled="true"
+            app:counterMaxLength="@integer/editor_title_max_length"
             android:layout_marginTop="@dimen/view_vertical_margin"
             android:layout_marginBottom="@dimen/view_vertical_margin"
-            android:maxLines="@integer/cardview_textview_maxlines"
-            android:maxLength="@integer/editor_title_max_length"
-            android:ellipsize="end"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:errorEnabled="true" >
+            <EditText
+                android:id="@+id/task_title_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLength="@integer/editor_title_max_length"
+                android:hint="@string/new_task_hint_title"
+                android:inputType="text" />
+        </android.support.design.widget.TextInputLayout>
 
-        <EditText
-            android:id="@+id/task_description_edit_text"
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/task_description_text_input_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/new_task_descr_title"
-            android:inputType="text|textMultiLine"
-            android:lines="@integer/editor_num_lines"
-            android:maxLength="@integer/editor_descr_max_length"
-            android:gravity="start|top"
+            app:counterEnabled="true"
+            app:counterMaxLength="@integer/editor_descr_max_length"
             android:layout_marginTop="@dimen/view_vertical_margin"
             android:layout_marginBottom="@dimen/view_vertical_margin"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/task_title_edit_text"/>
+            app:layout_constraintTop_toBottomOf="@id/task_title_text_input_layout" >
+            <EditText
+                android:id="@+id/task_description_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/new_task_descr_title"
+                android:inputType="textMultiLine"
+                android:maxLength="@integer/editor_descr_max_length"
+                android:lines="@integer/editor_num_lines"
+                android:gravity="start|top"
+                android:layout_marginTop="@dimen/view_vertical_margin"
+                android:layout_marginBottom="@dimen/view_vertical_margin" />
+        </android.support.design.widget.TextInputLayout>
 
         <TextView
             android:layout_width="wrap_content"
