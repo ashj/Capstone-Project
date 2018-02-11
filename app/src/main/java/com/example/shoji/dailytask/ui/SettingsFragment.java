@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -17,8 +16,10 @@ import android.support.v7.preference.EditTextPreference;
 import android.support.v7.preference.ListPreference;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
+import android.support.v7.preference.PreferenceManager;
 import android.support.v7.preference.PreferenceScreen;
 import android.text.TextUtils;
+import android.text.format.DateFormat;
 
 import com.example.shoji.dailytask.R;
 import com.example.shoji.dailytask.dialog.TimePreference;
@@ -129,8 +130,10 @@ public class SettingsFragment extends PreferenceFragmentCompat
         for (int i = 0; i < count; i++) {
             android.support.v7.preference.Preference p = prefScreen.getPreference(i);
 
-            if (!(p instanceof CheckBoxPreference)
-                    && !(p instanceof com.example.shoji.dailytask.dialog.TimePreference)) {
+            if (p instanceof com.example.shoji.dailytask.dialog.TimePreference) {
+                setPreferenceSummary(p, null);
+            }
+            else if (!(p instanceof CheckBoxPreference)) {
                 String value = sharedPreferences.getString(p.getKey(),
                         getString(R.string.empty_string));
                 setPreferenceSummary(p, value);
@@ -202,7 +205,34 @@ public class SettingsFragment extends PreferenceFragmentCompat
 
     // [START] update summary
     private void setPreferenceSummary(Preference preference, String value) {
-        if (preference instanceof ListPreference) {
+        // [START] time picker summary
+        if ((preference instanceof com.example.shoji.dailytask.dialog.TimePreference)) {
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+            int defaultValue = getResources().getInteger(R.integer.pref_time_picker_minutes_default_value);
+            int storedTimeMinutes = sharedPreferences.getInt(getString(R.string.pref_time_picker_minutes_key),
+                    defaultValue);
+            int minutes = (storedTimeMinutes % 60);
+            int hours = (storedTimeMinutes / 60);
+            boolean is24hour = DateFormat.is24HourFormat(getContext());
+
+            Timber.d("setPreferenceSummary / TimePreference");
+            if(is24hour) {
+                preference.setSummary(getString(R.string.settings_activity_time_picker_24hour_summary, hours, minutes));
+            }
+            else {
+                String period;
+                if(hours < 12) {
+                    period = getString(R.string.settings_activity_time_picker_am);
+                }
+                else {
+                    period = getString(R.string.settings_activity_time_picker_pm);
+                    hours -= 12;
+                }
+                preference.setSummary(getString(R.string.settings_activity_time_picker_12hour_summary, hours, minutes, period));
+            }
+        }
+        // [END] time picker summary
+        else if (preference instanceof ListPreference) {
             ListPreference listPreference = (ListPreference) preference;
             int prefIndex = listPreference.findIndexOfValue(value);
             if (prefIndex >= 0) {
@@ -224,13 +254,18 @@ public class SettingsFragment extends PreferenceFragmentCompat
             bindLocationPicker();
             configureGeofencing();
             TaskReminderUtilities.setupTaskReminderNotification(mContext, sharedPreferences);
+
+            if(TextUtils.equals(key, getString(R.string.pref_time_picker_minutes_key))) {
+                Preference preference = findPreference(key);
+                if(preference != null)
+                    setPreferenceSummary(preference, null);
+            }
         }
         // [END] enable or disable location selection screen
         else {
             Preference preference = findPreference(key);
             if (null != preference) {
-                if (!(preference instanceof CheckBoxPreference)
-                        && !(preference instanceof com.example.shoji.dailytask.dialog.TimePreference)) {
+                if (!(preference instanceof CheckBoxPreference)) {
                     String value = sharedPreferences.getString(preference.getKey(),
                             getString(R.string.empty_string));
                     setPreferenceSummary(preference, value);

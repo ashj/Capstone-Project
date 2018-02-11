@@ -74,7 +74,10 @@
 
     <string translatable="false" name="pref_time_picker_minutes_key">time-picker-minutes</string>
     <string name="pref_time_picker_title">Time to show notifications</string>
-    <string name="settings_activity_time_picker_summary"><xliff:g>%1$s</xliff:g>:<xliff:g>%2$s</xliff:g></string>
+    <string name="settings_activity_time_picker_24hour_summary"><xliff:g>%1$d</xliff:g>:<xliff:g>%2$02d</xliff:g></string>
+    <string name="settings_activity_time_picker_12hour_summary"><xliff:g>%1$d</xliff:g>:<xliff:g>%2$02d</xliff:g> <xliff:g>%3$s</xliff:g></string>
+    <string name="settings_activity_time_picker_am">am</string>
+    <string name="settings_activity_time_picker_pm">pm</string>
 
     <string name="pref_location_service_key">location-service</string>
     <string name="pref_location_service_summaryOff">Disabled</string>
