@@ -31,6 +31,7 @@
             tools:text="@string/tools_main_activity_title_text"
             android:textSize="@dimen/text_size_task_list"
             android:maxLines="@integer/cardview_textview_maxlines"
+            android:ellipsize="end"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 

@@ -7,7 +7,7 @@
     android:paddingTop="@dimen/activity_task_detail_vertical_padding"
     android:paddingBottom="@dimen/activity_task_detail_vertical_padding"
     android:paddingStart="@dimen/activity_task_detail_horizontal_padding"
-    android:paddingEnd="@dimen/activity_task_editor_layout_padding"
+    android:paddingEnd="@dimen/activity_task_detail_horizontal_padding"
     tools:context="com.example.shoji.dailytask.ui.TaskDetailActivity">
 
     <ProgressBar
@@ -40,7 +40,7 @@
                 tools:text="@string/tools_task_details_title_text"
                 android:textSize="@dimen/text_size_large"
                 android:textColor="@android:color/black"
-                android:paddingBottom="@dimen/activity_task_editor_layout_padding" />
+                android:paddingBottom="@dimen/activity_task_detail_vertical_padding" />
 
             <TextView
                 android:id="@+id/task_contents"
@@ -48,7 +48,7 @@
                 android:layout_height="wrap_content"
                 tools:text="@string/tools_task_details_title_text"
                 android:textSize="@dimen/text_size_task_list"
-                android:paddingBottom="@dimen/activity_task_editor_layout_padding" />
+                android:paddingBottom="@dimen/activity_task_detail_vertical_padding" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -104,7 +104,7 @@
                 android:visibility="invisible"
                 tools:text="@string/tools_task_details_title_text"
                 android:textSize="@dimen/text_size_task_list"
-                android:paddingBottom="@dimen/activity_task_editor_layout_padding" />
+                android:paddingBottom="@dimen/activity_task_detail_vertical_padding" />
 
             <Button
                 android:id="@+id/mark_as_done_button"

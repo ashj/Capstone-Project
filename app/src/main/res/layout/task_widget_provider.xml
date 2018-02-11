@@ -25,6 +25,8 @@
         android:paddingStart="@dimen/widget_padding_horizontal"
         android:paddingEnd="@dimen/widget_padding_horizontal"
         tools:text="@string/tools_main_activity_title_text"
+        android:maxLines="@integer/cardview_textview_maxlines"
+        android:ellipsize="end"
         android:textSize="@dimen/widget_text_size_small" />
 
     <Button

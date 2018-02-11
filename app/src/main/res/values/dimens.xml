@@ -31,9 +31,10 @@
     <dimen name="activity_main__padding_bottom_large">64dp</dimen>
 
     <!-- Card view style -->
-    <dimen name="cardview_vertical_margin">4dp</dimen>
+    <dimen name="cardview_vertical_margin">6dp</dimen>
     <dimen name="cardview_horizontal_margin">12dp</dimen>
     <dimen name="cardview_elevation">4dp</dimen>
+    <dimen name="cardview_corner_radius">4dp</dimen>
 
     <dimen name="cardview_interior_vertical_padding">12dp</dimen>
     <dimen name="cardview_interior_horizontal_padding">12dp</dimen>

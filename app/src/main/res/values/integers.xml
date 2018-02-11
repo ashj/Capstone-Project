@@ -2,6 +2,7 @@
 <resources>
     <!-- Card View - text view -->
     <integer name="cardview_textview_maxlines">1</integer>
+
     <!-- Task Editor -->
     <integer name="priority_value_high">3</integer>
     <integer name="priority_value_normal">2</integer>
@@ -10,6 +11,8 @@
     <integer name="priority_value_default">@integer/priority_value_normal</integer>
 
     <integer name="editor_num_lines">5</integer>
+    <integer name="editor_title_max_length">140</integer>
+    <integer name="editor_descr_max_length">1023</integer>
 
     <!-- Notification -->
     <integer name="pref_latest_task_completed_timestamp_default_value">0</integer>

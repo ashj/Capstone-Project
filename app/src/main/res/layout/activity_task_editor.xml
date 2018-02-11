@@ -1,14 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_task_editor_layout_padding"
-    android:paddingStart="@dimen/activity_task_editor_layout_padding"
-    android:paddingEnd="@dimen/activity_task_editor_layout_padding"
-    android:paddingTop="@dimen/activity_task_editor_layout_padding"
-    tools:context="com.example.shoji.dailytask.ui.TaskDetailActivity">
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/cardview_horizontal_margin"
+    android:layout_marginEnd="@dimen/cardview_horizontal_margin"
+    android:layout_marginTop="@dimen/cardview_vertical_margin"
+    android:layout_marginBottom="@dimen/cardview_vertical_margin"
+    app:cardElevation="@dimen/cardview_default_elevation"
+    app:cardCornerRadius="@dimen/cardview_corner_radius"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?selectableItemBackground" >
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/list_selector_light"
+        android:paddingTop="@dimen/cardview_interior_vertical_padding"
+        android:paddingBottom="@dimen/cardview_interior_vertical_padding"
+        android:paddingStart="@dimen/cardview_interior_horizontal_padding"
+        android:paddingEnd="@dimen/cardview_interior_horizontal_padding" >
 
     <ProgressBar
         android:id="@+id/progressbar"
@@ -39,6 +53,9 @@
             android:inputType="text"
             android:layout_marginTop="@dimen/view_vertical_margin"
             android:layout_marginBottom="@dimen/view_vertical_margin"
+            android:maxLines="@integer/cardview_textview_maxlines"
+            android:maxLength="@integer/editor_title_max_length"
+            android:ellipsize="end"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -50,6 +67,7 @@
             android:hint="@string/new_task_descr_title"
             android:inputType="text|textMultiLine"
             android:lines="@integer/editor_num_lines"
+            android:maxLength="@integer/editor_descr_max_length"
             android:gravity="start|top"
             android:layout_marginTop="@dimen/view_vertical_margin"
             android:layout_marginBottom="@dimen/view_vertical_margin"
@@ -153,3 +171,4 @@
         </FrameLayout>
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
+</android.support.v7.widget.CardView>

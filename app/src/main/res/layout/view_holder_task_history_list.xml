@@ -10,7 +10,7 @@
     android:layout_marginTop="@dimen/cardview_vertical_margin"
     android:layout_marginBottom="@dimen/cardview_vertical_margin"
     app:cardElevation="@dimen/cardview_default_elevation"
-    app:cardCornerRadius="4dp"
+    app:cardCornerRadius="@dimen/cardview_corner_radius"
     android:clickable="true"
     android:focusable="true"
     android:foreground="?selectableItemBackground" >
@@ -41,6 +41,7 @@
             tools:text="@string/tools_history_viewholder_title"
             android:textSize="@dimen/text_size_task_list"
             android:maxLines="@integer/cardview_textview_maxlines"
+            android:ellipsize="end"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toEndOf="@id/checked_image" />
 
@@ -52,6 +53,7 @@
             tools:text="@string/tools_history_viewholder_modified_date"
             android:textSize="@dimen/text_size_small"
             android:maxLines="@integer/cardview_textview_maxlines"
+            android:ellipsize="end"
             app:layout_constraintTop_toBottomOf="@id/title_text_view"
             app:layout_constraintStart_toStartOf="@id/title_text_view" />
 
