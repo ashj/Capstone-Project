@@ -5,21 +5,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="@dimen/cardview_horizontal_margin"
-    android:layout_marginEnd="@dimen/cardview_horizontal_margin"
+    style="@style/TaskTheme.CardView"
     android:layout_marginTop="@dimen/activity_task_editor_vertical_margin"
-    android:layout_marginBottom="@dimen/activity_task_editor_vertical_margin"
-    app:cardElevation="@dimen/cardview_default_elevation"
-    app:cardCornerRadius="@dimen/cardview_corner_radius" >
+    android:layout_marginBottom="@dimen/activity_task_editor_vertical_margin" >
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/list_selector_light"
-        android:paddingTop="@dimen/cardview_interior_vertical_padding"
-        android:paddingBottom="@dimen/cardview_interior_vertical_padding"
-        android:paddingStart="@dimen/cardview_interior_horizontal_padding"
-        android:paddingEnd="@dimen/cardview_interior_horizontal_padding" >
+        style="@style/TaskTheme.ConstraintLayout" >
 
     <ProgressBar
         android:id="@+id/progressbar"
