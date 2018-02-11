@@ -1,6 +1,5 @@
 package com.example.shoji.dailytask.notification;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
@@ -14,21 +13,40 @@ import com.firebase.jobdispatcher.Job;
 import com.firebase.jobdispatcher.Lifetime;
 import com.firebase.jobdispatcher.Trigger;
 
+import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
 import timber.log.Timber;
 
 public class TaskReminderUtilities {
-
-    private static final int REMINDER_INTERVAL_MINUTES = 1;
+    private static final int REMINDER_INTERVAL_MINUTES = 5;
     private static final int REMINDER_INTERVAL_SECONDS = (int) (TimeUnit.MINUTES.toSeconds(REMINDER_INTERVAL_MINUTES));
 
     private static final int REMINDER_INTERVAL_DAILY = (int) (TimeUnit.HOURS.toSeconds(24));
+
+
+
     private static final int SYNC_FLEXTIME_SECONDS = 30;
+    // TODO - set recurrence to REMINDER_INTERVAL_DAILY
+    private static final int REMINDER_RECURRENCE_INTERVAL_SECONDS = REMINDER_INTERVAL_SECONDS;
+
+
 
     private static final String REMINDER_JOB_TAG = "task_notification_reminder_tag";
 
     private static boolean sInitialized;
+
+
+    private static Calendar getNextNotificationStartInterval() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+
+        // todo pick correct time
+        calendar.set(Calendar.HOUR_OF_DAY, 7);
+        calendar.set(Calendar.MINUTE, 00);
+
+        return calendar;
+    }
 
     synchronized public static void scheduleTaskNotificationReminder(@NonNull final Context context) {
         Timber.d("scheduleTaskNotificationReminder -- init'd?: %b", sInitialized);
@@ -38,15 +56,37 @@ public class TaskReminderUtilities {
         Driver driver = new GooglePlayDriver(context);
         FirebaseJobDispatcher dispatcher = new FirebaseJobDispatcher(driver);
 
-        int startInterval = REMINDER_INTERVAL_SECONDS;
         int flexTime = SYNC_FLEXTIME_SECONDS;
+
+        // [START] use calendar to calculate startInterval
+        Calendar calendar = getNextNotificationStartInterval();
+
+        long currentTime = System.currentTimeMillis();
+        long startIntervalMillis = (calendar.getTimeInMillis() - currentTime);
+
+        long recurrenceIntervalMillis = TimeUnit.SECONDS.toMillis(REMINDER_RECURRENCE_INTERVAL_SECONDS);
+        // sum until next time frame
+        while (startIntervalMillis <= 0) {
+            startIntervalMillis += recurrenceIntervalMillis;
+            //Timber.d("[SCHEDULE] RESET to show approx in: %d secs", startInterval);
+        }
+
+        int startInterval = (int) TimeUnit.MILLISECONDS.toSeconds(startIntervalMillis);
+        // dbg
+        int seconds = startInterval;
+        int minutes = seconds / 60;
+        seconds = seconds - 60 * minutes;
+        int hours = minutes / 60;
+        minutes = minutes - 60 * hours;
+        Timber.d("[SCHEDULE] Set to show approx in: %02dh%02dm%02ds (%d ms)", hours,minutes, seconds, startInterval);
+        // [END] use calendar to calculate startInterval
 
         Job constraintReminderJob = dispatcher.newJobBuilder()
                 .setService(TaskReminderFirebaseJobService.class)
                 .setTag(REMINDER_JOB_TAG)
                 //.setConstraints(Constraint.DEVICE_CHARGING)
                 .setLifetime(Lifetime.FOREVER)
-                .setRecurring(true)
+                .setRecurring(false)
                 .setTrigger(Trigger.executionWindow(
                         startInterval,
                         startInterval + flexTime))
@@ -71,7 +111,25 @@ public class TaskReminderUtilities {
         sInitialized = false;
     }
 
+    // [START]
+    public static void rescheduleTaskNotificationReminder(Context context) {
+        Timber.d("rescheduleTaskNotificationReminder -- START");
+        if(sInitialized) {
+            unscheduleTaskNotificationReminder(context);
+        }
+        if(!sInitialized) {
+            scheduleTaskNotificationReminder(context);
+        }
+        Timber.d("rescheduleTaskNotificationReminder -- END");
+    }
+    // [END]
+
     // [START] shared preference onChange listener
+    public static void setupTaskReminderNotification(Context context) {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        setupTaskReminderNotification(context, sharedPreferences);
+    }
+
     public static void setupTaskReminderNotification(Context context, SharedPreferences sharedPreferences) {
         String keyNotification = context.getString(R.string.pref_daily_notification_key);
         boolean defValueNotification = context.getResources().getBoolean(R.bool.pref_daily_notification_default_value);

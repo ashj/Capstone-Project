@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
 
+import com.example.shoji.dailytask.BuildConfig;
 import com.example.shoji.dailytask.background.LoaderTaskSetConcludedById;
 import com.example.shoji.dailytask.notification.TaskNotificationUtils;
 import com.example.shoji.dailytask.provider.TaskContract;
@@ -19,7 +20,7 @@ public class TaskIntentServiceTasks {
     public static final String ACTION_DISMISS_NOTIFICATIONS = "action-dismiss-notification";
     public static final int ACTION_DISMISS_NOTIFICATIONS_PENDING_INTENT_ID = 6002;
 
-    public static final String ACTION_TASK_REMINDER = "action-task-reminder";
+    public static final String ACTION_TASK_REMINDER = BuildConfig.APPLICATION_ID + ".TASK_REMINDER";
     public static final int ACTION_TASK_REMINDER_PENDING_INTENT_ID = 6003;
 
     public static final String ACTION_REFRESH_TASK_WIDGET = "action-refresh-task-widget";

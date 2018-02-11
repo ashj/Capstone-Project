@@ -25,6 +25,7 @@ import com.example.shoji.dailytask.background.LoaderTaskSetConcludedById;
 import com.example.shoji.dailytask.background.LoaderUtils;
 import com.example.shoji.dailytask.provider.TaskContentObserver;
 import com.example.shoji.dailytask.provider.TaskContract;
+import com.example.shoji.dailytask.utils.TimeUtils;
 
 import timber.log.Timber;
 
@@ -275,7 +276,7 @@ public class TaskDetailActivity extends AppCompatActivityEx
 
             int flags = DateUtils.FORMAT_SHOW_DATE
                     | DateUtils.FORMAT_SHOW_TIME;
-            String dateStr = DateUtils.formatDateTime(mContext, modification_date, flags);
+            String dateStr = TimeUtils.timeInMillisToFormattedString(mContext, modification_date);
 
             // break one line if there is text
             if(sb.length() != 0) {

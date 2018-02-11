@@ -8,6 +8,9 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
+    <!-- Notification -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -66,13 +69,6 @@
                 android:value="com.example.shoji.dailytask.ui.MainActivity" />
         </activity>
 
-        <activity android:name=".ui.SettingsLocationActivity"
-            android:parentActivityName=".ui.SettingsActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.shoji.dailytask.ui.SettingsActivity" />
-        </activity>
-
         <service
             android:name=".intentservice.TaskIntentService"
             android:exported="false" />
@@ -95,6 +91,12 @@
         </receiver>
 
         <receiver android:name=".location.GeofenceBroadcastReceiver" />
+
+        <receiver android:name=".notification.TaskBroadcastReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
 
     </application>
 

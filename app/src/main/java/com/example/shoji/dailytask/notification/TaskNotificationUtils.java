@@ -116,6 +116,10 @@ public class TaskNotificationUtils {
         }
 
         notificationManager.notify(TASK_NOTIFICATION_ID, notificationBuilder.build());
+
+        // [START] schedule next notification
+        TaskReminderUtilities.rescheduleTaskNotificationReminder(context);
+        // [END] schedule next notification
     }
 
     private static Bitmap largeIcon(Context context, int resIdIcon) {

@@ -4,6 +4,7 @@ package com.example.shoji.dailytask.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.v7.preference.PreferenceManager;
+import android.text.format.DateUtils;
 
 import com.example.shoji.dailytask.R;
 
@@ -51,4 +52,13 @@ public class TimeUtils {
         return cooldown;
     }
     // [END] last task completed timestamp
+
+    // [START] time in millis to a preformatted string
+    public static String timeInMillisToFormattedString(Context context, long time) {
+        int flags = DateUtils.FORMAT_SHOW_DATE
+                | DateUtils.FORMAT_SHOW_TIME;
+        String dateStr = DateUtils.formatDateTime(context, time, flags);
+        return dateStr;
+    }
+    // [END] time in millis to a preformatted string
 }

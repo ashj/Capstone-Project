@@ -74,4 +74,19 @@ public class TaskPendingIntentUtils {
 
         return pendingIntent;
     }
+
+    public static PendingIntent getAlarmPendingIntent(Context context) {
+        // [START] Show the notification
+        Intent intent = new Intent();
+        intent.setAction(TaskIntentServiceTasks.ACTION_TASK_REMINDER);
+        // [END] Show the notification
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                context,
+                TaskIntentServiceTasks.ACTION_TASK_REMINDER_PENDING_INTENT_ID,
+                intent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+
+        return pendingIntent;
+    }
 }
