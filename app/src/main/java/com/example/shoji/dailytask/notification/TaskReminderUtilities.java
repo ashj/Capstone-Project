@@ -62,7 +62,7 @@ public class TaskReminderUtilities {
         return calendar;
     }
 
-    synchronized public static void scheduleTaskNotificationReminder(@NonNull final Context context) {
+    synchronized private static void scheduleTaskNotificationReminder(@NonNull final Context context) {
         Timber.d("scheduleTaskNotificationReminder -- init'd?: %b", sInitialized);
         if (sInitialized) return;
         Timber.d("scheduleTaskNotificationReminder START");
@@ -113,7 +113,7 @@ public class TaskReminderUtilities {
         sInitialized = true;
     }
 
-    synchronized public static void unscheduleTaskNotificationReminder(Context context) {
+    synchronized private static void unscheduleTaskNotificationReminder(Context context) {
         Timber.d("unscheduleTaskNotificationReminder -- init'd?: %b", sInitialized);
         if (!sInitialized) return;
         Timber.d("unscheduleTaskNotificationReminder START");
@@ -160,20 +160,20 @@ public class TaskReminderUtilities {
             // [START] consider location service settings as well
             if(enabledLocationService) {
                 Timber.d("setupTaskReminderNotification: Situation #1: noti:ON, locServ:ON");
-                TaskReminderUtilities.unscheduleTaskNotificationReminder(context);
+                unscheduleTaskNotificationReminder(context);
             }
             // [END] consider location service settings as well
             else {
                 // [START] Start today's day notification reminder
                 Timber.d("setupTaskReminderNotification: Situation #2: noti:ON, locServ:OFF");
-                TaskReminderUtilities.rescheduleTaskNotificationReminder(context);
+                rescheduleTaskNotificationReminder(context);
                 // [END] Start today's day notification reminder
             }
         }
         else {
             // [START] Stop today's day notification reminder
             Timber.d("setupTaskReminderNotification: Situation #3: noti:OFF, locServ:ON/OFF");
-            TaskReminderUtilities.unscheduleTaskNotificationReminder(context);
+            unscheduleTaskNotificationReminder(context);
             // [END] Stop today's day notification reminder
         }
 
