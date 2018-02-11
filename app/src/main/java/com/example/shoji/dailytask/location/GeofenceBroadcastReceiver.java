@@ -25,9 +25,6 @@ public class GeofenceBroadcastReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         Timber.d("onReceive");
 
-        // TODO, remove later - to test the broadcast receiver
-        //sendNotification(context, Geofence.GEOFENCE_TRANSITION_ENTER);
-
         GeofencingEvent geofencingEvent = GeofencingEvent.fromIntent(intent);
         if (geofencingEvent.hasError()) {
             Timber.e("Error code : %d", geofencingEvent.getErrorCode());
