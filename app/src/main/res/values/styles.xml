@@ -70,26 +70,23 @@
     </style>
 
     <!-- Card View -->
-    <!--
-    <style name="AppPreference.TaskCardView" >
-        <item name="android:layout_marginStart">@dimen/cardview_horizontal_margin</item>
-        <item name="android:layout_marginEnd">@dimen/cardview_horizontal_margin</item>
+    <style name="TaskTheme.CardView" parent="AppTheme">
+        <item name="cardCornerRadius">@dimen/cardview_corner_radius</item>
+        <item name="cardElevation">@dimen/cardview_elevation</item>
         <item name="android:layout_marginTop">@dimen/cardview_vertical_margin</item>
         <item name="android:layout_marginBottom">@dimen/cardview_vertical_margin</item>
-        <item name="android:elevation">@dimen/cardview_elevation</item>
+        <item name="android:layout_marginStart">@dimen/cardview_horizontal_margin</item>
+        <item name="android:layout_marginEnd">@dimen/cardview_horizontal_margin</item>
         <item name="android:clickable">true</item>
         <item name="android:focusable">true</item>
         <item name="android:foreground">?selectableItemBackground</item>
-        <item name="android:background">@drawable/list_selector_light</item>
-    </style>S
-
-    <style name="AppPreference.TaskCardView.Interior" >
-        <item name="android:paddingStart">@dimen/cardview_interior_horizontal_padding</item>
-        <item name="android:paddingEnd">@dimen/cardview_interior_horizontal_padding</item>
-        <item name="android:paddingTop">@dimen/cardview_interior_vertical_padding</item>
-        <item name="android:paddingBottom">@dimen/cardview_interior_vertical_padding</item>
-
     </style>
-    -->
+
+    <style name="TaskTheme.ConstraintLayout" parent="AppTheme">
+        <item name="android:layout_marginTop">@dimen/cardview_interior_vertical_padding</item>
+        <item name="android:layout_marginBottom">@dimen/cardview_interior_vertical_padding</item>
+        <item name="android:layout_marginStart">@dimen/cardview_interior_horizontal_padding</item>
+        <item name="android:layout_marginEnd">@dimen/cardview_interior_horizontal_padding</item>
+    </style>
 
 </resources>
