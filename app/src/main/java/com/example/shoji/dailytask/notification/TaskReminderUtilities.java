@@ -105,7 +105,7 @@ public class TaskReminderUtilities {
                         startInterval,
                         startInterval + flexTime))
                 .setReplaceCurrent(true)
-                .setRetryStrategy(RetryStrategy.DEFAULT_EXPONENTIAL)
+                .setRetryStrategy(RetryStrategy.DEFAULT_LINEAR)
                 .build();
 
         dispatcher.schedule(constraintReminderJob);
