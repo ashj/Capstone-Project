@@ -113,27 +113,18 @@
                         tools:text="@string/tools_task_details_title_text"
                         android:textSize="@dimen/text_size_task_list"
                         android:paddingBottom="@dimen/activity_task_detail_vertical_padding" />
-
-                    <Button
-                        android:id="@+id/mark_as_done_button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/button_task_conclude"
-                        android:visibility="gone"
-                        android:drawableStart="@drawable/ic_task_check"
-                        style="@style/ButtonThemeSmall" />
                 </LinearLayout>
             </ScrollView>
         </android.support.constraint.ConstraintLayout>
 
     </android.support.v7.widget.CardView>
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_edit"
+        android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@drawable/ic_task_edit"
+        app:srcCompat="@drawable/ic_task_check"
         android:tint="@android:color/white"
-        android:contentDescription="@string/content_description_edit_task_label" />
+        android:contentDescription="@string/content_description_check_task" />
 </FrameLayout>

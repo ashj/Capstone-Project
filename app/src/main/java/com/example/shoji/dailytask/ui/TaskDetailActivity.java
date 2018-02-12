@@ -7,10 +7,8 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
-import android.text.format.DateUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -50,7 +48,7 @@ public class TaskDetailActivity extends AppCompatActivityEx
     private ProgressBar mProgressBar;
     private TextView mTaskTitle;
     private TextView mTaskContents;
-    private FloatingActionButton mFabEdit;
+    private FloatingActionButton mFab;
 
     private Cursor mCursor;
     private static TaskContentObserver sTaskContentObserver;
@@ -61,10 +59,6 @@ public class TaskDetailActivity extends AppCompatActivityEx
     private static final int DETAIL_FROM_HISTORY = 1;
     private int mDetailFrom = DETAIL_FROM_INVALID;
     // [END] Check from which screen we came from
-
-    // [START] Detail screen buttons
-    private Button mMarkAsDoneButton;
-    // [END] Detail screen buttons
 
     // [START] show pretty priority field
     private Button mPriorityButton;
@@ -109,23 +103,21 @@ public class TaskDetailActivity extends AppCompatActivityEx
             return;
         // [END] need valid intent to proceed
 
-        // [START] use FAB to open the task to edit
-        mFabEdit = findViewById(R.id.fab_edit);
+        // [START] use FAB to mark test as done
+        mFab = findViewById(R.id.fab);
         if(mDetailFrom == DETAIL_FROM_MAIN) {
-            mFabEdit.setVisibility(View.VISIBLE);
-            mFabEdit.setOnClickListener(new View.OnClickListener() {
+            mFab.setVisibility(View.VISIBLE);
+            mFab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(mContext, TaskEditorActivity.class);
-                    intent.putExtra(TaskEditorActivity.EXTRA_TASK_ID, mTaskId);
-                    startActivityForResult(intent, NAV_TO_TASK_EDITOR);
+                    markTaskAsDone();
                 }
             });
         }
         else {
-            mFabEdit.setVisibility(View.GONE);
+            mFab.setVisibility(View.GONE);
         }
-        // [END] use FAB to open the task to edit
+        // [END] use FAB to mark test as done
 
         // [START] get task by id
         mBundle = new Bundle();
@@ -140,9 +132,6 @@ public class TaskDetailActivity extends AppCompatActivityEx
         sTaskContentObserver = new TaskContentObserver(getContentResolver(), onChangeListener);
         // [END] ContentObserver
 
-        // [START] Detail screen buttons
-        mMarkAsDoneButton = findViewById(R.id.mark_as_done_button);
-        // [END] Detail screen buttons
 
         // [START] show pretty priority field
         mPriorityButton = findViewById(R.id.priorityButton);
@@ -160,6 +149,31 @@ public class TaskDetailActivity extends AppCompatActivityEx
         return id;
     }
     // [END] need valid intent to proceed
+
+
+
+    // [START] mark task as done
+    private void markTaskAsDone() {
+        // [START] temporary unregister content observer
+        if(sTaskContentObserver != null) {
+            sTaskContentObserver.unregister();
+        }
+        // [END] temporary unregister content observer
+
+        // [START] mark test as done
+        Bundle args = new Bundle();
+        args.putLong(LoaderTaskSetConcludedById.EXTRA_TASK_ID, mTaskId);
+        args.putLong(LoaderTaskSetConcludedById.EXTRA_TASK_CONCLUDED_STATE, TaskContract.CONCLUDED);
+
+        LoaderTaskSetConcludedById.OnTaskSetStateListener listener = new OnTaskSetStateListener();
+        LoaderTaskSetConcludedById loaderTaskSetConcludedById = new LoaderTaskSetConcludedById(listener);
+
+        initTaskLoader(LoaderIds.LOADER_ID_GET_TASKS_UPDATE_MAIN, args, loaderTaskSetConcludedById);
+        // [END] mark test as done
+    }
+    // [END] mark task as done
+
+
 
 
     // [START] Toolbar - inflate and item selected
@@ -194,7 +208,6 @@ public class TaskDetailActivity extends AppCompatActivityEx
         Timber.d("[MENU] end -- onCreateOptionsMenu");
         return true;
     }
-
     // [END] Check from which screen we came from
 
     @Override
@@ -340,8 +353,6 @@ public class TaskDetailActivity extends AppCompatActivityEx
             index = mCursor.getColumnIndex(TaskContract.COLUMN_CONCLUDED_DATE);
             long modification_date = mCursor.getLong(index);
 
-            int flags = DateUtils.FORMAT_SHOW_DATE
-                    | DateUtils.FORMAT_SHOW_TIME;
             String dateStr = TimeUtils.timeInMillisToFormattedString(mContext, modification_date);
 
             // break one line if there is text
@@ -362,10 +373,6 @@ public class TaskDetailActivity extends AppCompatActivityEx
 
         mCursor.close();
         // [END] fill the view with data from cursor
-
-        // [START] Detail screen buttons
-        bindDetailButtons();
-        // [END] Detail screen buttons
     }
     // [END] get task by id
 
@@ -373,33 +380,6 @@ public class TaskDetailActivity extends AppCompatActivityEx
 
 
     // [START] Detail screen buttons
-    private void bindDetailButtons() {
-        if(mDetailFrom == DETAIL_FROM_MAIN) {
-            mMarkAsDoneButton.setVisibility(View.VISIBLE);
-            mMarkAsDoneButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // [START] temporary unregister content observer
-                    if(sTaskContentObserver != null) {
-                        sTaskContentObserver.unregister();
-                    }
-                    // [END] temporary unregister content observer
-
-                    // [START] mark test as done
-                    Bundle args = new Bundle();
-                    args.putLong(LoaderTaskSetConcludedById.EXTRA_TASK_ID, mTaskId);
-                    args.putLong(LoaderTaskSetConcludedById.EXTRA_TASK_CONCLUDED_STATE, TaskContract.CONCLUDED);
-
-                    LoaderTaskSetConcludedById.OnTaskSetStateListener listener = new OnTaskSetStateListener();
-                    LoaderTaskSetConcludedById loaderTaskSetConcludedById = new LoaderTaskSetConcludedById(listener);
-
-                    initTaskLoader(LoaderIds.LOADER_ID_GET_TASKS_UPDATE_MAIN, args, loaderTaskSetConcludedById);
-                    // [END] mark test as done
-                }
-            });
-        }
-    }
-
     private class OnTaskSetStateListener implements LoaderTaskSetConcludedById.OnTaskSetStateListener {
         @Override
         public void onTaskSetState(Integer integer) {
