@@ -43,7 +43,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             style="@style/ButtonThemeSmall"
-            android:drawableStart="@drawable/ic_task_checked"
+            android:drawableStart="@drawable/ic_task_check"
             android:layout_marginBottom="@dimen/activity_main_vertical_padding" />
 
     </android.support.constraint.ConstraintLayout>

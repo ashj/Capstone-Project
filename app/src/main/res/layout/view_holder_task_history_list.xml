@@ -16,7 +16,7 @@
             android:id="@+id/checked_image"
             android:layout_width="@dimen/activity_task_history_image_size"
             android:layout_height="@dimen/activity_task_history_image_size"
-            android:src="@drawable/ic_task_checked"
+            android:src="@drawable/ic_task_check"
             android:tint="@color/colorPrimary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
