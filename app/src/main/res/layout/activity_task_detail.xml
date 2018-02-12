@@ -48,6 +48,8 @@
                         tools:text="@string/tools_task_details_title_text"
                         android:textSize="@dimen/text_size_larger"
                         android:textColor="@android:color/black"
+                        android:maxLines="@integer/cardview_textview_maxlines"
+                        android:ellipsize="end"
                         android:paddingBottom="@dimen/activity_task_detail_vertical_padding" />
 
                     <TextView
@@ -55,7 +57,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         tools:text="@string/tools_task_details_title_text"
-                        android:textSize="@dimen/text_size_task_list"
+                        android:textSize="@dimen/text_size_large"
+                        android:maxLines="@integer/cardview_description_textview_maxlines"
+                        android:ellipsize="end"
                         android:paddingBottom="@dimen/activity_task_detail_vertical_padding" />
 
                     <TextView
