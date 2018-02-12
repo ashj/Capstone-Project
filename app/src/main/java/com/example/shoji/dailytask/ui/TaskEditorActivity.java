@@ -8,14 +8,19 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.util.Pair;
+import android.text.InputType;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.example.shoji.dailytask.R;
 import com.example.shoji.dailytask.background.LoaderIds;
@@ -78,6 +83,12 @@ public class TaskEditorActivity extends AppCompatActivityEx
 
         mProgressBar = findViewById(R.id.progressbar);
         mTitleEditText = findViewById(R.id.task_title_edit_text);
+
+        // [START] enter button goes to next field
+        mTitleEditText.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+        mTitleEditText.setRawInputType(InputType.TYPE_CLASS_TEXT);
+        // [END] enter button goes to next field
+
         mDescriptionEditTask = findViewById(R.id.task_description_edit_text);
         mRadioGroup = findViewById(R.id.radio_group);
 

@@ -52,9 +52,10 @@
                 android:id="@+id/task_title_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:minLines="@integer/cardview_textview_minlines"
                 android:maxLength="@integer/editor_title_max_length"
                 android:hint="@string/new_task_hint_title"
-                android:inputType="text" />
+                android:inputType="textMultiLine" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -75,7 +76,8 @@
                 android:hint="@string/new_task_descr_title"
                 android:inputType="textMultiLine"
                 android:maxLength="@integer/editor_descr_max_length"
-                android:lines="@integer/editor_num_lines"
+                android:minLines="@integer/cardview_textview_minlines"
+                android:maxLines="@integer/cardview_description_textview_maxlines"
                 android:gravity="start|top"
                 android:layout_marginTop="@dimen/view_vertical_margin"
                 android:layout_marginBottom="@dimen/view_vertical_margin" />
