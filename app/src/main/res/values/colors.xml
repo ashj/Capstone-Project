@@ -10,10 +10,6 @@
     <color name="materialYellow">#F1C40F</color>
 
     <!-- list selector colors -->
-    <color name="list_light_selector_pressed">@color/colorPrimaryLight</color>
-    <color name="list_light_selector_activated">@color/colorPrimaryLight</color>
-    <color name="list_light_selector_selected">@color/colorPrimaryLight</color>
-    <color name="list_light_selector_default">@android:color/transparent</color>
 
     <!-- Editor -->
     <color name="priority_high">@color/materialRed</color>

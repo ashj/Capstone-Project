@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="activity_horizontal_margin">4dp</dimen>
     <dimen name="activity_vertical_margin">4dp</dimen>
 
     <dimen name="expanded_bar_horizontal_margin">8dp</dimen>
@@ -10,7 +9,6 @@
 
     <dimen name="progressbar_size">64dp</dimen>
 
-    <dimen name="view_horizontal_margin">6dp</dimen>
     <dimen name="view_vertical_margin">6dp</dimen>
 
     <dimen name="button_elevation">4dp</dimen>
@@ -28,8 +26,6 @@
     <dimen name="activity_main_first_activity_height">200dp</dimen>
     <dimen name="activity_main_horizontal_padding">16dp</dimen>
     <dimen name="activity_main_vertical_padding">18dp</dimen>
-    <dimen name="activity_main__padding_bottom">48dp</dimen>
-    <dimen name="activity_main__padding_bottom_large">64dp</dimen>
 
     <!-- Card view style -->
     <dimen name="cardview_vertical_margin">4dp</dimen>
@@ -39,27 +35,20 @@
 
     <dimen name="cardview_recyclerview_vertical_padding">10dp</dimen>
 
-    <dimen name="cardview_interior_vertical_margin">4dp</dimen>
-    <dimen name="cardview_interior_horizontal_margin">12dp</dimen>
     <dimen name="cardview_interior_vertical_padding">12dp</dimen>
     <dimen name="cardview_interior_horizontal_padding">12dp</dimen>
 
     <!-- Style -->
     <dimen name="style_text_view_textsize">18sp</dimen>
-    <dimen name="style_button_padding">16dp</dimen>
     <dimen name="style_button_padding_small">8dp</dimen>
 
     <!-- Detail -->
-    <dimen name="activity_task_detail_horizontal_padding">16dp</dimen>
     <dimen name="activity_task_detail_vertical_padding">16dp</dimen>
 
     <!-- Editor -->
     <dimen name="activity_task_editor_vertical_margin">14dp</dimen>
-    <dimen name="activity_task_editor_buttonpadding">4dp</dimen>
 
     <!-- History -->
-    <dimen name="activity_task_history_horizontal_padding">16dp</dimen>
-    <dimen name="activity_task_history_vertical_padding">20dp</dimen>
 
     <dimen name="activity_task_history_image_size">32dp</dimen>
     <dimen name="activity_task_history_cardviewhorizontal_padding">12dp</dimen>
@@ -76,8 +65,6 @@ http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
     <dimen name="style_button_padding_widget">4dp</dimen>
 
     <!-- Location -->
-    <dimen name="activity_settings_location_vertical_margin">16dp</dimen>
-    <dimen name="activity_settings_location_horizontal_margin">16dp</dimen>
 
     <!-- Time Picker -->
     <dimen name="alert_def_padding">18dp</dimen>

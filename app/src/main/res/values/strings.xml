@@ -1,5 +1,5 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="app_name">Daily Ten-Minutes Tasks</string>
+    <string name="app_name">Daily 10 minutes tasks</string>
 
     <!-- Task Editor -->
     <string name="task_editor_activity_title_add">Add a new task</string>
@@ -39,11 +39,8 @@
     <!-- Task details -->
     <string name="task_details_activity_title">Task details</string>
     <string name="tools_task_details_title_text">Todo: something</string>
-    <string name="tools_task_details_description_text">Describe the task</string>
-    <string name="tools_task_details_priority_text">Priority: low</string>
 
     <string name="content_description_edit_task_label">Edit task</string>
-    <string name="content_description_delete_task_label">Delete task</string>
 
     <string name="task_details_delete_task_prompt">Delete this task. Are you sure?</string>
     <string name="task_details_delete_task_positive">Yes</string>
@@ -53,7 +50,6 @@
     <string name="task_details_task_marked_as_done">@string/main_activity_task_marked_as_done</string>
     <string name="task_details_task_unmarked_as_done">Moved task to ToDo list</string>
 
-    <string name="task_details_priority_text">Priority: <xliff:g>%1$s</xliff:g></string>
     <string name="task_details_modified_date_text">Finished: <xliff:g>%1$s</xliff:g></string>
 
     <string name="task_details_priority_label">@string/priority_label</string>
@@ -98,8 +94,6 @@
     <string name="pref_latest_task_completed_timestamp_key">pref-latest-task-completed-timestamp</string>
 
     <!-- Location -->
-    <string name="need_location_permission_message">You need to enable location permissions first</string>
-    <string name="enable_geofences">Enable Geofences</string>
 
     <string name="pref_picked_place_id_key">pref-picked-place-id</string>
     <string name="pref_picked_place_id_default_value">ChIJI6rdYPi5j4ARPRVRyDdc598</string>
@@ -110,8 +104,6 @@
     <string name="privacy">http://www.google.com/policies/privacy</string>
 
     <!-- Widget -->
-    <string name="appwidget_text">EXAMPLE</string>
-    <string name="add_widget">Add widget</string>
     <string name="widget_empty_task_list">no tasks for today</string>
     <string name="widget_todays_task">Today\'s task</string>
     <string name="widget_tomorrows_task">Tomorrow\'s task</string>
