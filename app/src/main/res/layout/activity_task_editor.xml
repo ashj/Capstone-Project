@@ -57,6 +57,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:minLines="@integer/cardview_textview_editor_minlines"
+                        android:layout_marginStart="@integer/cardview_textview_maxlines"
                         android:maxLength="@integer/editor_title_max_length"
                         android:hint="@string/new_task_hint_title"
                         android:inputType="textMultiLine" />
@@ -81,6 +82,7 @@
                         android:inputType="textMultiLine"
                         android:maxLength="@integer/editor_descr_max_length"
                         android:minLines="@integer/cardview_textview_editor_minlines"
+                        android:maxLines="@integer/cardview_textview_editor_maxlines"
                         android:gravity="start|top"
                         android:overScrollMode="always"
                         android:scrollbarStyle="insideInset"

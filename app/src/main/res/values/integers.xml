@@ -2,7 +2,7 @@
 <resources>
     <!-- Card View - text view -->
     <integer name="cardview_textview_editor_minlines">1</integer>
-    <integer name="cardview_textview_editor_maxlines">7</integer>
+    <integer name="cardview_textview_editor_maxlines">9</integer>
 
     <integer name="cardview_textview_maxlines">2</integer>
     <integer name="cardview_textview_first_task_maxlines">2</integer>
