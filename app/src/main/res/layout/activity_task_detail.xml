@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         style="@style/TaskTheme.CardView"
         android:layout_marginTop="@dimen/activity_task_editor_vertical_margin"
-        android:layout_marginBottom="@dimen/activity_task_editor_vertical_margin"
+        android:layout_marginBottom="@dimen/activity_detail_bottom_margin"
         android:layout_gravity="center|top" >
 
         <android.support.constraint.ConstraintLayout
