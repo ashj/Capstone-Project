@@ -70,7 +70,7 @@
     <string name="empty_string"></string>
 
     <string name="settings_activity_title">Settings</string>
-    <string name="pref_daily_notification_key">daily-notification</string>
+    <string translatable="false" name="pref_daily_notification_key">daily-notification</string>
     <string name="pref_daily_notification_summaryOff">Disabled</string>
     <string name="pref_daily_notification_summaryOn">Enabled</string>
     <string name="pref_daily_notification_title">Daily notification</string>
@@ -82,12 +82,12 @@
     <string name="settings_activity_time_picker_am">am</string>
     <string name="settings_activity_time_picker_pm">pm</string>
 
-    <string name="pref_location_service_key">location-service</string>
+    <string translatable="false" name="pref_location_service_key">location-service</string>
     <string name="pref_location_service_summaryOff">Disabled</string>
     <string name="pref_location_service_summaryOn">Enabled</string>
     <string name="pref_location_service_title">Notify based on location</string>
 
-    <string name="pref_location_open_and_set_place_key">location-service-place</string>
+    <string translatable="false" name="pref_location_open_and_set_place_key">location-service-place</string>
     <string name="pref_location_open_and_set_place_summaryOff">first, enable notifications based on location</string>
     <string name="pref_location_open_and_set_place_title">Show notification when close to</string>
 
@@ -98,14 +98,14 @@
     <string name="notification_mark_task_as_done_action">mark task as done</string>
     <string name="notification_dismiss_action">dismiss</string>
 
-    <string name="pref_latest_task_completed_timestamp_key">pref-latest-task-completed-timestamp</string>
+    <string translatable="false" name="pref_latest_task_completed_timestamp_key">pref-latest-task-completed-timestamp</string>
 
     <!-- Location -->
 
-    <string name="pref_picked_place_id_key">pref-picked-place-id</string>
+    <string translatable="false" name="pref_picked_place_id_key">pref-picked-place-id</string>
     <string name="pref_picked_place_id_default_value">ChIJI6rdYPi5j4ARPRVRyDdc598</string>
 
-    <string name="pref_picked_place_address_key">pref-picked-place-address</string>
+    <string translatable="false" name="pref_picked_place_address_key">pref-picked-place-address</string>
     <string name="pref_picked_place_address_default_value">1600 Amphitheatre Parkway in Mountain View, California, United States</string>
 
     <string name="privacy">http://www.google.com/policies/privacy</string>
