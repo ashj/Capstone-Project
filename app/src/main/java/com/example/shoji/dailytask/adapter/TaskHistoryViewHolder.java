@@ -4,7 +4,6 @@ package com.example.shoji.dailytask.adapter;
 import android.content.Context;
 import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
-import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.TextView;
 

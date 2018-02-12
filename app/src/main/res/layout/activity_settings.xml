@@ -21,7 +21,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/google_privacy_link"
-        android:src="@drawable/powered_by_google_light" />
+        android:src="@drawable/powered_by_google_light"
+        android:contentDescription="@string/content_description_google_logo" />
 
     <TextView
         android:id="@+id/google_privacy_link"

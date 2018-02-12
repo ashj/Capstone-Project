@@ -19,13 +19,15 @@
             android:src="@drawable/ic_task_check"
             android:tint="@color/colorPrimary"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/content_description_checked_task" />
 
         <TextView
             android:id="@+id/title_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingStart="@dimen/activity_task_history_cardviewhorizontal_padding"
+            android:paddingEnd="@dimen/activity_task_history_cardviewhorizontal_padding"
             tools:text="@string/tools_history_viewholder_title"
             android:textSize="@dimen/text_size_task_list"
             android:maxLines="@integer/cardview_textview_maxlines"
@@ -38,6 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingStart="@dimen/activity_task_history_cardviewhorizontal_padding"
+            android:paddingEnd="@dimen/activity_task_history_cardviewhorizontal_padding"
             tools:text="@string/tools_history_viewholder_modified_date"
             android:textSize="@dimen/text_size_small"
             android:maxLines="@integer/cardview_textview_maxlines"

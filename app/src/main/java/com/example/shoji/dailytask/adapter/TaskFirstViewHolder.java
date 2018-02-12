@@ -1,7 +1,6 @@
 package com.example.shoji.dailytask.adapter;
 
 
-import android.app.Notification;
 import android.content.Context;
 import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
@@ -10,7 +9,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.shoji.dailytask.R;
-import com.example.shoji.dailytask.notification.TaskReminderUtilities;
 import com.example.shoji.dailytask.provider.TaskContract;
 import com.example.shoji.dailytask.utils.TimeUtils;
 

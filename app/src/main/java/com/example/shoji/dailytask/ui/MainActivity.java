@@ -24,8 +24,6 @@ import com.example.shoji.dailytask.adapter.TaskAdapter;
 import com.example.shoji.dailytask.background.LoaderIds;
 import com.example.shoji.dailytask.background.LoaderTaskGetTasks;
 import com.example.shoji.dailytask.background.LoaderTaskSetConcludedById;
-import com.example.shoji.dailytask.intentservice.TaskIntentService;
-import com.example.shoji.dailytask.intentservice.TaskIntentServiceTasks;
 import com.example.shoji.dailytask.notification.TaskNotificationUtils;
 import com.example.shoji.dailytask.notification.TaskReminderUtilities;
 import com.example.shoji.dailytask.provider.TaskContentObserver;

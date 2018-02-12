@@ -30,7 +30,7 @@
     <string name="menu_settings_label">@string/settings_activity_title</string>
 
     <string name="content_description_add_task_label">Add a new task</string>
-
+    <string name="content_description_toolbar">toolbar</string>
     <string name="main_activity_task_marked_as_done">Completed the task</string>
 
     <string name="tools_main_activity_title_text">Todo: something</string>
@@ -60,6 +60,7 @@
     <string name="tools_history_viewholder_title">@string/tools_task_details_title_text</string>
     <string name="tools_history_viewholder_modified_date">01/01/1999</string>
 
+    <string name="content_description_checked_task">task already concluded</string>
     <!-- Settings -->
     <string name="empty_string"></string>
 
@@ -85,6 +86,7 @@
     <string name="pref_location_open_and_set_place_summaryOff">first, enable notifications based on location</string>
     <string name="pref_location_open_and_set_place_title">Show notification when close to</string>
 
+    <string name="content_description_google_logo">powered by google</string>
     <!-- Notification -->
     <string name="main_notification_channel_name">Primary</string>
     <string name="notification_todays_task">Today\'s task</string>

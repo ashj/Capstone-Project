@@ -15,6 +15,7 @@
         android:persistent="false"
         android:summary="@string/empty_string"
         android:title="@string/pref_time_picker_title" /> -->
+    <!--suppress AndroidElementNotAllowed -->
     <com.example.shoji.dailytask.dialog.TimePreference
         android:key="@string/pref_time_picker_minutes_key"
         android:title="@string/pref_time_picker_title"

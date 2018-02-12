@@ -1,16 +1,8 @@
 package com.example.shoji.dailytask.notification;
 
 import android.content.BroadcastReceiver;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.preference.PreferenceManager;
-import android.text.TextUtils;
-
-import com.example.shoji.dailytask.R;
-import com.example.shoji.dailytask.intentservice.TaskIntentServiceTasks;
 
 import timber.log.Timber;
 

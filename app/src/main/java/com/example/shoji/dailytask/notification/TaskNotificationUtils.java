@@ -1,6 +1,7 @@
 package com.example.shoji.dailytask.notification;
 
 
+import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -79,6 +80,7 @@ public class TaskNotificationUtils {
     }
     // [END] Notify about today's task
 
+    @SuppressLint("ObsoleteSdkInt")
     private static void notifyTodaysTask(Context context, long taskId, String taskTitle) {
         Timber.d("notifyTodaysTask");
         NotificationManager notificationManager = (NotificationManager)
