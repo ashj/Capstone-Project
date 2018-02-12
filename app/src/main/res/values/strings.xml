@@ -36,6 +36,8 @@
     <string name="tools_main_activity_title_text">Todo: something</string>
     <string name="tools_main_activity_description_text">Very descriptive to-do</string>
 
+    <string name="main_activity_task_of_the_day">Today\'s task</string>
+    <string name="main_activity_task_of_the_day_after">Tomorrow\'s task</string>
     <!-- Task details -->
     <string name="task_details_activity_title">Task details</string>
     <string name="tools_task_details_title_text">Todo: something</string>

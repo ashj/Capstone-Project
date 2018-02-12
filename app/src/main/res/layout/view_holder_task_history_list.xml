@@ -42,7 +42,7 @@
             android:paddingStart="@dimen/activity_task_history_cardviewhorizontal_padding"
             android:paddingEnd="@dimen/activity_task_history_cardviewhorizontal_padding"
             tools:text="@string/tools_history_viewholder_modified_date"
-            android:textSize="@dimen/text_size_small"
+            android:textSize="@dimen/text_size_smallest"
             android:maxLines="@integer/cardview_textview_maxlines"
             android:ellipsize="end"
             app:layout_constraintTop_toBottomOf="@id/title_text_view"

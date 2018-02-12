@@ -19,6 +19,7 @@ public class TaskFirstViewHolder extends RecyclerView.ViewHolder
     public static final int RES_LAYOUT_ID = R.layout.view_holder_task_main_list_first;
     private Context mContext;
     private View mItemView;
+    private TextView mTodaysTaskView;
     private TextView mTitleTextView;
     private TextView mDescriptionTextView;
     private Button mButton;
@@ -37,6 +38,7 @@ public class TaskFirstViewHolder extends RecyclerView.ViewHolder
         mItemView = itemView;
         mItemView.setOnClickListener(onClickListener);
 
+        mTodaysTaskView = mItemView.findViewById(R.id.task_of_the_day);
         mTitleTextView = mItemView.findViewById(R.id.title_text_view);
         mDescriptionTextView = mItemView.findViewById(R.id.description_text_view);
 
@@ -70,10 +72,12 @@ public class TaskFirstViewHolder extends RecyclerView.ViewHolder
         // [START] last task completed timestamp
         if(TimeUtils.isTaskUnderCooldown(mContext)) {
             mButton.setVisibility(View.GONE);
+            mTodaysTaskView.setText(R.string.main_activity_task_of_the_day_after);
         }
         // [END] last task completed timestamp
         else {
             mButton.setVisibility(View.VISIBLE);
+            mTodaysTaskView.setText(R.string.main_activity_task_of_the_day);
         }
     }
 

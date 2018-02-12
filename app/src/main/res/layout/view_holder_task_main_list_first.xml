@@ -14,6 +14,16 @@
         style="@style/TaskTheme.ConstraintLayout" >
 
         <TextView
+            android:id="@+id/task_of_the_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/main_activity_task_of_the_day"
+            android:textSize="@dimen/text_size_smaller"
+            android:layout_marginBottom="@dimen/activity_main_view_vertical_margin"
+            app:layout_constraintTop_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
             android:id="@+id/title_text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -22,7 +32,7 @@
             android:textColor="@android:color/black"
             android:maxLines="@integer/cardview_textview_maxlines"
             android:ellipsize="end"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/task_of_the_day"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView

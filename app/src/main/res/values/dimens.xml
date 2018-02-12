@@ -16,7 +16,8 @@
     <dimen name="text_size_task_list">16sp</dimen>
     <dimen name="text_size_larger">28sp</dimen>
     <dimen name="text_size_large">20sp</dimen>
-    <dimen name="text_size_small">10sp</dimen>
+    <dimen name="text_size_smaller">12sp</dimen>
+    <dimen name="text_size_smallest">10sp</dimen>
 
     <dimen name="widget_text_size_normal">16sp</dimen>
     <dimen name="widget_text_size_small">14sp</dimen>
@@ -26,6 +27,8 @@
     <dimen name="activity_main_first_activity_height">200dp</dimen>
     <dimen name="activity_main_horizontal_padding">16dp</dimen>
     <dimen name="activity_main_vertical_padding">18dp</dimen>
+
+    <dimen name="activity_main_view_vertical_margin">4dp</dimen>
 
     <!-- Card view style -->
     <dimen name="cardview_vertical_margin">4dp</dimen>
