@@ -66,6 +66,8 @@ public class TaskDetailActivity extends AppCompatActivityEx
 
     private static final int NAV_TO_TASK_EDITOR = 450;
 
+    private static final int ACTION_RESTORE_TASK_ID = 800;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -186,25 +188,22 @@ public class TaskDetailActivity extends AppCompatActivityEx
         Timber.d("[MENU] start -- onCreateOptionsMenu");
         getMenuInflater().inflate(R.menu.activity_task_detail, menu);
 
-        for (int i = 0; i < menu.size(); i++) {
-            Timber.d("menuTitle %s", menu.getItem(i).getTitle());
-            int actionId = menu.getItem(i).getItemId();
+        // [START] add move to to-do list option, put some options in the text menu
+        if(mDetailFrom == DETAIL_FROM_HISTORY) {
+            menu.add(Menu.NONE, ACTION_RESTORE_TASK_ID, menu.size(), R.string.task_editor_menu_move_to_todo);
 
-            if(mDetailFrom == DETAIL_FROM_MAIN) {
-                if(actionId == R.id.action_restore) {
-                    menu.removeItem(i);
-                    Timber.d("Removed restore");
-                }
-            }
-            else if(mDetailFrom == DETAIL_FROM_HISTORY) {
-                if(actionId == R.id.action_edit) {
-                    menu.getItem(i).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
-                }
-                else if(actionId == R.id.action_restore) {
+            for (int i = 0; i < menu.size(); i++) {
+                Timber.d("menuTitle %s", menu.getItem(i).getTitle());
+                int actionId = menu.getItem(i).getItemId();
+
+                if (actionId == R.id.action_edit) {
+                    menu.getItem(i).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+                } else if (actionId == ACTION_RESTORE_TASK_ID) {
                     menu.getItem(i).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
                 }
             }
         }
+        // [END] add move to to-do list option, put some options in the text menu
         Timber.d("[MENU] end -- onCreateOptionsMenu");
         return true;
     }
@@ -224,7 +223,7 @@ public class TaskDetailActivity extends AppCompatActivityEx
             startActivityForResult(intent, NAV_TO_TASK_EDITOR);
             return true;
         }
-        else if(id == R.id.action_restore) {
+        else if(id == ACTION_RESTORE_TASK_ID) {
             restoreTask();
         }
         return super.onOptionsItemSelected(item);
