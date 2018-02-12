@@ -1,131 +1,141 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="@dimen/activity_task_detail_vertical_padding"
-    android:paddingBottom="@dimen/activity_task_detail_vertical_padding"
-    android:paddingStart="@dimen/activity_task_detail_horizontal_padding"
-    android:paddingEnd="@dimen/activity_task_detail_horizontal_padding"
-    tools:context="com.example.shoji.dailytask.ui.TaskDetailActivity">
-
-    <ProgressBar
-        android:id="@+id/progressbar"
-        android:layout_width="@dimen/progressbar_size"
-        android:layout_height="@dimen/progressbar_size"
-        android:layout_gravity="center"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ScrollView
+    tools:context=".ui.TaskDetailActivity">
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
+        style="@style/TaskTheme.CardView"
+        android:layout_marginTop="@dimen/activity_task_editor_vertical_margin"
+        android:layout_marginBottom="@dimen/activity_task_editor_vertical_margin"
+        android:layout_gravity="center|top" >
 
-        <LinearLayout
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            style="@style/TaskTheme.ConstraintLayout" >
+            <ProgressBar
+                android:id="@+id/progressbar"
+                android:layout_width="@dimen/progressbar_size"
+                android:layout_height="@dimen/progressbar_size"
+                android:layout_gravity="center"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/task_title"
+            <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:text="@string/tools_task_details_title_text"
-                android:textSize="@dimen/text_size_larger"
-                android:textColor="@android:color/black"
-                android:paddingBottom="@dimen/activity_task_detail_vertical_padding" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" >
 
-            <TextView
-                android:id="@+id/task_contents"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:text="@string/tools_task_details_title_text"
-                android:textSize="@dimen/text_size_task_list"
-                android:paddingBottom="@dimen/activity_task_detail_vertical_padding" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/task_details_priority_label"
-                android:textSize="@dimen/style_text_view_textsize" />
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/activity_vertical_margin" >
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_gravity="center"
-                    android:weightSum="3">
+                    android:orientation="vertical" >
 
-                    <Button
-                        style="?android:attr/buttonBarButtonStyle"
-                        android:textColor="@android:color/primary_text_light"
-                        android:id="@+id/priorityButton"
-                        android:layout_width="0dp"
-                        android:clickable="false"
+                    <TextView
+                        android:id="@+id/task_title"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/materialRed"
-                        android:text="@string/priority_label_normal"
-                        android:textAllCaps="false"
-                        android:elevation="@dimen/button_elevation"
-                        android:layout_weight="1" />
-                </LinearLayout>
-                <RadioGroup
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_gravity="center"
-                    android:weightSum="3">
-                    <RadioButton
+                        tools:text="@string/tools_task_details_title_text"
+                        android:textSize="@dimen/text_size_larger"
+                        android:textColor="@android:color/black"
+                        android:paddingBottom="@dimen/activity_task_detail_vertical_padding" />
+
+                    <TextView
+                        android:id="@+id/task_contents"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        tools:text="@string/tools_task_details_title_text"
+                        android:textSize="@dimen/text_size_task_list"
+                        android:paddingBottom="@dimen/activity_task_detail_vertical_padding" />
+
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:checked="true"
-                        android:clickable="false"
-                        android:nextFocusRight="@+id/radioButtonNormal"
-                        android:theme="@style/WhiteRadioButton"/>
-                </RadioGroup>
-            </FrameLayout>
+                        android:text="@string/task_details_priority_label"
+                        android:textSize="@dimen/style_text_view_textsize" />
 
-            <TextView
-                android:id="@+id/task_modified_date_text_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="invisible"
-                tools:text="@string/tools_task_details_title_text"
-                android:textSize="@dimen/text_size_task_list"
-                android:paddingBottom="@dimen/activity_task_detail_vertical_padding" />
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/activity_vertical_margin" >
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_gravity="center"
+                            android:weightSum="3">
 
-            <Button
-                android:id="@+id/mark_as_done_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/button_task_conclude"
-                android:visibility="visible"
-                android:drawableStart="@drawable/ic_task_check"
-                style="@style/ButtonThemeSmall" />
+                            <Button
+                                style="?android:attr/buttonBarButtonStyle"
+                                android:textColor="@android:color/primary_text_light"
+                                android:id="@+id/priorityButton"
+                                android:layout_width="0dp"
+                                android:clickable="false"
+                                android:layout_height="wrap_content"
+                                android:background="@color/materialRed"
+                                android:text="@string/priority_label_normal"
+                                android:textAllCaps="false"
+                                android:elevation="@dimen/button_elevation"
+                                android:layout_weight="1" />
+                        </LinearLayout>
+                        <RadioGroup
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_gravity="center"
+                            android:weightSum="3">
+                            <RadioButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:checked="true"
+                                android:clickable="false"
+                                android:nextFocusRight="@+id/radioButtonNormal"
+                                android:theme="@style/WhiteRadioButton"/>
+                        </RadioGroup>
+                    </FrameLayout>
 
-            <Button
-                android:id="@+id/unmark_as_done_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/button_task_restore"
-                android:visibility="visible"
-                android:drawableStart="@drawable/ic_task_uncheck"
-                style="@style/ButtonThemeSmall" />
-        </LinearLayout>
-    </ScrollView>
+                    <TextView
+                        android:id="@+id/task_modified_date_text_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="invisible"
+                        tools:text="@string/tools_task_details_title_text"
+                        android:textSize="@dimen/text_size_task_list"
+                        android:paddingBottom="@dimen/activity_task_detail_vertical_padding" />
 
+                    <Button
+                        android:id="@+id/mark_as_done_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/button_task_conclude"
+                        android:visibility="visible"
+                        android:drawableStart="@drawable/ic_task_check"
+                        style="@style/ButtonThemeSmall" />
+
+                    <Button
+                        android:id="@+id/unmark_as_done_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/button_task_restore"
+                        android:visibility="visible"
+                        android:drawableStart="@drawable/ic_task_uncheck"
+                        style="@style/ButtonThemeSmall" />
+                </LinearLayout>
+            </ScrollView>
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.v7.widget.CardView>
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_edit"
         android:layout_width="wrap_content"
@@ -134,8 +144,5 @@
         android:layout_margin="@dimen/fab_margin"
         app:srcCompat="@drawable/ic_task_edit"
         android:tint="@android:color/white"
-        android:contentDescription="@string/content_description_edit_task_label"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-</android.support.constraint.ConstraintLayout>
+        android:contentDescription="@string/content_description_edit_task_label" />
+</FrameLayout>
