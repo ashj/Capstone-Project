@@ -7,7 +7,9 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -54,14 +56,14 @@ public class TaskDetailActivity extends AppCompatActivityEx
     private static TaskContentObserver sTaskContentObserver;
 
     // [START] Check from which screen we came from
+    private static final int DETAIL_FROM_INVALID = -1;
     private static final int DETAIL_FROM_MAIN = 0;
     private static final int DETAIL_FROM_HISTORY = 1;
-    private int mDetailFrom;
+    private int mDetailFrom = DETAIL_FROM_INVALID;
     // [END] Check from which screen we came from
 
     // [START] Detail screen buttons
     private Button mMarkAsDoneButton;
-    private Button mUnmarkAsDoneButton;
     // [END] Detail screen buttons
 
     // [START] show pretty priority field
@@ -80,6 +82,22 @@ public class TaskDetailActivity extends AppCompatActivityEx
         // Set title in action bar
         getSupportActionBar().setTitle(getString(R.string.task_details_activity_title));
 
+        // [START] Check from which screen we came from
+        String classname = null;
+        if(getCallingActivity() != null)
+            classname = getCallingActivity().getClassName();
+
+        if(TextUtils.equals(classname, MainActivity.class.getName())) {
+            mDetailFrom = DETAIL_FROM_MAIN;
+        }
+        else if (TextUtils.equals(classname, TaskHistoryActivity.class.getName())) {
+            mDetailFrom = DETAIL_FROM_HISTORY;
+        }
+        else
+            mDetailFrom = DETAIL_FROM_INVALID;
+        Timber.d("[MENU] Defined mDetailFrom: %d", mDetailFrom);
+        // [END] Check from which screen we came from
+
         mProgressBar = findViewById(R.id.progressbar);
         mTaskTitle = findViewById(R.id.task_title);
         mTaskContents = findViewById(R.id.task_contents);
@@ -93,14 +111,20 @@ public class TaskDetailActivity extends AppCompatActivityEx
 
         // [START] use FAB to open the task to edit
         mFabEdit = findViewById(R.id.fab_edit);
-        mFabEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(mContext, TaskEditorActivity.class);
-                intent.putExtra(TaskEditorActivity.EXTRA_TASK_ID, mTaskId);
-                startActivityForResult(intent, NAV_TO_TASK_EDITOR);
-            }
-        });
+        if(mDetailFrom == DETAIL_FROM_MAIN) {
+            mFabEdit.setVisibility(View.VISIBLE);
+            mFabEdit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(mContext, TaskEditorActivity.class);
+                    intent.putExtra(TaskEditorActivity.EXTRA_TASK_ID, mTaskId);
+                    startActivityForResult(intent, NAV_TO_TASK_EDITOR);
+                }
+            });
+        }
+        else {
+            mFabEdit.setVisibility(View.GONE);
+        }
         // [END] use FAB to open the task to edit
 
         // [START] get task by id
@@ -118,7 +142,6 @@ public class TaskDetailActivity extends AppCompatActivityEx
 
         // [START] Detail screen buttons
         mMarkAsDoneButton = findViewById(R.id.mark_as_done_button);
-        mUnmarkAsDoneButton = findViewById(R.id.unmark_as_done_button);
         // [END] Detail screen buttons
 
         // [START] show pretty priority field
@@ -142,9 +165,37 @@ public class TaskDetailActivity extends AppCompatActivityEx
     // [START] Toolbar - inflate and item selected
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        return customizeMenu(menu);
+    }
+    // [START] Check from which screen we came from
+    private boolean customizeMenu(Menu menu) {
+        Timber.d("[MENU] start -- onCreateOptionsMenu");
         getMenuInflater().inflate(R.menu.activity_task_detail, menu);
+
+        for (int i = 0; i < menu.size(); i++) {
+            Timber.d("menuTitle %s", menu.getItem(i).getTitle());
+            int actionId = menu.getItem(i).getItemId();
+
+            if(mDetailFrom == DETAIL_FROM_MAIN) {
+                if(actionId == R.id.action_restore) {
+                    menu.removeItem(i);
+                    Timber.d("Removed restore");
+                }
+            }
+            else if(mDetailFrom == DETAIL_FROM_HISTORY) {
+                if(actionId == R.id.action_edit) {
+                    menu.getItem(i).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
+                }
+                else if(actionId == R.id.action_restore) {
+                    menu.getItem(i).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+                }
+            }
+        }
+        Timber.d("[MENU] end -- onCreateOptionsMenu");
         return true;
     }
+
+    // [END] Check from which screen we came from
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -154,7 +205,36 @@ public class TaskDetailActivity extends AppCompatActivityEx
             showDeleteDialog(item);
             return true;
         }
+        else if(id == R.id.action_edit) {
+            Intent intent = new Intent(mContext, TaskEditorActivity.class);
+            intent.putExtra(TaskEditorActivity.EXTRA_TASK_ID, mTaskId);
+            startActivityForResult(intent, NAV_TO_TASK_EDITOR);
+            return true;
+        }
+        else if(id == R.id.action_restore) {
+            restoreTask();
+        }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void restoreTask() {
+        if(mDetailFrom != DETAIL_FROM_HISTORY)
+            return;
+        // [START] temporary unregister content observer
+        if(sTaskContentObserver != null) {
+            sTaskContentObserver.unregister();
+        }
+        // [END] temporary unregister content observer
+        // [START] unmark test as done
+        Bundle args = new Bundle();
+        args.putLong(LoaderTaskSetConcludedById.EXTRA_TASK_ID, mTaskId);
+        args.putLong(LoaderTaskSetConcludedById.EXTRA_TASK_CONCLUDED_STATE, TaskContract.NOT_CONCLUDED);
+
+        LoaderTaskSetConcludedById.OnTaskSetStateListener listener = new OnTaskSetStateListener();
+        LoaderTaskSetConcludedById loaderTaskSetConcludedById = new LoaderTaskSetConcludedById(listener);
+
+        initTaskLoader(LoaderIds.LOADER_ID_GET_TASKS_UPDATE_MAIN, args, loaderTaskSetConcludedById);
+        // [END] unmark test as done
     }
     // [END] Toolbar - inflate and item selected
 
@@ -214,22 +294,9 @@ public class TaskDetailActivity extends AppCompatActivityEx
 
         mCursor.moveToPosition(0);
 
-
-        // [START] Check from which screen we came from
-        int columnIndex = mCursor.getColumnIndex(TaskContract.COLUMN_IS_CONCLUDED);
-        long concluded = mCursor.getLong(columnIndex);
-
-        if(concluded == TaskContract.NOT_CONCLUDED) {
-            mDetailFrom = DETAIL_FROM_MAIN;
-        }
-        else {
-            mDetailFrom = DETAIL_FROM_HISTORY;
-        }
-        // [END] Check from which screen we came from
-
         // [START] fill the view with data from cursor
         // set title
-        columnIndex = mCursor.getColumnIndex(TaskContract.COLUMN_TITLE);
+        int columnIndex = mCursor.getColumnIndex(TaskContract.COLUMN_TITLE);
         String title = mCursor.getString(columnIndex);
         mTaskTitle.setText(title);
 
@@ -309,7 +376,6 @@ public class TaskDetailActivity extends AppCompatActivityEx
     private void bindDetailButtons() {
         if(mDetailFrom == DETAIL_FROM_MAIN) {
             mMarkAsDoneButton.setVisibility(View.VISIBLE);
-            mUnmarkAsDoneButton.setVisibility(View.GONE);
             mMarkAsDoneButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -332,33 +398,8 @@ public class TaskDetailActivity extends AppCompatActivityEx
                 }
             });
         }
-
-        else if(mDetailFrom == DETAIL_FROM_HISTORY) {
-            mMarkAsDoneButton.setVisibility(View.GONE);
-            mUnmarkAsDoneButton.setVisibility(View.VISIBLE);
-            mUnmarkAsDoneButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // [START] temporary unregister content observer
-                    if(sTaskContentObserver != null) {
-                        sTaskContentObserver.unregister();
-                    }
-                    // [END] temporary unregister content observer
-                    // [START] unmark test as done
-                    Bundle args = new Bundle();
-                    args.putLong(LoaderTaskSetConcludedById.EXTRA_TASK_ID, mTaskId);
-                    args.putLong(LoaderTaskSetConcludedById.EXTRA_TASK_CONCLUDED_STATE, TaskContract.NOT_CONCLUDED);
-
-                    LoaderTaskSetConcludedById.OnTaskSetStateListener listener = new OnTaskSetStateListener();
-                    LoaderTaskSetConcludedById loaderTaskSetConcludedById = new LoaderTaskSetConcludedById(listener);
-
-                    initTaskLoader(LoaderIds.LOADER_ID_GET_TASKS_UPDATE_MAIN, args, loaderTaskSetConcludedById);
-                    // [END] unmark test as done
-                }
-            });
-        }
-
     }
+
     private class OnTaskSetStateListener implements LoaderTaskSetConcludedById.OnTaskSetStateListener {
         @Override
         public void onTaskSetState(Integer integer) {

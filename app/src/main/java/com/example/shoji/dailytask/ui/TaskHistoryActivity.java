@@ -30,7 +30,7 @@ public class TaskHistoryActivity extends AppCompatActivityEx
     private static TaskContentObserver sTaskContentObserver;
     private Cursor mCursor;
 
-
+    private static final int NAV_TO_TASK_DETAIL = 352;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,7 +113,7 @@ public class TaskHistoryActivity extends AppCompatActivityEx
     public void onClickTask(long id) {
         Intent intent = new Intent(this, TaskDetailActivity.class);
         intent.putExtra(TaskDetailActivity.EXTRA_TASK_ID, id);
-        startActivity(intent);
+        startActivityForResult(intent, NAV_TO_TASK_DETAIL);
     }
     // [END] OnClickListener
 
@@ -147,4 +147,20 @@ public class TaskHistoryActivity extends AppCompatActivityEx
         initTaskLoader(LoaderIds.LOADER_ID_GET_TASKS_HISTORY, this);
     }
     // [END] ContentObserver
+
+
+    // [START] Show snack bar
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode != RESULT_OK) return;
+        switch (requestCode) {
+            case NAV_TO_TASK_DETAIL:
+                showSnackBar(mRecyclerView, data);
+                break;
+            default:
+                break;
+        }
+    }
+    // [END] Show snack bar
 }

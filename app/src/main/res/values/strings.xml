@@ -23,7 +23,9 @@
 
     <string name="update_task_success">Updated task!</string>
 
-    <string name="task_editor_menu_save">save</string>
+    <string name="task_editor_menu_save">Save changes</string>
+    <string name="task_editor_menu_edit">Edit task</string>
+    <string name="task_editor_menu_move_to_todo">Move to to-do list</string>
     <!-- Main activity -->
     <string name="main_activity_empty_task_list">Let\'s add some tasks!</string>
     <string name="menu_history_label">@string/history_activity_title</string>
@@ -50,7 +52,7 @@
 
     <string name="task_details_delete_task_success">Task deleted</string>
     <string name="task_details_task_marked_as_done">@string/main_activity_task_marked_as_done</string>
-    <string name="task_details_task_unmarked_as_done">Moved task to ToDo list</string>
+    <string name="task_details_task_unmarked_as_done">Moved task back to to-do list</string>
 
     <string name="task_details_modified_date_text">Finished: <xliff:g>%1$s</xliff:g></string>
 

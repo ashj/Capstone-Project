@@ -48,8 +48,6 @@
                         tools:text="@string/tools_task_details_title_text"
                         android:textSize="@dimen/text_size_larger"
                         android:textColor="@android:color/black"
-                        android:maxLines="@integer/cardview_textview_maxlines"
-                        android:ellipsize="end"
                         android:paddingBottom="@dimen/activity_task_detail_vertical_padding" />
 
                     <TextView
@@ -58,8 +56,6 @@
                         android:layout_height="wrap_content"
                         tools:text="@string/tools_task_details_title_text"
                         android:textSize="@dimen/text_size_large"
-                        android:maxLines="@integer/cardview_description_textview_maxlines"
-                        android:ellipsize="end"
                         android:paddingBottom="@dimen/activity_task_detail_vertical_padding" />
 
                     <TextView
@@ -123,17 +119,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/button_task_conclude"
-                        android:visibility="visible"
+                        android:visibility="gone"
                         android:drawableStart="@drawable/ic_task_check"
-                        style="@style/ButtonThemeSmall" />
-
-                    <Button
-                        android:id="@+id/unmark_as_done_button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/button_task_restore"
-                        android:visibility="visible"
-                        android:drawableStart="@drawable/ic_task_uncheck"
                         style="@style/ButtonThemeSmall" />
                 </LinearLayout>
             </ScrollView>

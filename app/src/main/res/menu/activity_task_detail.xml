@@ -11,4 +11,18 @@
         android:title="@string/task_editor_menu_save"
         app:showAsAction="always" />
 
+    <item
+        android:id="@+id/action_edit"
+        android:icon="@drawable/ic_task_edit"
+        android:orderInCategory="2"
+        android:title="@string/task_editor_menu_edit"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_restore"
+        android:icon="@drawable/ic_task_uncheck"
+        android:orderInCategory="2"
+        android:title="@string/task_editor_menu_move_to_todo"
+        app:showAsAction="always" />
+
 </menu>
