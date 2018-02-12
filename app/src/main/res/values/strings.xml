@@ -1,5 +1,5 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="app_name">Daily 10 minutes tasks</string>
+    <string name="app_name">Daily 10 minute tasks</string>
 
     <!-- Task Editor -->
     <string name="task_editor_activity_title_add">Add a new task</string>
