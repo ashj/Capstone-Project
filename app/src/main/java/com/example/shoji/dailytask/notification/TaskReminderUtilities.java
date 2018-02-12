@@ -62,7 +62,7 @@ public class TaskReminderUtilities {
         return calendar;
     }
 
-    synchronized private static void scheduleTaskNotificationReminder(@NonNull final Context context) {
+    synchronized public static void scheduleTaskNotificationReminder(@NonNull final Context context) {
         Timber.d("scheduleTaskNotificationReminder -- init'd?: %b", sInitialized);
         if (sInitialized) return;
         Timber.d("scheduleTaskNotificationReminder START");
@@ -113,7 +113,7 @@ public class TaskReminderUtilities {
         sInitialized = true;
     }
 
-    synchronized private static void unscheduleTaskNotificationReminder(Context context) {
+    synchronized public static void unscheduleTaskNotificationReminder(Context context) {
         Timber.d("unscheduleTaskNotificationReminder -- init'd?: %b", sInitialized);
         if (!sInitialized) return;
         Timber.d("unscheduleTaskNotificationReminder START");

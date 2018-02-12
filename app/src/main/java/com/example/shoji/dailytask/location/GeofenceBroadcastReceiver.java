@@ -36,12 +36,13 @@ public class GeofenceBroadcastReceiver extends BroadcastReceiver {
         if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_ENTER) {
             Timber.d("GEOFENCE_TRANSITION_ENTER");
             // [START] start notifications
-            TaskReminderUtilities.setupTaskReminderNotification(context);
+            TaskReminderUtilities.unscheduleTaskNotificationReminder(context);
+            TaskReminderUtilities.scheduleTaskNotificationReminder(context);
             // [END] start notifications
         } else if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_EXIT) {
             Timber.d("GEOFENCE_TRANSITION_EXIT");
             // [START] stop notifications
-            TaskReminderUtilities.setupTaskReminderNotification(context);
+            TaskReminderUtilities.unscheduleTaskNotificationReminder(context);
             // [END] stop notifications
         } else {
             Timber.e("Unknown transition : %d", geofenceTransition);
