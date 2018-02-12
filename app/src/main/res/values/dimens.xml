@@ -13,9 +13,10 @@
 
     <dimen name="button_elevation">4dp</dimen>
     <!-- Text size -->
-    <dimen name="text_size_task_list">16sp</dimen>
-    <dimen name="text_size_larger">28sp</dimen>
+    <dimen name="text_size_larger">24sp</dimen>
     <dimen name="text_size_large">20sp</dimen>
+    <dimen name="text_size_task_list">16sp</dimen>
+    <dimen name="text_size_medium">14sp</dimen>
     <dimen name="text_size_smaller">12sp</dimen>
     <dimen name="text_size_smallest">10sp</dimen>
 
@@ -28,7 +29,8 @@
     <dimen name="activity_main_horizontal_padding">16dp</dimen>
     <dimen name="activity_main_vertical_padding">18dp</dimen>
 
-    <dimen name="activity_main_view_vertical_margin">4dp</dimen>
+    <dimen name="activity_main_view_horizontal_margin">8dp</dimen>
+    <dimen name="activity_main_view_vertical_margin">8dp</dimen>
 
     <!-- Card view style -->
     <dimen name="cardview_vertical_margin">4dp</dimen>
@@ -39,7 +41,7 @@
     <dimen name="cardview_recyclerview_vertical_padding">10dp</dimen>
 
     <dimen name="constraint_layout_vertical_padding">12dp</dimen>
-    <dimen name="cardview_interior_horizontal_padding">12dp</dimen>
+    <dimen name="constraint_layout_horizontal_padding">16dp</dimen>
 
     <!-- Style -->
     <dimen name="style_text_view_textsize">18sp</dimen>
@@ -54,6 +56,7 @@
     <!-- History -->
 
     <dimen name="activity_task_history_image_size">32dp</dimen>
+    <dimen name="activity_task_history_cardview_paddingStart">12dp</dimen>
     <dimen name="activity_task_history_cardviewhorizontal_padding">12dp</dimen>
 
     <!--

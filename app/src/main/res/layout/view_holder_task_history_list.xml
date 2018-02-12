@@ -10,7 +10,8 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/TaskTheme.ConstraintLayout" >
+        style="@style/TaskTheme.ConstraintLayout"
+        android:paddingStart="@dimen/activity_task_history_cardview_paddingStart" >
 
         <ImageView
             android:id="@+id/checked_image"

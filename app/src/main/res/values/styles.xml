@@ -79,8 +79,8 @@
     <style name="TaskTheme.ConstraintLayout" parent="AppTheme">
         <item name="android:layout_marginTop">@dimen/constraint_layout_vertical_padding</item>
         <item name="android:layout_marginBottom">@dimen/constraint_layout_vertical_padding</item>
-        <item name="android:layout_marginStart">@dimen/cardview_interior_horizontal_padding</item>
-        <item name="android:layout_marginEnd">@dimen/cardview_interior_horizontal_padding</item>
+        <item name="android:layout_marginStart">@dimen/constraint_layout_horizontal_padding</item>
+        <item name="android:layout_marginEnd">@dimen/constraint_layout_horizontal_padding</item>
     </style>
 
 </resources>
