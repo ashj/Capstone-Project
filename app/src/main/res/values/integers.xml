@@ -6,9 +6,9 @@
     <integer name="cardview_description_textview_maxlines">5</integer>
 
     <!-- Task Editor -->
-    <integer name="priority_value_high">3</integer>
-    <integer name="priority_value_normal">2</integer>
-    <integer name="priority_value_low">1</integer>
+    <integer name="priority_value_high">2</integer>
+    <integer name="priority_value_normal">1</integer>
+    <integer name="priority_value_low">0</integer>
 
     <integer name="priority_value_default">@integer/priority_value_normal</integer>
 
