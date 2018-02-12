@@ -3,10 +3,7 @@
     android:initialKeyguardLayout="@layout/task_widget_provider"
     android:initialLayout="@layout/task_widget_provider"
     android:minHeight="@dimen/widget_min_height"
-    android:maxHeight="@dimen/widget_max_height"
     android:minWidth="@dimen/widget_min_width"
-    android:maxWidth="@dimen/widget_max_width"
     android:previewImage="@mipmap/ic_launcher"
-    android:resizeMode="horizontal|vertical"
     android:updatePeriodMillis="@integer/widget_updatePeriodMillis"
     android:widgetCategory="home_screen" />

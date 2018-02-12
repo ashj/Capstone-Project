@@ -13,31 +13,14 @@
         android:layout_height="match_parent"
         android:layout_margin="@dimen/widget_margin"
         android:background="@android:color/black"
-        android:elevation="@dimen/widget_elevation"
         android:padding="@dimen/widget_margin">
 
-        <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:minHeight="0dp"
-            android:minWidth="0dp"
-            android:paddingStart="@dimen/widget_padding_horizontal"
-            android:paddingEnd="@dimen/widget_padding_horizontal"
-            android:paddingBottom="@dimen/widget_padding_vertical"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentStart="true"
-            android:text="@string/button_task_conclude"
-            android:layout_below="@id/task_title"
-            android:textSize="@dimen/widget_text_size_smaller"
-            style="@style/ButtonThemeWidget" />
 
         <TextView
             android:id="@+id/widget_text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/button"
+            android:layout_alignParentStart="true"
             android:paddingTop="@dimen/widget_padding_vertical"
             android:paddingBottom="@dimen/widget_padding_vertical"
             android:paddingStart="@dimen/widget_padding_horizontal"
@@ -51,15 +34,41 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/widget_text_view"
-            android:layout_toEndOf="@id/button"
+            android:layout_alignParentStart="true"
             android:paddingBottom="@dimen/widget_padding_vertical"
             android:paddingStart="@dimen/widget_padding_horizontal"
             android:paddingEnd="@dimen/widget_padding_horizontal"
             tools:text="@string/tools_main_activity_title_text"
             android:maxLines="@integer/cardview_textview_maxlines"
             android:ellipsize="end"
-            android:textSize="@dimen/widget_text_size_small" />
+            android:textSize="@dimen/text_size_task_list" />
 
+        <TextView
+            android:id="@+id/task_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/task_title"
+            android:layout_alignParentStart="true"
+            android:paddingBottom="@dimen/widget_padding_vertical"
+            android:paddingStart="@dimen/widget_padding_horizontal"
+            android:paddingEnd="@dimen/widget_padding_horizontal"
+            tools:text="@string/tools_main_activity_description_text"
+            android:maxLines="@integer/widget_textview_maxlines"
+            android:ellipsize="end"
+            android:textSize="@dimen/text_size_medium" />
+
+        <TextView
+            android:id="@+id/action_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:paddingBottom="@dimen/widget_padding_vertical"
+            android:paddingStart="@dimen/widget_padding_horizontal"
+            android:paddingEnd="@dimen/widget_padding_horizontal"
+            android:text="@string/button_task_conclude"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/text_size_medium" />
 
 
     </RelativeLayout>

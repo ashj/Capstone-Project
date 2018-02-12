@@ -26,4 +26,5 @@
 
     <!-- Widget -->
     <integer name="widget_updatePeriodMillis">1800000</integer>
+    <integer name="widget_textview_maxlines">3</integer>
 </resources>

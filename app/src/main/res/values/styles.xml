@@ -39,15 +39,6 @@
         <item name="colorControlActivated">@android:color/white</item>
     </style>
 
-    <!-- Widget -->
-    <style name="ButtonThemeWidget" parent="@style/TextAppearance.AppCompat.Small">
-        <item name="android:textColor">@android:color/primary_text_dark</item>
-        <item name="android:background">@color/colorPrimary</item>
-        <item name="android:paddingStart">@dimen/style_button_padding_widget</item>
-        <item name="android:paddingEnd">@dimen/style_button_padding_widget</item>
-        <item name="android:textAllCaps">false</item>
-    </style>
-
     <!-- Time picker -->
     <!-- Style for an Preference Entry -->
     <style name="AppPreference">
