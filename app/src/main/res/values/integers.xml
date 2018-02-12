@@ -23,4 +23,7 @@
     <integer name="pref_latest_task_completed_timestamp_default_value">0</integer>
 
     <integer name="pref_time_picker_minutes_default_value">0</integer>
+
+    <!-- Widget -->
+    <integer name="widget_updatePeriodMillis">1800000</integer>
 </resources>

@@ -33,7 +33,7 @@ public class TaskWidgetProvider extends AppWidgetProvider {
             // [START] last task completed timestamp
             if(TimeUtils.isTaskUnderCooldown(context)) {
                 views.setTextViewText(R.id.widget_text_view, context.getString(R.string.widget_tomorrows_task));
-                views.setViewVisibility(R.id.button, View.GONE);
+                views.setViewVisibility(R.id.button, View.INVISIBLE);
             }
             // [END] last task completed timestamp
             else {

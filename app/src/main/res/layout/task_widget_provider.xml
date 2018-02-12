@@ -1,46 +1,66 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryLight"
-    android:padding="@dimen/widget_margin">
+    android:layout_margin="@dimen/widget_margin"
+    android:padding="@dimen/widget_margin"
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/widget_text_view"
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="@dimen/widget_padding_vertical"
-        android:paddingBottom="@dimen/widget_padding_vertical"
-        android:paddingStart="@dimen/widget_padding_horizontal"
-        android:paddingEnd="@dimen/widget_padding_horizontal"
-        android:text="@string/widget_todays_task"
-        android:textSize="@dimen/widget_text_size_normal" />
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/widget_margin"
+        android:background="@android:color/black"
+        android:elevation="@dimen/widget_elevation"
+        android:padding="@dimen/widget_margin">
 
-    <TextView
-        android:id="@+id/task_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/widget_text_view"
-        android:paddingBottom="@dimen/widget_padding_vertical"
-        android:paddingStart="@dimen/widget_padding_horizontal"
-        android:paddingEnd="@dimen/widget_padding_horizontal"
-        tools:text="@string/tools_main_activity_title_text"
-        android:maxLines="@integer/cardview_textview_maxlines"
-        android:ellipsize="end"
-        android:textSize="@dimen/widget_text_size_small" />
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:paddingStart="@dimen/widget_padding_horizontal"
+            android:paddingEnd="@dimen/widget_padding_horizontal"
+            android:paddingBottom="@dimen/widget_padding_vertical"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:text="@string/button_task_conclude"
+            android:layout_below="@id/task_title"
+            android:textSize="@dimen/widget_text_size_smaller"
+            style="@style/ButtonThemeWidget" />
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:minHeight="0dp"
-        android:minWidth="0dp"
-        android:paddingStart="@dimen/widget_padding_horizontal"
-        android:paddingEnd="@dimen/widget_padding_horizontal"
-        android:paddingBottom="@dimen/widget_padding_vertical"
-        android:text="@string/button_task_conclude"
-        android:layout_below="@id/task_title"
-        android:textSize="@dimen/widget_text_size_smaller"
-        style="@style/ButtonThemeWidget" />
+        <TextView
+            android:id="@+id/widget_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/button"
+            android:paddingTop="@dimen/widget_padding_vertical"
+            android:paddingBottom="@dimen/widget_padding_vertical"
+            android:paddingStart="@dimen/widget_padding_horizontal"
+            android:layout_marginStart="@dimen/widget_margin_horizontal"
+            android:paddingEnd="@dimen/widget_padding_horizontal"
+            android:text="@string/widget_todays_task"
+            android:textSize="@dimen/text_size_smaller" />
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/task_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/widget_text_view"
+            android:layout_toEndOf="@id/button"
+            android:paddingBottom="@dimen/widget_padding_vertical"
+            android:paddingStart="@dimen/widget_padding_horizontal"
+            android:paddingEnd="@dimen/widget_padding_horizontal"
+            tools:text="@string/tools_main_activity_title_text"
+            android:maxLines="@integer/cardview_textview_maxlines"
+            android:ellipsize="end"
+            android:textSize="@dimen/widget_text_size_small" />
+
+
+
+    </RelativeLayout>
+</LinearLayout>
