@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     style="@style/TaskTheme.CardView"
-    android:layout_marginBottom="@dimen/cardview_interior_vertical_padding">
+    android:layout_marginBottom="@dimen/constraint_layout_vertical_padding">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
