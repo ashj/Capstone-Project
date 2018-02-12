@@ -96,12 +96,16 @@ public class MainActivity extends AppCompatActivityEx
             }
         });
 
+
+
         // [START] Adapter initialization
         TaskAdapter.OnClickListener onClickListener = this;
         mTaskAdapter = new TaskAdapter(context, onClickListener);
         mTaskAdapter.setHasStableIds(true);
         mRecyclerView.setAdapter(mTaskAdapter);
         // [END] Adapter initialization
+
+
 
         // [START] Save instance state - restore
         if(savedInstanceState != null &&
@@ -113,9 +117,7 @@ public class MainActivity extends AppCompatActivityEx
         }
         // [END] Save instance state - restore
 
-        // [START] implements LoaderCallBacksListenersInterface<Cursor>
-        //initTaskLoader(LoaderIds.LOADER_ID_GET_TASKS_MAIN, this);
-        // [END] implements LoaderCallBacksListenersInterface<Cursor>
+
 
         // [START] get tasks
         mBundle = new Bundle();
@@ -126,24 +128,20 @@ public class MainActivity extends AppCompatActivityEx
         initTaskLoader(LoaderIds.LOADER_ID_GET_TASKS_MAIN, mBundle, mLoaderTaskGetTasks);
         // [END] get tasks
 
+
+
         // [START] ContentObserver
         TaskContentObserver.OnChangeListener onChangeListener = this;
         sTaskContentObserver = new TaskContentObserver(getContentResolver(), onChangeListener);
         // [END] ContentObserver
+
+
 
         // [START] Start today's day notification reminder - first time run
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         TaskReminderUtilities.setupTaskReminderNotification(context, sharedPreferences);
         // [END] Start today's day notification reminder - first time run
 
-        // TODO, remove later - to test the broadcast receiver
-//        GeofenceBroadcastReceiver br = new GeofenceBroadcastReceiver();
-//        IntentFilter filter = new IntentFilter();
-//        filter.addAction(Intent.ACTION_POWER_CONNECTED);
-//        filter.addAction(Intent.ACTION_POWER_DISCONNECTED);
-//        this.registerReceiver(br, filter);
-//        Intent intent = new Intent();
-//        sendBroadcast(intent);
     }
 
     // [START] Toolbar - inflate and item selected

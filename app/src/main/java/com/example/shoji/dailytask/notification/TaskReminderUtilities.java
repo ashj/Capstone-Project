@@ -28,7 +28,7 @@ public class TaskReminderUtilities {
 
 
     private static final int SYNC_FLEXTIME_SECONDS = 30;
-    // TODO - set recurrence to REMINDER_INTERVAL_DAILY
+
     private static final int REMINDER_RECURRENCE_INTERVAL_SECONDS = REMINDER_INTERVAL_DAILY;
 
 
