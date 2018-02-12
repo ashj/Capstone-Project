@@ -85,6 +85,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/priority_label"
+            android:paddingBottom="@dimen/activity_task_editor_vertical_padding"
             android:textSize="@dimen/style_text_view_textsize" />
 
         <FrameLayout

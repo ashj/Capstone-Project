@@ -31,6 +31,7 @@
 
     <dimen name="activity_main_view_horizontal_margin">8dp</dimen>
     <dimen name="activity_main_view_vertical_margin">8dp</dimen>
+    <dimen name="activity_main_view_title_vertical_margin">4dp</dimen>
 
     <!-- Card view style -->
     <dimen name="cardview_vertical_margin">4dp</dimen>
@@ -52,7 +53,7 @@
 
     <!-- Editor -->
     <dimen name="activity_task_editor_vertical_margin">14dp</dimen>
-
+    <dimen name="activity_task_editor_vertical_padding">4dp</dimen>
     <!-- History -->
 
     <dimen name="activity_task_history_image_size">32dp</dimen>
