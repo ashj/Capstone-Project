@@ -3,6 +3,7 @@ package com.example.shoji.dailytask.adapter;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
@@ -22,7 +23,7 @@ public class TaskFirstViewHolder extends RecyclerView.ViewHolder
     private TextView mTodaysTaskView;
     private TextView mTitleTextView;
     private TextView mDescriptionTextView;
-    private Button mButton;
+    private FloatingActionButton mButton;
 
     private OnClickListener mOnClickListener;
 
@@ -42,7 +43,7 @@ public class TaskFirstViewHolder extends RecyclerView.ViewHolder
         mTitleTextView = mItemView.findViewById(R.id.title_text_view);
         mDescriptionTextView = mItemView.findViewById(R.id.description_text_view);
 
-        mButton = mItemView.findViewById(R.id.mark_button);
+        mButton = mItemView.findViewById(R.id.fab_mark);
         mButton.setOnClickListener(onClickListener);
     }
 
