@@ -22,7 +22,7 @@ public class TaskWidgetProvider extends AppWidgetProvider {
 
     private static void updateAppWidgetAux(Context context, AppWidgetManager appWidgetManager,
                                             int appWidgetId, long taskId,
-                                           String taskTitle, String taskDescription) {
+                                            String taskTitle, String taskDescription) {
 
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.task_widget_provider);
@@ -48,10 +48,8 @@ public class TaskWidgetProvider extends AppWidgetProvider {
             // [START] Pending intent to open task
             PendingIntent showTaskById = TaskPendingIntentUtils.getPendingIntentShowTaskById(context, taskId);
             widgetText = taskTitle;
-            views.setOnClickPendingIntent(R.id.task_title, showTaskById);
-
             widgetTextDescription = taskDescription;
-            views.setOnClickPendingIntent(R.id.task_title, showTaskById);
+            views.setOnClickPendingIntent(R.id.relative_layout, showTaskById);
             // [END] Pending intent to open task
         }
 
@@ -65,8 +63,8 @@ public class TaskWidgetProvider extends AppWidgetProvider {
             // [START] Pending intent to show tasks
             widgetText = context.getString(R.string.widget_empty_task_list);
             PendingIntent showTasks = TaskPendingIntentUtils.getPendingIntentShowTasks(context);
-            views.setOnClickPendingIntent(R.id.task_title, showTasks);
-            views.setOnClickPendingIntent(R.id.task_description, showTasks);
+
+            views.setOnClickPendingIntent(R.id.relative_layout, showTasks);
             // [END] Pending intent to show tasks
         }
 

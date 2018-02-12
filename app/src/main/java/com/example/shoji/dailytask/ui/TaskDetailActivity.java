@@ -36,7 +36,6 @@ public class TaskDetailActivity extends AppCompatActivityEx
                                            LoaderTaskDeleteById.OnTaskDeletedListener,
                                            LoaderTaskGetById.OnTaskGetByIdListener {
 
-
     public static final String EXTRA_TASK_ID = "extra-task-id";
 
     private long mTaskId;
@@ -60,7 +59,8 @@ public class TaskDetailActivity extends AppCompatActivityEx
     private static final int DETAIL_FROM_INVALID = -1;
     private static final int DETAIL_FROM_MAIN = 0;
     private static final int DETAIL_FROM_HISTORY = 1;
-    private int mDetailFrom = DETAIL_FROM_INVALID;
+    private static final int DETAIL_FROM_WIDGET = 2;
+    private int mDetailFrom = DETAIL_FROM_WIDGET;
     // [END] Check from which screen we came from
 
     // [START] show tinted check icon
@@ -95,6 +95,9 @@ public class TaskDetailActivity extends AppCompatActivityEx
         }
         else if (TextUtils.equals(classname, TaskHistoryActivity.class.getName())) {
             mDetailFrom = DETAIL_FROM_HISTORY;
+        }
+        else if(mDetailFrom == DETAIL_FROM_WIDGET) {
+            mDetailFrom = DETAIL_FROM_MAIN; //behave the same
         }
         else
             mDetailFrom = DETAIL_FROM_INVALID;
