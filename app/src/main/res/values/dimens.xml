@@ -35,7 +35,7 @@
 
     <dimen name="activity_main_recycler_view_bottom_padding">70dp</dimen>
 
-    <dimen name="activity_main_fab_size">32dp</dimen>
+    <dimen name="activity_main_fab_size">24dp</dimen>
     <dimen name="activity_main_fab_elevation">4dp</dimen>
     <!-- Card view style -->
     <dimen name="cardview_vertical_margin">4dp</dimen>
