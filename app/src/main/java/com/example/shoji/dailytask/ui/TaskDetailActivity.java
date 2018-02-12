@@ -3,16 +3,19 @@ package com.example.shoji.dailytask.ui;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.widget.ImageViewCompat;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -60,9 +63,13 @@ public class TaskDetailActivity extends AppCompatActivityEx
     private int mDetailFrom = DETAIL_FROM_INVALID;
     // [END] Check from which screen we came from
 
-    // [START] show pretty priority field
-    private Button mPriorityButton;
-    // [END] show pretty priority field
+    // [START] show tinted check icon
+    private ImageView mCheckImage;
+    private TextView mFinishedDateTextView;
+
+    private ConstraintLayout mFinishedDateConstraintLayout;
+    // [END] show tinted check icon
+
 
     private static final int NAV_TO_TASK_EDITOR = 450;
 
@@ -135,9 +142,11 @@ public class TaskDetailActivity extends AppCompatActivityEx
         // [END] ContentObserver
 
 
-        // [START] show pretty priority field
-        mPriorityButton = findViewById(R.id.priorityButton);
-        // [END] show pretty priority field
+        // [START] show tinted check icon
+        mCheckImage = findViewById(R.id.checked_image);
+        mFinishedDateTextView = findViewById(R.id.task_modified_date_text_view);
+        mFinishedDateConstraintLayout = findViewById(R.id.history_finished_date);
+        // [END] show tinted check icon
     }
 
     // [START] need valid intent to proceed
@@ -316,11 +325,42 @@ public class TaskDetailActivity extends AppCompatActivityEx
         StringBuffer sb = new StringBuffer();
         columnIndex = mCursor.getColumnIndex(TaskContract.COLUMN_DESCRIPTION);
         String description = mCursor.getString(columnIndex);
-        if(description.length() > 0)
-            sb.append(description);
 
-        // [START] priority: from value to label
-        columnIndex = mCursor.getColumnIndex(TaskContract.COLUMN_PRIORITY);
+        if(description != null && !description.isEmpty()) {
+            mTaskContents.setVisibility(View.VISIBLE);
+            mTaskContents.setText(description);
+        }
+        else {
+            mTaskContents.setVisibility(View.GONE);
+        }
+
+        // [START} convert time in millis to local time
+        if(mDetailFrom == DETAIL_FROM_HISTORY) {
+            mFinishedDateConstraintLayout.setVisibility(View.VISIBLE);
+            // [START] show tinted check icon
+            tintCheckedIconByPriority();
+            // [END] show tinted check icon
+
+            columnIndex = mCursor.getColumnIndex(TaskContract.COLUMN_CONCLUDED_DATE);
+            long modification_date = mCursor.getLong(columnIndex);
+
+            String dateStr = TimeUtils.timeInMillisToFormattedString(mContext, modification_date);
+
+            mFinishedDateTextView.setText(getString(R.string.task_details_modified_date_text, dateStr));
+        }
+        // [END} convert time in millis to local time
+        else {
+            mFinishedDateConstraintLayout.setVisibility(View.GONE);
+        }
+
+        mCursor.close();
+        // [END] fill the view with data from cursor
+    }
+    // [END] get task by id
+
+    // [START] show tinted check icon
+    private void tintCheckedIconByPriority() {
+        int columnIndex = mCursor.getColumnIndex(TaskContract.COLUMN_PRIORITY);
 
         int priorityInt = mCursor.getInt(columnIndex);
         Resources resources = getResources();
@@ -329,53 +369,23 @@ public class TaskDetailActivity extends AppCompatActivityEx
         int[] values = resources.getIntArray(R.array.priority_value_array);
         for(int i= 0; i < values.length; ++i) {
             if(values[i] == priorityInt) {
-                // [START] show pretty priority field
                 index = i;
-                // [END] show pretty priority field
                 break;
             }
         }
-        // [START] show pretty priority field
+
         if(index != -1) {
             int[] colors = resources.getIntArray(R.array.priority_color_array);
             String[] labels = resources.getStringArray(R.array.priority_label_array);
 
-            mPriorityButton.setBackgroundColor(colors[index]);
-            mPriorityButton.setText(labels[index]);
+            // [START] tint check icon
+            ImageViewCompat.setImageTintList(mCheckImage,
+                    ColorStateList.valueOf(colors[index]));
+            // [END] tint check icon
         }
         // [END] show pretty priority field
-        // [END] priority: from value to label
-
-
-        // [START} convert time in millis to local time
-        if(mDetailFrom == DETAIL_FROM_HISTORY) {
-            index = mCursor.getColumnIndex(TaskContract.COLUMN_CONCLUDED_DATE);
-            long modification_date = mCursor.getLong(index);
-
-            String dateStr = TimeUtils.timeInMillisToFormattedString(mContext, modification_date);
-
-            // break one line if there is text
-            if(sb.length() != 0) {
-                sb.append("\n");
-            }
-
-            sb.append("\n")
-                .append(getString(R.string.task_details_modified_date_text, dateStr));
-        }
-        // [END} convert time in millis to local time
-        if(sb.length() == 0) {
-            mTaskContents.setVisibility(View.GONE);
-        } else {
-            mTaskContents.setVisibility(View.VISIBLE);
-            mTaskContents.setText(sb.toString());
-        }
-
-        mCursor.close();
-        // [END] fill the view with data from cursor
     }
-    // [END] get task by id
-
-
+    // [END] show tinted check icon
 
 
     // [START] Detail screen buttons

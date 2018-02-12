@@ -46,73 +46,47 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         tools:text="@string/tools_task_details_title_text"
-                        android:textSize="@dimen/text_size_larger"
+                        android:textSize="@dimen/text_size_large"
                         android:textColor="@android:color/black"
                         android:paddingBottom="@dimen/activity_task_detail_vertical_padding" />
+
+                    <!-- START - History : Finished date -->
+                    <android.support.constraint.ConstraintLayout
+                        android:id="@+id/history_finished_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="@dimen/activity_task_detail_vertical_padding" >
+
+                        <ImageView
+                            android:id="@+id/checked_image"
+                            android:layout_width="@dimen/activity_task_detail_image_size"
+                            android:layout_height="@dimen/activity_task_detail_image_size"
+                            android:src="@drawable/ic_task_check"
+                            android:tint="@color/colorPrimary"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            android:contentDescription="@string/content_description_checked_task" />
+
+                        <TextView
+                            android:id="@+id/task_modified_date_text_view"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            tools:text="@string/tools_task_details_concluded_text"
+                            android:textSize="@dimen/text_size_smallest"
+                            android:layout_marginStart="@dimen/cardview_vertical_margin"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/checked_image" />
+                    </android.support.constraint.ConstraintLayout>
+                    <!-- END - History : Finished date -->
 
                     <TextView
                         android:id="@+id/task_contents"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         tools:text="@string/tools_task_details_title_text"
-                        android:textSize="@dimen/text_size_large"
-                        android:paddingBottom="@dimen/activity_task_detail_vertical_padding" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/task_details_priority_label"
-                        android:textSize="@dimen/style_text_view_textsize" />
-
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/activity_vertical_margin" >
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:layout_gravity="center"
-                            android:weightSum="3">
-
-                            <Button
-                                style="?android:attr/buttonBarButtonStyle"
-                                android:textColor="@android:color/primary_text_light"
-                                android:id="@+id/priorityButton"
-                                android:layout_width="0dp"
-                                android:clickable="false"
-                                android:layout_height="wrap_content"
-                                android:background="@color/materialRed"
-                                android:text="@string/priority_label_normal"
-                                android:textAllCaps="false"
-                                android:elevation="@dimen/button_elevation"
-                                android:layout_weight="1" />
-                        </LinearLayout>
-                        <RadioGroup
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:layout_gravity="center"
-                            android:weightSum="3">
-                            <RadioButton
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:checked="true"
-                                android:clickable="false"
-                                android:nextFocusRight="@+id/radioButtonNormal"
-                                android:theme="@style/WhiteRadioButton"/>
-                        </RadioGroup>
-                    </FrameLayout>
-
-                    <TextView
-                        android:id="@+id/task_modified_date_text_view"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:visibility="invisible"
-                        tools:text="@string/tools_task_details_title_text"
-                        android:textSize="@dimen/text_size_task_list"
-                        android:paddingBottom="@dimen/activity_task_detail_vertical_padding" />
+                        android:textSize="@dimen/text_size_medium" />
                 </LinearLayout>
             </ScrollView>
         </android.support.constraint.ConstraintLayout>
