@@ -55,6 +55,8 @@
     <!-- Detail -->
     <dimen name="activity_task_detail_vertical_padding">4dp</dimen>
     <dimen name="activity_task_detail_image_size">16dp</dimen>
+    <dimen name="activity_task_detail_separator_height">2dp</dimen>
+    <dimen name="activity_task_detail_separator_horizontal_margin">4dp</dimen>
 
     <!-- Editor -->
     <dimen name="activity_task_editor_vertical_margin">14dp</dimen>

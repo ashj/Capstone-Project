@@ -66,7 +66,7 @@ public class TaskDetailActivity extends AppCompatActivityEx
     // [START] show tinted check icon
     private ImageView mCheckImage;
     private TextView mFinishedDateTextView;
-
+    private View mSeparatorView;
     private ConstraintLayout mFinishedDateConstraintLayout;
     // [END] show tinted check icon
 
@@ -145,6 +145,7 @@ public class TaskDetailActivity extends AppCompatActivityEx
         // [START] show tinted check icon
         mCheckImage = findViewById(R.id.checked_image);
         mFinishedDateTextView = findViewById(R.id.task_modified_date_text_view);
+        mSeparatorView = findViewById(R.id.separator);
         mFinishedDateConstraintLayout = findViewById(R.id.history_finished_date);
         // [END] show tinted check icon
     }
@@ -334,12 +335,14 @@ public class TaskDetailActivity extends AppCompatActivityEx
             mTaskContents.setVisibility(View.GONE);
         }
 
+        // [START] show tinted check icon
+        tintCheckedIconByPriority();
+        // [END] show tinted check icon
+
         // [START} convert time in millis to local time
         if(mDetailFrom == DETAIL_FROM_HISTORY) {
             mFinishedDateConstraintLayout.setVisibility(View.VISIBLE);
-            // [START] show tinted check icon
-            tintCheckedIconByPriority();
-            // [END] show tinted check icon
+            mSeparatorView.setVisibility(View.GONE);
 
             columnIndex = mCursor.getColumnIndex(TaskContract.COLUMN_CONCLUDED_DATE);
             long modification_date = mCursor.getLong(columnIndex);
@@ -351,6 +354,7 @@ public class TaskDetailActivity extends AppCompatActivityEx
         // [END} convert time in millis to local time
         else {
             mFinishedDateConstraintLayout.setVisibility(View.GONE);
+            mSeparatorView.setVisibility(View.VISIBLE);
         }
 
         mCursor.close();
@@ -382,6 +386,7 @@ public class TaskDetailActivity extends AppCompatActivityEx
             ImageViewCompat.setImageTintList(mCheckImage,
                     ColorStateList.valueOf(colors[index]));
             // [END] tint check icon
+            mSeparatorView.setBackgroundColor(colors[index]);
         }
         // [END] show pretty priority field
     }

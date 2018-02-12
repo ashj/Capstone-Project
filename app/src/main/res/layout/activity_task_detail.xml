@@ -54,8 +54,7 @@
                     <android.support.constraint.ConstraintLayout
                         android:id="@+id/history_finished_date"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingBottom="@dimen/activity_task_detail_vertical_padding" >
+                        android:layout_height="wrap_content" >
 
                         <ImageView
                             android:id="@+id/checked_image"
@@ -80,12 +79,20 @@
                             app:layout_constraintStart_toEndOf="@id/checked_image" />
                     </android.support.constraint.ConstraintLayout>
                     <!-- END - History : Finished date -->
+                    <View
+                        android:id="@+id/separator"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/activity_task_detail_separator_height"
+                        android:layout_marginStart="@dimen/activity_task_detail_separator_horizontal_margin"
+                        android:layout_marginEnd="@dimen/activity_task_detail_separator_horizontal_margin" />
+
 
                     <TextView
                         android:id="@+id/task_contents"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         tools:text="@string/tools_task_details_title_text"
+                        android:paddingTop="@dimen/activity_task_detail_vertical_padding"
                         android:textSize="@dimen/text_size_medium" />
                 </LinearLayout>
             </ScrollView>
