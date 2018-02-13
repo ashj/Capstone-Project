@@ -61,9 +61,9 @@ public class TimeUtils {
                 timeInMillisToFormattedString(context, calendar.getTimeInMillis() ));
 
         long midnight = calendar.getTimeInMillis();
-        // TODO - use midnight cooldown
-        //boolean inCooldown = storedTime > midnight;
-        boolean inCooldown = currentTime - storedTime < 60000;
+
+        boolean inCooldown = storedTime > midnight;
+        //boolean inCooldown = currentTime - storedTime < 60000;
 
         Timber.d("LatestTaskCompletedTimestamp - cooldown?: %b", inCooldown);
         return inCooldown;
