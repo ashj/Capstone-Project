@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.ImageViewCompat;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.Menu;
@@ -17,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.example.shoji.dailytask.R;
@@ -70,6 +72,10 @@ public class TaskDetailActivity extends AppCompatActivityEx
     private ConstraintLayout mFinishedDateConstraintLayout;
     // [END] show tinted check icon
 
+    private final static String SAVE_INSTANCE_STATE_NESTEDSCROLLVIEW_POSITION = "list-scrollviewposition";
+
+    private NestedScrollView mNestedScrollView;
+    private Bundle mSavedInstanceState;
 
     private static final int NAV_TO_TASK_EDITOR = 450;
 
@@ -151,6 +157,12 @@ public class TaskDetailActivity extends AppCompatActivityEx
         mSeparatorView = findViewById(R.id.separator);
         mFinishedDateConstraintLayout = findViewById(R.id.history_finished_date);
         // [END] show tinted check icon
+
+
+        // [START] Save instance state - restore
+        mSavedInstanceState = savedInstanceState;
+        mNestedScrollView = findViewById(R.id.nested_scroll_view);
+        // [END] Save instance state - restore
     }
 
     // [START] need valid intent to proceed
@@ -362,8 +374,39 @@ public class TaskDetailActivity extends AppCompatActivityEx
 
         mCursor.close();
         // [END] fill the view with data from cursor
+
+        // [START] Save instance state - restore
+        if(mSavedInstanceState != null) {
+
+            if(mSavedInstanceState.containsKey(SAVE_INSTANCE_STATE_NESTEDSCROLLVIEW_POSITION)) {
+                final int[] position = mSavedInstanceState.getIntArray(SAVE_INSTANCE_STATE_NESTEDSCROLLVIEW_POSITION);
+                if (position != null)
+                    mNestedScrollView.post(new Runnable() {
+                        public void run() {
+                            mNestedScrollView.scrollTo(position[0], position[1]);
+                        }
+                    });
+            }
+
+        }
+        // [END] Save instance state - restore
     }
     // [END] get task by id
+
+
+
+    // [START] Save instance state
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putIntArray(SAVE_INSTANCE_STATE_NESTEDSCROLLVIEW_POSITION,
+                new int[]{ mNestedScrollView.getScrollX(), mNestedScrollView.getScrollY()});
+
+    }
+    // [END] Save instance state
+
+
 
     // [START] show tinted check icon
     private void tintCheckedIconByPriority() {
