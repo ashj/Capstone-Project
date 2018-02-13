@@ -30,7 +30,7 @@ public class TimePreferenceDialogFragmentCompat extends PreferenceDialogFragment
     protected void onBindDialogView(View view) {
         super.onBindDialogView(view);
 
-        mTimePicker = (TimePicker) view.findViewById(R.id.edit);
+        mTimePicker = view.findViewById(R.id.edit);
 
         // Exception: There is no TimePicker with the id 'edit' in the dialog.
         if (mTimePicker == null) {

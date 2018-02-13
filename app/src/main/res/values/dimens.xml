@@ -13,23 +13,16 @@
 
     <dimen name="button_elevation">4dp</dimen>
     <!-- Text size -->
-    <dimen name="text_size_larger">24sp</dimen>
     <dimen name="text_size_large">20sp</dimen>
     <dimen name="text_size_task_list">16sp</dimen>
     <dimen name="text_size_medium">14sp</dimen>
     <dimen name="text_size_smaller">12sp</dimen>
     <dimen name="text_size_smallest">10sp</dimen>
 
-    <dimen name="widget_text_size_normal">16sp</dimen>
-    <dimen name="widget_text_size_small">14sp</dimen>
-    <dimen name="widget_text_size_smaller">10sp</dimen>
-
     <!-- Main activity -->
     <dimen name="activity_main_first_activity_height">200dp</dimen>
-    <dimen name="activity_main_horizontal_padding">16dp</dimen>
     <dimen name="activity_main_vertical_padding">12dp</dimen>
 
-    <dimen name="activity_main_view_horizontal_margin">8dp</dimen>
     <dimen name="activity_main_view_vertical_margin">8dp</dimen>
     <dimen name="activity_main_view_title_vertical_margin">4dp</dimen>
 
@@ -50,15 +43,12 @@
 
     <!-- Style -->
     <dimen name="style_text_view_textsize">18sp</dimen>
-    <dimen name="style_button_padding_small">8dp</dimen>
 
     <!-- Detail -->
     <dimen name="activity_task_detail_vertical_padding">4dp</dimen>
     <dimen name="activity_task_detail_image_size">16dp</dimen>
     <dimen name="activity_task_detail_separator_height">2dp</dimen>
     <dimen name="activity_task_detail_separator_horizontal_margin">4dp</dimen>
-
-    <dimen name="activity_detail_bottom_margin">84dp</dimen>
 
     <!-- Editor -->
     <dimen name="activity_task_editor_vertical_margin">14dp</dimen>
@@ -79,7 +69,6 @@ http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
     <dimen name="widget_padding_vertical">2dp</dimen>
     <dimen name="widget_padding_horizontal">4dp</dimen>
     <dimen name="widget_margin_horizontal">4dp</dimen>
-    <dimen name="style_button_padding_widget">4dp</dimen>
 
     <dimen name="widget_min_height">110dp</dimen>
     <dimen name="widget_min_width">180dp</dimen>

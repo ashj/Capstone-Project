@@ -1,5 +1,6 @@
 package com.example.shoji.dailytask.ui;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -362,7 +363,7 @@ public class SettingsFragment extends PreferenceFragmentCompat
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == PLACE_PICKER_REQUEST && resultCode == mActivity.RESULT_OK) {
+        if (requestCode == PLACE_PICKER_REQUEST && resultCode == Activity.RESULT_OK) {
             Place place = PlacePicker.getPlace(mContext, data);
             if (place == null) {
                 Timber.d("onActivityResult - No place selected");
