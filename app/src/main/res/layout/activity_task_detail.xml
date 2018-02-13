@@ -6,99 +6,104 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.TaskDetailActivity">
-    <android.support.v7.widget.CardView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@style/TaskTheme.CardView"
-        android:layout_marginTop="@dimen/activity_task_editor_vertical_margin"
-        android:layout_marginBottom="@dimen/activity_detail_bottom_margin"
-        android:layout_gravity="center|top" >
-
-        <android.support.constraint.ConstraintLayout
+        android:layout_height="wrap_content">
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/TaskTheme.ConstraintLayout" >
-            <ProgressBar
-                android:id="@+id/progressbar"
-                android:layout_width="@dimen/progressbar_size"
-                android:layout_height="@dimen/progressbar_size"
-                android:layout_gravity="center"
-                android:visibility="invisible"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
-            <LinearLayout
+            android:orientation="vertical">
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:orientation="vertical" >
+                style="@style/TaskTheme.CardView"
+                android:layout_marginTop="@dimen/activity_task_editor_vertical_margin"
+                android:layout_marginBottom="@dimen/activity_task_editor_vertical_margin"
+                android:layout_gravity="center|top" >
 
-                <TextView
-                    android:id="@+id/task_title"
+                <android.support.constraint.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    tools:text="@string/tools_task_details_title_text"
-                    android:textSize="@dimen/text_size_large"
-                    android:textColor="@android:color/black"
-                    android:paddingBottom="@dimen/activity_task_detail_vertical_padding" />
-
-                <!-- START - History : Finished date -->
-                <android.support.constraint.ConstraintLayout
-                    android:id="@+id/history_finished_date"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" >
-
-                    <ImageView
-                        android:id="@+id/checked_image"
-                        android:layout_width="@dimen/activity_task_detail_image_size"
-                        android:layout_height="@dimen/activity_task_detail_image_size"
-                        android:src="@drawable/ic_task_check"
-                        android:tint="@color/colorPrimary"
+                    style="@style/TaskTheme.ConstraintLayout" >
+                    <ProgressBar
+                        android:id="@+id/progressbar"
+                        android:layout_width="@dimen/progressbar_size"
+                        android:layout_height="@dimen/progressbar_size"
+                        android:layout_gravity="center"
+                        android:visibility="invisible"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        android:contentDescription="@string/content_description_checked_task" />
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                    <TextView
-                        android:id="@+id/task_modified_date_text_view"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        tools:text="@string/tools_task_details_concluded_text"
-                        android:textSize="@dimen/text_size_smallest"
-                        android:layout_marginStart="@dimen/cardview_vertical_margin"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/checked_image" />
-                </android.support.constraint.ConstraintLayout>
-                <!-- END - History : Finished date -->
-                <View
-                    android:id="@+id/separator"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/activity_task_detail_separator_height"
-                    android:layout_marginStart="@dimen/activity_task_detail_separator_horizontal_margin"
-                    android:layout_marginEnd="@dimen/activity_task_detail_separator_horizontal_margin" />
 
-                <ScrollView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:id="@+id/task_contents"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        tools:text="@string/tools_task_details_title_text"
-                        android:paddingTop="@dimen/activity_task_detail_vertical_padding"
-                        android:textSize="@dimen/text_size_medium" />
-                </ScrollView>
-            </LinearLayout>
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:orientation="vertical" >
 
-        </android.support.constraint.ConstraintLayout>
+                        <TextView
+                            android:id="@+id/task_title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            tools:text="@string/tools_task_details_title_text"
+                            android:textSize="@dimen/text_size_large"
+                            android:textColor="@android:color/black"
+                            android:paddingBottom="@dimen/activity_task_detail_vertical_padding" />
 
-    </android.support.v7.widget.CardView>
+                        <!-- START - History : Finished date -->
+                        <android.support.constraint.ConstraintLayout
+                            android:id="@+id/history_finished_date"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" >
+
+                            <ImageView
+                                android:id="@+id/checked_image"
+                                android:layout_width="@dimen/activity_task_detail_image_size"
+                                android:layout_height="@dimen/activity_task_detail_image_size"
+                                android:src="@drawable/ic_task_check"
+                                android:tint="@color/colorPrimary"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                android:contentDescription="@string/content_description_checked_task" />
+
+                            <TextView
+                                android:id="@+id/task_modified_date_text_view"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                tools:text="@string/tools_task_details_concluded_text"
+                                android:textSize="@dimen/text_size_smallest"
+                                android:layout_marginStart="@dimen/cardview_vertical_margin"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toEndOf="@id/checked_image" />
+                        </android.support.constraint.ConstraintLayout>
+                        <!-- END - History : Finished date -->
+                        <View
+                            android:id="@+id/separator"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/activity_task_detail_separator_height"
+                            android:layout_marginStart="@dimen/activity_task_detail_separator_horizontal_margin"
+                            android:layout_marginEnd="@dimen/activity_task_detail_separator_horizontal_margin" />
+
+                        <TextView
+                            android:id="@+id/task_contents"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            tools:text="@string/tools_task_details_title_text"
+                            android:paddingTop="@dimen/activity_task_detail_vertical_padding"
+                            android:textSize="@dimen/text_size_medium" />
+                    </LinearLayout>
+
+                </android.support.constraint.ConstraintLayout>
+
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+    </ScrollView>
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
