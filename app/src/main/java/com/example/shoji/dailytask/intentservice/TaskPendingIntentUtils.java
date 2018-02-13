@@ -3,6 +3,7 @@ package com.example.shoji.dailytask.intentservice;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.TaskStackBuilder;
 
 import com.example.shoji.dailytask.background.LoaderTaskSetConcludedById;
 import com.example.shoji.dailytask.provider.TaskContract;
@@ -18,11 +19,20 @@ public class TaskPendingIntentUtils {
         Intent startActivityIntent = new Intent(context, TaskDetailActivity.class);
         startActivityIntent.putExtra(TaskDetailActivity.EXTRA_TASK_ID, taskId);
 
-        return PendingIntent.getActivity(
-                context,
-                TaskIntentServiceTasks.ACTION_SHOW_TASK_BY_ID_PENDING_INTENT_ID,
-                startActivityIntent,
-                PendingIntent.FLAG_UPDATE_CURRENT);
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(context)
+                .addParentStack(MainActivity.class)
+                .addParentStack(TaskDetailActivity.class)
+                .addNextIntent(startActivityIntent);
+
+
+        return
+                stackBuilder.getPendingIntent(TaskIntentServiceTasks.ACTION_SHOW_TASK_BY_ID_PENDING_INTENT_ID, PendingIntent.FLAG_UPDATE_CURRENT);
+
+//        return PendingIntent.getActivity(
+//                context,
+//                TaskIntentServiceTasks.ACTION_SHOW_TASK_BY_ID_PENDING_INTENT_ID,
+//                startActivityIntent,
+//                PendingIntent.FLAG_UPDATE_CURRENT);
     }
 
     public static PendingIntent getPendingIntentShowTasks(Context context) {
