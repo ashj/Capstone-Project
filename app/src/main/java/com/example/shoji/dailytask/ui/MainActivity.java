@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -48,12 +49,16 @@ public class MainActivity extends AppCompatActivityEx
     private static TaskContentObserver sTaskContentObserver;
     private Cursor mCursor;
     private final static String SAVE_INSTANCE_STATE_LIST_POSITION = "list-position";
+    private final static String SAVE_INSTANCE_STATE_NESTEDSCROLLVIEW_POSITION = "list-nestedscrollviewposition";
 
     // [START] get tasks
     private Bundle mBundle;
     LoaderTaskGetTasks.OnTaskGetTasksListener mListener;
     LoaderTaskGetTasks mLoaderTaskGetTasks;
     // [END] get tasks
+
+    private NestedScrollView mNestedScrollView;
+    private Bundle mSavedInstanceState;
 
 
     private static final int NAV_TO_TASK_EDITOR = 350;
@@ -108,13 +113,8 @@ public class MainActivity extends AppCompatActivityEx
 
 
         // [START] Save instance state - restore
-        if(savedInstanceState != null &&
-                savedInstanceState.containsKey(SAVE_INSTANCE_STATE_LIST_POSITION)) {
-            Parcelable listState = savedInstanceState
-                    .getParcelable(SAVE_INSTANCE_STATE_LIST_POSITION);
-            mRecyclerView.getLayoutManager()
-                    .onRestoreInstanceState(listState);
-        }
+        mSavedInstanceState = savedInstanceState;
+        mNestedScrollView = findViewById(R.id.nested_scroll_view);
         // [END] Save instance state - restore
 
 
@@ -190,6 +190,29 @@ public class MainActivity extends AppCompatActivityEx
             mTextView.setVisibility(View.VISIBLE);
         }
         mTaskAdapter.swapCursor(mCursor);
+
+        // [START] Save instance state - restore
+        if(mSavedInstanceState != null) {
+
+            if(mSavedInstanceState.containsKey(SAVE_INSTANCE_STATE_NESTEDSCROLLVIEW_POSITION)) {
+                final int[] position = mSavedInstanceState.getIntArray(SAVE_INSTANCE_STATE_NESTEDSCROLLVIEW_POSITION);
+                if (position != null)
+                    mNestedScrollView.post(new Runnable() {
+                        public void run() {
+                            mNestedScrollView.scrollTo(position[0], position[1]);
+                        }
+                    });
+            }
+
+            if(mSavedInstanceState.containsKey(SAVE_INSTANCE_STATE_LIST_POSITION)) {
+                Parcelable listState = mSavedInstanceState
+                        .getParcelable(SAVE_INSTANCE_STATE_LIST_POSITION);
+                mRecyclerView.getLayoutManager()
+                        .onRestoreInstanceState(listState);
+            }
+
+        }
+        // [END] Save instance state - restore
     }
     // [END] get tasks
 
@@ -279,6 +302,9 @@ public class MainActivity extends AppCompatActivityEx
         outState.putParcelable(SAVE_INSTANCE_STATE_LIST_POSITION,
                 mRecyclerView.getLayoutManager()
                         .onSaveInstanceState());
+        outState.putIntArray(SAVE_INSTANCE_STATE_NESTEDSCROLLVIEW_POSITION,
+                new int[]{ mNestedScrollView.getScrollX(), mNestedScrollView.getScrollY()});
+
     }
     // [END] Save instance state
 
