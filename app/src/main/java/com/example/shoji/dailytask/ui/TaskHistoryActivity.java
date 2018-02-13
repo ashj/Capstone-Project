@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -23,13 +24,14 @@ public class TaskHistoryActivity extends AppCompatActivityEx
                                  implements LoaderCallBacksListenersInterface<Cursor>,
                                             TaskHistoryAdapter.OnClickListener,
                                             TaskContentObserver.OnChangeListener {
+    private final static String SAVE_INSTANCE_STATE_LIST_POSITION = "list-position";
 
     private ProgressBar mProgressBar;
     private TaskHistoryAdapter mTaskAdapter;
     private RecyclerView mRecyclerView;
     private static TaskContentObserver sTaskContentObserver;
     private Cursor mCursor;
-
+    private Bundle mSavedInstanceState;
     private static final int NAV_TO_TASK_DETAIL = 352;
 
     @Override
@@ -64,6 +66,8 @@ public class TaskHistoryActivity extends AppCompatActivityEx
         TaskContentObserver.OnChangeListener onChangeListener = this;
         sTaskContentObserver = new TaskContentObserver(getContentResolver(), onChangeListener);
         // [END] ContentObserver
+
+        mSavedInstanceState = savedInstanceState;
     }
 
     // [START] implements LoaderCallBacksListenersInterface<Cursor>
@@ -102,10 +106,31 @@ public class TaskHistoryActivity extends AppCompatActivityEx
             TimeUtils.setLatestTaskCompletedTimestamp(this, time);
         }
         // [END] last task completed timestamp
+
+        // [START] Save instance state - restore
+        if(mSavedInstanceState != null) {
+
+            if(mSavedInstanceState.containsKey(SAVE_INSTANCE_STATE_LIST_POSITION)) {
+                Parcelable listState = mSavedInstanceState
+                        .getParcelable(SAVE_INSTANCE_STATE_LIST_POSITION);
+                mRecyclerView.getLayoutManager()
+                        .onRestoreInstanceState(listState);
+            }
+
+        }
+        // [END] Save instance state - restore
     }
     // [END] implements LoaderCallBacksListenersInterface<Cursor>
 
-
+    // [START] Save instance state
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(SAVE_INSTANCE_STATE_LIST_POSITION,
+                mRecyclerView.getLayoutManager()
+                        .onSaveInstanceState());
+    }
+    // [END] Save instance state
 
 
     // [START] OnClickListener
