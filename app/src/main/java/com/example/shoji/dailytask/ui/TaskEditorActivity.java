@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.support.v4.util.Pair;
 import android.text.InputType;
 import android.view.KeyEvent;
@@ -170,6 +171,15 @@ public class TaskEditorActivity extends AppCompatActivityEx
             }
             else if(validation == FORM_ERROR_INVALID_DESCRIPTION) {
                 showSnackBar(mTitleEditText, R.string.validate_task_error_description);
+            }
+            return true;
+        }
+        else if(id == android.R.id.home) {
+            if(mEditorFrom == EDITOR_FROM_MAIN)
+                NavUtils.navigateUpFromSameTask(this);
+
+            else {
+                finish();
             }
             return true;
         }

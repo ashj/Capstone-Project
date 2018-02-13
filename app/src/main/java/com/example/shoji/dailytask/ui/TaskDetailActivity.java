@@ -9,6 +9,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.NavUtils;
 import android.support.v4.widget.ImageViewCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AlertDialog;
@@ -250,6 +251,15 @@ public class TaskDetailActivity extends AppCompatActivityEx
         }
         else if(id == ACTION_RESTORE_TASK_ID) {
             restoreTask();
+        }
+        else if(id == android.R.id.home) {
+            if(mDetailFrom == DETAIL_FROM_MAIN) {
+                NavUtils.navigateUpFromSameTask(this);
+            }
+            else {
+                finish();
+            }
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
